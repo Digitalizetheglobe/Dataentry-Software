@@ -1,0 +1,8 @@
+.size{
+    width: 420px;
+    height: 550px;
+}
+.custom-select option:hover {
+    background-color: #D0EFFF; /* Hover background for options */
+  }
+  
