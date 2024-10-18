@@ -15,6 +15,7 @@ import Interbanktransfermanagement from './Inter Bank Transfer Management/Interb
 import Userregistration from './User Registration/Userregistration';
 import Knowledgecenter from './Knowledge Center/Knowledgecenter';
 import Depositbankreport from './Transaction Data Entry/Depositbankreport';
+import ExcelUpload from './ExcelUpload';
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
             <Route path='/inter-bank-transfer-management' element={<Interbanktransfermanagement />} />
             <Route path='/user-registration' element={<Userregistration />} />
             <Route path='/knowledge-center' element={<Knowledgecenter />} />
+          <Route path='/excel' element={<ExcelUpload/>} />
             <Route path='/deposit-bank-report' element={<Depositbankreport/>}/>
           </Routes>
         </div>
