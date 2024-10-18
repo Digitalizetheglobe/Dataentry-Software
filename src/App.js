@@ -14,6 +14,7 @@ import Reportmanagement from './Report Management/Reportmanagement';
 import Interbanktransfermanagement from './Inter Bank Transfer Management/Interbanktransfermanagement';
 import Userregistration from './User Registration/Userregistration';
 import Knowledgecenter from './Knowledge Center/Knowledgecenter';
+import Depositbankreport from './Transaction Data Entry/Depositbankreport';
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
             <Route path='/inter-bank-transfer-management' element={<Interbanktransfermanagement />} />
             <Route path='/user-registration' element={<Userregistration />} />
             <Route path='/knowledge-center' element={<Knowledgecenter />} />
+            <Route path='/deposit-bank-report' element={<Depositbankreport/>}/>
           </Routes>
         </div>
       </div>
