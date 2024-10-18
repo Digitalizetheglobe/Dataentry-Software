@@ -1,166 +1,185 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { AiOutlineForm, AiOutlineReconciliation, AiOutlineTransaction } from 'react-icons/ai';
+import { FaFileAlt, FaExchangeAlt } from 'react-icons/fa';
+import { AiFillFileText } from 'react-icons/ai'; // Report icon
+import { AiOutlineArrowRight } from 'react-icons/ai'; // Inter Bank Transfer icon
+import { AiOutlineUserAdd } from 'react-icons/ai'; // User Registration icon
+import { AiOutlineBook } from 'react-icons/ai';
+import './Sidebar.css'
 
 const Sidebar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpenReconciliation, setIsOpenReconciliation] = useState(true); // Open by default
+  const [isOpenTransaction, setIsOpenTransaction] = useState(true); // Open by default
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
+  const toggleReconciliation = () => {
+    setIsOpenReconciliation((prev) => !prev);
+  };
+
+  const toggleTransaction = () => {
+    setIsOpenTransaction((prev) => !prev);
+  };
 
   const toggleSidebar = () => {
-    setIsOpen(!isOpen);
+    setIsCollapsed((prev) => !prev);
   };
 
   return (
-    <nav className="bg-white shadow-lg h-screen fixed top-0 left-0 min-w-[250px] py-6 px-4 font-[sans-serif] overflow-auto">
-      <a href="javascript:void(0)">
-        <img
-          src="https://readymadeui.com/readymadeui.svg"
-          alt="logo"
-          className="w-[160px]"
-        />
-      </a>
+    <nav className="bg-[#001A3B] shadow-lg h-screen fixed top-0 left-0 min-w-[250px] py-6 px-4 overflow-auto">
+      
+      {/* <button
+        onClick={toggleSidebar}
+        className="text-white mb-6 focus:outline-none"
+      >
+        {isCollapsed ? '>' : '<'}
+      </button> */}
 
-      <ul className="mt-6">
+      <ul className="mt-8">
         <li>
-          <a
-            href="javascript:void(0)"
-            className="text-black hover:text-blue-600 text-sm flex items-center hover:bg-blue-50 rounded px-4 py-3 transition-all"
+          <Link
+            className="text-black hover:text-blue-600 text-sm flex items-center hover:bg-gray-500 rounded px-4 py-3"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              fill="currentColor"
+              fill="white"
               className="w-[18px] h-[18px] mr-4"
               viewBox="0 0 512 512"
             >
               <path d="M197.332 170.668h-160C16.746 170.668 0 153.922 0 133.332v-96C0 16.746 16.746 0 37.332 0h160c20.59 0 37.336 16.746 37.336 37.332v96c0 20.59-16.746 37.336-37.336 37.336zM37.332 32A5.336 5.336 0 0 0 32 37.332v96a5.337 5.337 0 0 0 5.332 5.336h160a5.338 5.338 0 0 0 5.336-5.336v-96A5.337 5.337 0 0 0 197.332 32zm160 480h-160C16.746 512 0 495.254 0 474.668v-224c0-20.59 16.746-37.336 37.332-37.336h160c20.59 0 37.336 16.746 37.336 37.336v224c0 20.586-16.746 37.332-37.336 37.332zm-160-266.668A5.337 5.337 0 0 0 32 250.668v224A5.336 5.336 0 0 0 37.332 480h160a5.337 5.337 0 0 0 5.336-5.332v-224a5.338 5.338 0 0 0-5.336-5.336zM474.668 512h-160c-20.59 0-37.336-16.746-37.336-37.332v-96c0-20.59 16.746-37.336 37.336-37.336h160c20.586 0 37.332 16.746 37.332 37.336v96C512 495.254 495.254 512 474.668 512zm-160-138.668a5.338 5.338 0 0 0-5.336 5.336v96a5.337 5.337 0 0 0 5.336 5.332h160a5.336 5.336 0 0 0 5.332-5.332v-96a5.337 5.337 0 0 0-5.332-5.336zm160-74.664h-160c-20.59 0-37.336-16.746-37.336-37.336v-224C277.332 16.746 294.078 0 314.668 0h160C495.254 0 512 16.746 512 37.332v224c0 20.59-16.746 37.336-37.332 37.336zM314.668 32a5.337 5.337 0 0 0-5.336 5.332v224a5.338 5.338 0 0 0 5.336 5.336h160a5.337 5.337 0 0 0 5.332-5.336v-224A5.336 5.336 0 0 0 474.668 32zm0 0" />
             </svg>
-            <span>Dashboard</span>
-          </a>
+            {!isCollapsed && <span className='text-white'>Data Entry</span>}
+
+          </Link>
         </li>
       </ul>
 
       <div className="mt-6">
-        <h6 className="text-blue-600 text-sm font-bold px-4">Information</h6>
-        <ul className="mt-3">
-          <li>
-            <a
-              href="javascript:void(0)"
-              className="text-black hover:text-blue-600 text-sm flex items-center hover:bg-blue-50 rounded px-4 py-3 transition-all"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="currentColor"
-                className="w-[18px] h-[18px] mr-4"
-                viewBox="0 0 512 512"
+        <div className="flex items-center cursor-pointer group" onClick={toggleReconciliation}>
+          <AiOutlineReconciliation className="w-[18px] h-[18px] text-white mr-4" />
+          {!isCollapsed && (
+          <Link
+          to='/reconciliation-management'
+          className="text-white group-hover:text-white text-sm flex-1"
+        >
+          Reconciliation Management
+        </Link>
+          )}
+           {!isCollapsed && (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className={`w-3 fill-white transition-transform ${isOpenReconciliation ? 'rotate-180' : ''}`}
+            viewBox="0 0 451.847 451.847"
+          >
+            <path d="M225.923 354.706c-8.098 0-16.195-3.092-22.369-9.263L9.27 151.157c-12.359-12.359-12.359-32.397 0-44.751 12.354-12.354 32.388-12.354 44.748 0l171.905 171.915 171.906-171.909c12.359-12.354 32.391-12.354 44.744 0 12.365 12.354 12.365 32.392 0 44.751L248.292 345.449c-6.177 6.172-14.274 9.257-22.369 9.257z" />
+          </svg>
+           )}
+        </div>
+
+        {isOpenReconciliation && !isCollapsed && (
+          <ul className="space-y-1 mt-2 pl-4">
+            <li>
+              <Link
+                to="/report-1"
+                className="text-white hover:text-white transition-all text-sm flex items-center rounded-md px-4 py-3"
               >
-                <path d="M437.02 74.98C388.668 26.63 324.379 0 256 0S123.332 26.629 74.98 74.98C26.63 123.332 0 187.621 0 256s26.629 132.668 74.98 181.02C123.332 485.37 187.621 512 256 512s132.668-26.629 181.02-74.98C485.37 388.668 512 324.379 512 256s-26.629-132.668-74.98-181.02zM111.105 429.297c8.454-72.735 70.989-128.89 144.895-128.89 38.96 0 75.598 15.179 103.156 42.734 23.281 23.285 37.965 53.687 41.742 86.152C361.641 462.172 311.094 482 256 482s-105.637-19.824-144.895-52.703zM256 269.507c-42.871 0-77.754-34.882-77.754-77.753C178.246 148.879 213.13 114 256 114s77.754 34.879 77.754 77.754c0 42.871-34.883 77.754-77.754 77.754zm170.719 134.427a175.9 175.9 0 0 0-46.352-82.004c-18.437-18.438-40.25-32.27-64.039-40.938 28.598-19.394 47.426-52.16 47.426-89.238C363.754 132.34 315.414 84 256 84s-107.754 48.34-107.754 107.754c0 37.098 18.844 69.875 47.465 89.266-21.887 7.976-42.14 20.308-59.566 36.542-25.235 23.5-42.758 53.465-50.883 86.348C50.852 364.242 30 312.512 30 256 30 131.383 131.383 30 256 30s226 101.383 226 226c0 56.523-20.86 108.266-55.281 147.934zm0 0" />
-              </svg>
-              <span>Audience</span>
-            </a>
-          </li>
-          <li>
-            <a
-              href="javascript:void(0)"
-              className="text-black hover:text-blue-600 text-sm flex items-center hover:bg-blue-50 rounded px-4 py-3 transition-all"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="currentColor"
-                className="w-[18px] h-[18px] mr-4"
-                viewBox="0 0 24 24"
+                <AiFillFileText className="w-[18px] h-[18px] mr-4" />
+                <span>Report-1</span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/report-2"
+                className="text-white hover:text-white transition-all text-sm flex items-center rounded-md px-4 py-3"
               >
-                <path d="M18 2c2.206 0 4 1.794 4 4v12c0 2.206-1.794 4-4 4H6c-2.206 0-4-1.794-4-4V6c0-2.206 1.794-4 4-4h12zM4 6v12c0 1.104.896 2 2 2h12c1.104 0 2-.896 2-2V6H4zm3 1h12c.553 0 1 .447 1 1s-.447 1-1 1H7c-.553 0-1-.447-1-1s.447-1 1-1zm0 4h12c.553 0 1 .447 1 1s-.447 1-1 1H7c-.553 0-1-.447-1-1s.447-1 1-1zm0 4h12c.553 0 1 .447 1 1s-.447 1-1 1H7c-.553 0-1-.447-1-1s.447-1 1-1z" />
-              </svg>
-              <span>Campaigns</span>
-            </a>
-          </li>
-          <li>
-            <a
-              href="javascript:void(0)"
-              className="text-black hover:text-blue-600 text-sm flex items-center hover:bg-blue-50 rounded px-4 py-3 transition-all"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="currentColor"
-                className="w-[18px] h-[18px] mr-4"
-                viewBox="0 0 24 24"
-              >
-                <path d="M21.65 15.553a.996.996 0 0 0-.674-.22c-.245.06-.485.036-.699-.085-1.052-.494-2.525-1.188-4.057-1.188s-2.928.694-4.057 1.188a.996.996 0 0 0-.699.085c-.27.065-.547.017-.773-.177a1.008 1.008 0 0 0-.282-.156c-.4-.11-.747.172-.827.568a1.01 1.01 0 0 0 .557 1.223c.174.045.368.064.553.045.479-.076 1.319-.107 1.986-.107s1.507.031 1.986.107c.185.019.379.001.553-.045.321-.055.604-.275.732-.564.059-.116.164-.19.287-.244.166-.06.353.006.473.158.17.2.431.344.731.344.393 0 .727-.147.923-.329.196-.182.276-.452.222-.736-.055-.265-.212-.503-.448-.645a1.016 1.016 0 0 0-.133-.085c-.172-.094-.358-.153-.563-.186-1.174-.226-2.789-.286-4.575-.286-1.786 0-3.401.06-4.575.286-.206.034-.392.092-.563.186a1.016 1.016 0 0 0-.133.085c-.236.143-.392.38-.448.645-.054.284.026.554.222.736.196.182.53.329.923.329.301 0 .56-.144.731-.344.118-.152.307-.218.473-.158.123.054.228.128.287.244.128.289.411.509.732.564.174.031.377.023.553-.045.479-.076 1.319-.107 1.986-.107s1.507.031 1.986.107c.185.019.379.001.553-.045.321-.055.604-.275.732-.564.059-.116.164-.19.287-.244.166-.06.353.006.473.158.17.2.431.344.731.344.393 0 .727-.147.923-.329.196-.182.276-.452.222-.736a1.006 1.006 0 0 0-.15-.387zM12 8c3.313 0 6 2.687 6 6s-2.687 6-6 6-6-2.687-6-6 2.687-6 6-6zm0-2C7.029 6 3 10.029 3 15s4.029 9 9 9 9-4.029 9-9-4.029-9-9-9zm4 8c0 1.108-.892 2-2 2s-2-.892-2-2 .892-2 2-2 2 .892 2 2zm0-4c-2.209 0-4 1.791-4 4s1.791 4 4 4 4-1.791 4-4-1.791-4-4-4z" />
-              </svg>
-              <span>Segments</span>
-            </a>
-          </li>
-        </ul>
+                <AiFillFileText className="w-[18px] h-[18px] mr-4" />
+                <span>Report-2</span>
+              </Link>
+            </li>
+          </ul>
+        )}
       </div>
 
       <div className="mt-6">
-        <h6 className="text-blue-600 text-sm font-bold px-4">Support</h6>
-        <ul className="mt-3">
-          <li>
-            <a
-              href="javascript:void(0)"
-              className="text-black hover:text-blue-600 text-sm flex items-center hover:bg-blue-50 rounded px-4 py-3 transition-all"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="currentColor"
-                className="w-[18px] h-[18px] mr-4"
-                viewBox="0 0 24 24"
-              >
-                <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 22c-5.512 0-10-4.488-10-10S6.488 2 12 2s10 4.488 10 10-4.488 10-10 10zm0-17c-3.313 0-6 2.687-6 6s2.687 6 6 6 6-2.687 6-6-2.687-6-6-6zm0 10c-2.209 0-4-1.791-4-4s1.791-4 4-4 4 1.791 4 4-1.791 4-4 4z" />
-              </svg>
-              <span>Help Center</span>
-            </a>
-          </li>
-          <li>
-          <a href="javascript:void(0)" 
-          className="text-black hover:text-blue-600 text-sm flex items-center hover:bg-blue-50 rounded px-4 py-3 transition-all"
->
-            <svg xmlns="http://www.w3.org/2000/svg" 
-            fill="currentColor" 
-            className="w-[18px] h-[18px] mr-4"
-            viewBox="0 0 24 24">
-              <path d="M197.332 170.668h-160C16.746 170.668 0 153.922 0 133.332v-96C0 16.746 16.746 0 37.332 0h160c20.59 0 37.336 16.746 37.336 37.332v96c0 20.59-16.746 37.336-37.336 37.336zM37.332 32A5.336 5.336 0 0 0 32 37.332v96a5.337 5.337 0 0 0 5.332 5.336h160a5.338 5.338 0 0 0 5.336-5.336v-96A5.337 5.337 0 0 0 197.332 32zm160 480h-160C16.746 512 0 495.254 0 474.668v-224c0-20.59 16.746-37.336 37.332-37.336h160c20.59 0 37.336 16.746 37.336 37.336v224c0 20.586-16.746 37.332-37.336 37.332zm-160-266.668A5.337 5.337 0 0 0 32 250.668v224A5.336 5.336 0 0 0 37.332 480h160a5.337 5.337 0 0 0 5.336-5.332v-224a5.338 5.338 0 0 0-5.336-5.336zM474.668 512h-160c-20.59 0-37.336-16.746-37.336-37.332v-96c0-20.59 16.746-37.336 37.336-37.336h160c20.586 0 37.332 16.746 37.332 37.336v96C512 495.254 495.254 512 474.668 512zm-160-138.668a5.338 5.338 0 0 0-5.336 5.336v96a5.337 5.337 0 0 0 5.336 5.332h160a5.336 5.336 0 0 0 5.332-5.332v-96a5.337 5.337 0 0 0-5.332-5.336zm160-74.664h-160c-20.59 0-37.336-16.746-37.336-37.336v-224C277.332 16.746 294.078 0 314.668 0h160C495.254 0 512 16.746 512 37.332v224c0 20.59-16.746 37.336-37.332 37.336zM314.668 32a5.337 5.337 0 0 0-5.336 5.332v224a5.338 5.338 0 0 0 5.336 5.336h160a5.337 5.337 0 0 0 5.332-5.336v-224A5.336 5.336 0 0 0 474.668 32zm0 0" />
-            </svg>
-            <span>Dashboard</span>
-          </a>
-        </li>
-        </ul>
-      </div>
+        <div className="flex cursor-pointer group" onClick={toggleTransaction}>
+          <AiOutlineTransaction className="w-[18px] h-[18px] text-white " />
+          {!isCollapsed && (
+          <Link
+          to='/transaction-data-entry'
+          className="text-white group-hover:text-white text-sm  px-4 flex-1">Transaction Data Entry</Link>
+        )}
+          {!isCollapsed && (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className={`w-3 fill-white transition-transform ${isOpenTransaction ? 'rotate-180' : ''}`}
+            viewBox="0 0 451.847 451.847"
+          >
+            <path d="M225.923 354.706c-8.098 0-16.195-3.092-22.369-9.263L9.27 151.157c-12.359-12.359-12.359-32.397 0-44.751 12.354-12.354 32.388-12.354 44.748 0l171.905 171.915 171.906-171.909c12.359-12.354 32.391-12.354 44.744 0 12.365 12.354 12.365 32.392 0 44.751L248.292 345.449c-6.177 6.172-14.274 9.257-22.369 9.257z" />
+          </svg>
+          )}
+        </div>
 
+        {isOpenTransaction && !isCollapsed && (
+          <ul className="space-y-1 mt-2 pl-4">
+            <li>
+              <Link
+                to="/deposit"
+                className="text-white hover:text-white transition-all text-sm flex items-center rounded-md px-4 py-3"
+              >
+                <FaExchangeAlt className="w-[18px] h-[18px] mr-4" />
+                <span>Deposit</span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/withdrawal"
+                className="text-white hover:text-white transition-all text-sm flex items-center rounded-md px-4 py-3"
+              >
+                <FaExchangeAlt className="w-[18px] h-[18px] mr-4" />
+                <span>Withdrawal</span>
+              </Link>
+            </li>
+          </ul>
+        )}
+      </div>
+     
+        <>        
+      <div className="mt-6 flex items-center">
+        <AiFillFileText className="w-[18px] h-[18px] text-white " />
+       
+        <Link
+        to='/report-management'
+        className="text-white text-sm px-4">Report Management</Link>
       
-      <div className="mt-6">
-        <h6 className="text-blue-600 text-sm font-bold px-4">Information</h6>
-        <ul className="mt-3">
-          <li>
-          <a
-              href="javascript:void(0)"
-              className="text-black hover:text-blue-600 text-sm flex items-center hover:bg-blue-50 rounded px-4 py-3 transition-all"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="currentColor"
-                className="w-[18px] h-[18px] mr-4"
-                viewBox="0 0 512 512"
-              >
-                <path d="M437.02 74.98C388.668 26.63 324.379 0 256 0S123.332 26.629 74.98 74.98C26.63 123.332 0 187.621 0 256s26.629 132.668 74.98 181.02C123.332 485.37 187.621 512 256 512s132.668-26.629 181.02-74.98C485.37 388.668 512 324.379 512 256s-26.629-132.668-74.98-181.02zM111.105 429.297c8.454-72.735 70.989-128.89 144.895-128.89 38.96 0 75.598 15.179 103.156 42.734 23.281 23.285 37.965 53.687 41.742 86.152C361.641 462.172 311.094 482 256 482s-105.637-19.824-144.895-52.703zM256 269.507c-42.871 0-77.754-34.882-77.754-77.753C178.246 148.879 213.13 114 256 114s77.754 34.879 77.754 77.754c0 42.871-34.883 77.754-77.754 77.754zm170.719 134.427a175.9 175.9 0 0 0-46.352-82.004c-18.437-18.438-40.25-32.27-64.039-40.938 28.598-19.394 47.426-52.16 47.426-89.238C363.754 132.34 315.414 84 256 84s-107.754 48.34-107.754 107.754c0 37.098 18.844 69.875 47.465 89.266-21.887 7.976-42.14 20.308-59.566 36.542-25.235 23.5-42.758 53.465-50.883 86.348C50.852 364.242 30 312.512 30 256 30 131.383 131.383 30 256 30s226 101.383 226 226c0 56.523-20.86 108.266-55.281 147.934zm0 0" />
-              </svg>
-              <span>Audience</span>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:void(0)" 
-                          className="text-black hover:text-blue-600 text-sm flex items-center hover:bg-blue-50 rounded px-4 py-3 transition-all"
->
-              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"   className="w-[18px] h-[18px] mr-4"
-            viewBox="0 0 24 24">
-                <path d="M18 2c2.206 0 4 1.794 4 4v12c0 2.206-1.794 4-4 4H6c-2.206 0-4-1.794-4-4V6c0-2.206 1.794-4 4-4zm0-2H6a6 6 0 0 0-6 6v12a6 6 0 0 0 6 6h12a6 6 0 0 0 6-6V6a6 6 0 0 0-6-6z" />
-                <path d="M12 18a1 1 0 0 1-1-1V7a1 1 0 0 1 2 0v10a1 1 0 0 1-1 1z" />
-                <path d="M6 12a1 1 0 0 1 1-1h10a1 1 0 0 1 0 2H7a1 1 0 0 1-1-1z" />
-              </svg>
-              <span>Settings</span>
-            </a>
-          </li>
-        </ul>
+      </div>
+        
+      <div className="mt-6 flex items-center">
+        <AiOutlineArrowRight className="w-[18px] h-[18px] text-white " />
+      
+        <Link
+        to='/inter-bank-transfer-management'
+        className="text-white text-sm px-4">Inter Bank Transfer Management</Link>
+      
       </div>
 
+      <div className="mt-6 flex items-center">
+        <AiOutlineUserAdd className="w-[18px] h-[18px] text-white " />
+       
+        <Link 
+        to='/user-registration'
+        className="text-white text-sm px-4">User Registration</Link>
+      
+      </div>
+
+      <div className="mt-6 flex items-center">
+        <AiOutlineBook className="w-[18px] h-[18px] text-white " />
+        
+        <Link to='/knowledge-center'
+        className="text-white text-sm px-4">Knowledge Center</Link>
+      
+      </div>
+      </>
+      
     </nav>
   );
 };

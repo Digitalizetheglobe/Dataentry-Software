@@ -1,0 +1,15 @@
+.container {
+    display: flex; /* Use Flexbox for layout */
+  }
+  
+  .sidebar {
+    width: 200px; /* Set a fixed width for the sidebar */
+    background-color: #f4f4f4; /* Optional: Sidebar background color */
+    padding: 20px; /* Optional: Padding inside sidebar */
+  }
+  
+  .content {
+    flex-grow: 1; /* Allow content to take the remaining space */
+    padding: 20px; /* Optional: Padding around content */
+  }
+  

@@ -36,3 +36,25 @@
     transform: rotate(360deg);
   }
 }
+
+/* App.css */
+.app-layout {
+  display: grid;
+  grid-template-columns: 250px 1fr; /* 250px for sidebar, rest for content */
+  height: 100vh; /* Full height */
+  overflow: hidden; /* No scrolling of entire layout */
+}
+
+.sidebar {
+  background-color: #333;
+  color: white;
+  height: 100vh;
+  padding: 20px;
+}
+
+.content-area {
+  background-color: white;
+  padding: 20px;
+  overflow-y: auto; /* Scrollable if content is too tall */
+}
+
