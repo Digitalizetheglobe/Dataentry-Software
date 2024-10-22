@@ -16,6 +16,10 @@ import Userregistration from './User Registration/Userregistration';
 import Knowledgecenter from './Knowledge Center/Knowledgecenter';
 import Depositbankreport from './Transaction Data Entry/Depositbankreport';
 import ExcelUpload from './ExcelUpload';
+import  WithdrwalBankReport from './Transaction Data Entry/WithdrwalBankReport';
+import MergeReport from './Reconciliation Management/MergeReport';
+import WithdrawalReconcilitionReport from './Withdrawal reconcilition/WithdrawalReconcilitionReport';
+
 
 function App() {
   return (
@@ -42,6 +46,9 @@ function App() {
             <Route path='/knowledge-center' element={<Knowledgecenter />} />
           <Route path='/excel' element={<ExcelUpload/>} />
             <Route path='/deposit-bank-report' element={<Depositbankreport/>}/>
+            <Route path='/withdrawal-bank-report' element={<WithdrwalBankReport/>} />
+            <Route path='/MergeReport' element={<MergeReport/>} />
+            <Route path='/WithdrawalReconcilitionReport' element={<WithdrawalReconcilitionReport/>} />
           </Routes>
         </div>
       </div>

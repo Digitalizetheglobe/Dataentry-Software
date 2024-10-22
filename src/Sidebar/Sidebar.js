@@ -6,9 +6,9 @@ import {
   AiOutlineTransaction,
 } from "react-icons/ai";
 import { FaFileAlt, FaExchangeAlt } from "react-icons/fa";
-import { AiFillFileText } from "react-icons/ai"; // Report icon
-import { AiOutlineArrowRight } from "react-icons/ai"; // Inter Bank Transfer icon
-import { AiOutlineUserAdd } from "react-icons/ai"; // User Registration icon
+import { AiFillFileText } from "react-icons/ai"; 
+import { AiOutlineArrowRight } from "react-icons/ai"; 
+import { AiOutlineUserAdd } from "react-icons/ai"; 
 import { AiOutlineBook } from "react-icons/ai";
 import "./Sidebar.css";
 import reconciliation from "../assets/icons/user-profile.png";
@@ -60,7 +60,7 @@ const Sidebar = () => {
             >
               <path d="M197.332 170.668h-160C16.746 170.668 0 153.922 0 133.332v-96C0 16.746 16.746 0 37.332 0h160c20.59 0 37.336 16.746 37.336 37.332v96c0 20.59-16.746 37.336-37.336 37.336zM37.332 32A5.336 5.336 0 0 0 32 37.332v96a5.337 5.337 0 0 0 5.332 5.336h160a5.338 5.338 0 0 0 5.336-5.336v-96A5.337 5.337 0 0 0 197.332 32zm160 480h-160C16.746 512 0 495.254 0 474.668v-224c0-20.59 16.746-37.336 37.332-37.336h160c20.59 0 37.336 16.746 37.336 37.336v224c0 20.586-16.746 37.332-37.336 37.332zm-160-266.668A5.337 5.337 0 0 0 32 250.668v224A5.336 5.336 0 0 0 37.332 480h160a5.337 5.337 0 0 0 5.336-5.332v-224a5.338 5.338 0 0 0-5.336-5.336zM474.668 512h-160c-20.59 0-37.336-16.746-37.336-37.332v-96c0-20.59 16.746-37.336 37.336-37.336h160c20.586 0 37.332 16.746 37.332 37.336v96C512 495.254 495.254 512 474.668 512zm-160-138.668a5.338 5.338 0 0 0-5.336 5.336v96a5.337 5.337 0 0 0 5.336 5.332h160a5.336 5.336 0 0 0 5.332-5.332v-96a5.337 5.337 0 0 0-5.332-5.336zm160-74.664h-160c-20.59 0-37.336-16.746-37.336-37.336v-224C277.332 16.746 294.078 0 314.668 0h160C495.254 0 512 16.746 512 37.332v224c0 20.59-16.746 37.336-37.332 37.336zM314.668 32a5.337 5.337 0 0 0-5.336 5.332v224a5.338 5.338 0 0 0 5.336 5.336h160a5.337 5.337 0 0 0 5.332-5.336v-224A5.336 5.336 0 0 0 474.668 32zm0 0" />
             </svg>
-            {!isCollapsed && <span className="text-white">CPT</span>}
+            {!isCollapsed && <span className="text-white">CPT - Data Entry Software</span>}
           </Link>
         </li>
       </ul>
@@ -127,6 +127,37 @@ const Sidebar = () => {
                 <span>Report-2</span>
               </Link>
             </li>
+            <li>
+              <Link
+                to="/MergeReport"
+                className={`text-white hover:text-white transition-all text-sm flex items-center rounded-md px-4 py-3 ${
+                  activeMenu === "MergeReport" ? "bg-gray-700" : ""
+                }`}
+                onClick={() => handleMenuClick("MergeReport")}
+              >
+                <img
+                  src={report}
+                  className="w-[18px] h-[18px] mr-4 filter invert"
+                />
+                <span>Merge Report</span>
+              </Link>
+            </li>
+            <hr/>
+            <li>
+              <Link
+                to="/WithdrawalReconcilitionReport"
+                className={`text-white hover:text-white transition-all text-sm flex items-center rounded-md px-4 py-3 ${
+                  activeMenu === "WithdrawalReconcilitionReport" ? "bg-gray-700" : ""
+                }`}
+                onClick={() => handleMenuClick("WithdrawalReconcilitionReport")}
+              >
+                <img
+                  src={report}
+                  className="w-[18px] h-[18px] mr-4 filter invert"
+                />
+                <span>Withdrawal Reconciliation <br/> Report</span>
+              </Link>
+            </li>
           </ul>
         )}
       </div>
@@ -182,6 +213,18 @@ const Sidebar = () => {
               >
                 <FaExchangeAlt className="w-[18px] h-[18px] mr-4" />
                 <span>Withdrawal</span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/withdrawal-bank-report"
+                className={`text-white hover:text-white transition-all text-sm flex items-center rounded-md px-4 py-3 ${
+                  activeMenu === "withdrawal-bank-report" ? "bg-gray-700" : ""
+                }`}
+                onClick={() => handleMenuClick("withdrawal-bank-report")}
+              >
+                <FaExchangeAlt className="w-[18px] h-[18px] mr-4" />
+                <span>Withdrawal Bank Report</span>
               </Link>
             </li>
             <li>
