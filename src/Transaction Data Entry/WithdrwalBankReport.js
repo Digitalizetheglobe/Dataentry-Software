@@ -4,6 +4,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Sidebar from '../Sidebar/Sidebar';
 
 const WithdrwalBankReport = () => {
   const [startDate, setStartDate] = useState(new Date());
@@ -37,6 +38,8 @@ const WithdrwalBankReport = () => {
   
   
   return (
+    <>
+    <Sidebar/>
     <div className="max-w-5xl mr-1 mx-auto mt-10 p-4 bg-white rounded shadow-md">
       <h1 className="text-2xl font-bold mb-6 text-gray-800" style={{marginTop:'20px'}}>Withdrawal Bank Report</h1>
 
@@ -115,6 +118,7 @@ const WithdrwalBankReport = () => {
 
       <ToastContainer />
     </div>
+    </>
   );
 };
 

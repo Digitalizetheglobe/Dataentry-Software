@@ -6,9 +6,9 @@ import {
   AiOutlineTransaction,
 } from "react-icons/ai";
 import { FaFileAlt, FaExchangeAlt } from "react-icons/fa";
-import { AiFillFileText } from "react-icons/ai"; 
-import { AiOutlineArrowRight } from "react-icons/ai"; 
-import { AiOutlineUserAdd } from "react-icons/ai"; 
+import { AiFillFileText } from "react-icons/ai";
+import { AiOutlineArrowRight } from "react-icons/ai";
+import { AiOutlineUserAdd } from "react-icons/ai";
 import { AiOutlineBook } from "react-icons/ai";
 import "./Sidebar.css";
 import reconciliation from "../assets/icons/user-profile.png";
@@ -19,8 +19,8 @@ import banktransfer from "../assets/icons/cash-flow.png";
 import knowledge from "../assets/icons/knowledge (1).png";
 
 const Sidebar = () => {
-  const [isOpenReconciliation, setIsOpenReconciliation] = useState(true); // Open by default
-  const [isOpenTransaction, setIsOpenTransaction] = useState(true); // Open by default
+  const [isOpenReconciliation, setIsOpenReconciliation] = useState(true);
+  const [isOpenTransaction, setIsOpenTransaction] = useState(true);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [activeMenu, setActiveMenu] = useState("");
 
@@ -48,7 +48,6 @@ const Sidebar = () => {
       >
         {isCollapsed ? '>' : '<'}
       </button> */}
-
       <ul className="">
         <li>
           <Link className="text-black hover:text-blue-600 text-sm flex items-center hover:bg-gray-700 rounded px-4 py-3">
@@ -85,9 +84,8 @@ const Sidebar = () => {
           {!isCollapsed && (
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className={`w-3 fill-white transition-transform ${
-                isOpenReconciliation ? "rotate-180" : ""
-              }`}
+              className={`w-3 fill-white transition-transform ${isOpenReconciliation ? "rotate-180" : ""
+                }`}
               viewBox="0 0 451.847 451.847"
             >
               <path d="M225.923 354.706c-8.098 0-16.195-3.092-22.369-9.263L9.27 151.157c-12.359-12.359-12.359-32.397 0-44.751 12.354-12.354 32.388-12.354 44.748 0l171.905 171.915 171.906-171.909c12.359-12.354 32.391-12.354 44.744 0 12.365 12.354 12.365 32.392 0 44.751L248.292 345.449c-6.177 6.172-14.274 9.257-22.369 9.257z" />
@@ -100,9 +98,8 @@ const Sidebar = () => {
             <li>
               <Link
                 to="/report-1"
-                className={`text-white hover:text-white transition-all text-sm flex items-center rounded-md px-4 py-3 ${
-                  activeMenu === "report-1" ? "bg-gray-700" : ""
-                }`}
+                className={`text-white hover:text-white transition-all text-sm flex items-center rounded-md px-4 py-3 ${activeMenu === "report-1" ? "bg-gray-700" : ""
+                  }`}
                 onClick={() => handleMenuClick("report-1")}
               >
                 <img
@@ -115,9 +112,8 @@ const Sidebar = () => {
             <li>
               <Link
                 to="/report-2"
-                className={`text-white hover:text-white transition-all text-sm flex items-center rounded-md px-4 py-3 ${
-                  activeMenu === "report-2" ? "bg-gray-700" : ""
-                }`}
+                className={`text-white hover:text-white transition-all text-sm flex items-center rounded-md px-4 py-3 ${activeMenu === "report-2" ? "bg-gray-700" : ""
+                  }`}
                 onClick={() => handleMenuClick("report-2")}
               >
                 <img
@@ -130,9 +126,8 @@ const Sidebar = () => {
             <li>
               <Link
                 to="/MergeReport"
-                className={`text-white hover:text-white transition-all text-sm flex items-center rounded-md px-4 py-3 ${
-                  activeMenu === "MergeReport" ? "bg-gray-700" : ""
-                }`}
+                className={`text-white hover:text-white transition-all text-sm flex items-center rounded-md px-4 py-3 ${activeMenu === "MergeReport" ? "bg-gray-700" : ""
+                  }`}
                 onClick={() => handleMenuClick("MergeReport")}
               >
                 <img
@@ -142,20 +137,34 @@ const Sidebar = () => {
                 <span>Merge Report</span>
               </Link>
             </li>
-            <hr/>
+            <hr />
             <li>
               <Link
                 to="/WithdrawalReconcilitionReport"
-                className={`text-white hover:text-white transition-all text-sm flex items-center rounded-md px-4 py-3 ${
-                  activeMenu === "WithdrawalReconcilitionReport" ? "bg-gray-700" : ""
-                }`}
+                className={`text-white hover:text-white transition-all text-sm flex items-center rounded-md px-4 py-3 ${activeMenu === "WithdrawalReconcilitionReport" ? "bg-gray-700" : ""
+                  }`}
                 onClick={() => handleMenuClick("WithdrawalReconcilitionReport")}
               >
                 <img
                   src={report}
                   className="w-[18px] h-[18px] mr-4 filter invert"
                 />
-                <span>Withdrawal Reconciliation <br/> Report</span>
+                <span>Withdrawal Reconciliation <br /> Report</span>
+              </Link>
+            </li>
+
+            <li>
+              <Link
+                to="/Depositreconcilition"
+                className={`text-white hover:text-white transition-all text-sm flex items-center rounded-md px-4 py-3 ${activeMenu === "Depositreconcilition" ? "bg-gray-700" : ""
+                  }`}
+                onClick={() => handleMenuClick("Depositreconcilition")}
+              >
+                <img
+                  src={report}
+                  className="w-[18px] h-[18px] mr-4 filter invert"
+                />
+                <span>Deposit Reconciliation <br /> Report</span>
               </Link>
             </li>
           </ul>
@@ -179,9 +188,8 @@ const Sidebar = () => {
           {!isCollapsed && (
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className={`w-3 fill-white transition-transform ${
-                isOpenTransaction ? "rotate-180" : ""
-              }`}
+              className={`w-3 fill-white transition-transform ${isOpenTransaction ? "rotate-180" : ""
+                }`}
               viewBox="0 0 451.847 451.847"
             >
               <path d="M225.923 354.706c-8.098 0-16.195-3.092-22.369-9.263L9.27 151.157c-12.359-12.359-12.359-32.397 0-44.751 12.354-12.354 32.388-12.354 44.748 0l171.905 171.915 171.906-171.909c12.359-12.354 32.391-12.354 44.744 0 12.365 12.354 12.365 32.392 0 44.751L248.292 345.449c-6.177 6.172-14.274 9.257-22.369 9.257z" />
@@ -194,9 +202,8 @@ const Sidebar = () => {
             <li>
               <Link
                 to="/deposit"
-                className={`text-white hover:text-white transition-all text-sm flex items-center rounded-md px-4 py-3 ${
-                  activeMenu === "deposit" ? "bg-gray-700" : ""
-                }`}
+                className={`text-white hover:text-white transition-all text-sm flex items-center rounded-md px-4 py-3 ${activeMenu === "deposit" ? "bg-gray-700" : ""
+                  }`}
                 onClick={() => handleMenuClick("deposit")}
               >
                 <FaExchangeAlt className="w-[18px] h-[18px] mr-4" />
@@ -206,9 +213,8 @@ const Sidebar = () => {
             <li>
               <Link
                 to="/withdrawal"
-                className={`text-white hover:text-white transition-all text-sm flex items-center rounded-md px-4 py-3 ${
-                  activeMenu === "withdrawal" ? "bg-gray-700" : ""
-                }`}
+                className={`text-white hover:text-white transition-all text-sm flex items-center rounded-md px-4 py-3 ${activeMenu === "withdrawal" ? "bg-gray-700" : ""
+                  }`}
                 onClick={() => handleMenuClick("withdrawal")}
               >
                 <FaExchangeAlt className="w-[18px] h-[18px] mr-4" />
@@ -218,9 +224,8 @@ const Sidebar = () => {
             <li>
               <Link
                 to="/withdrawal-bank-report"
-                className={`text-white hover:text-white transition-all text-sm flex items-center rounded-md px-4 py-3 ${
-                  activeMenu === "withdrawal-bank-report" ? "bg-gray-700" : ""
-                }`}
+                className={`text-white hover:text-white transition-all text-sm flex items-center rounded-md px-4 py-3 ${activeMenu === "withdrawal-bank-report" ? "bg-gray-700" : ""
+                  }`}
                 onClick={() => handleMenuClick("withdrawal-bank-report")}
               >
                 <FaExchangeAlt className="w-[18px] h-[18px] mr-4" />
@@ -230,9 +235,8 @@ const Sidebar = () => {
             <li>
               <Link
                 to='/deposit-bank-report'
-                className={`text-white hover:text-white transition-all text-sm flex items-center rounded-md px-4 py-3 ${
-                  activeMenu === "depositbankreport" ? "bg-gray-700" : ""
-                }`}
+                className={`text-white hover:text-white transition-all text-sm flex items-center rounded-md px-4 py-3 ${activeMenu === "depositbankreport" ? "bg-gray-700" : ""
+                  }`}
                 onClick={() => handleMenuClick("depositbankreport")}
               >
                 <FaExchangeAlt className="w-[18px] h-[18px] mr-4" />
@@ -245,35 +249,14 @@ const Sidebar = () => {
 
       <>
         <div
-          className={`mt-4 flex items-center px-4 py-3 rounded-md ${
-            activeMenu === "reportmanagement" ? "bg-gray-700" : ""
-          }`}
-          onClick={() => handleMenuClick("reportmanagement")}
-         
-        >
-          <img
-            src={laptop}
-            className="w-[18px] h-[18px] text-white filter invert"
-            style={{marginLeft:'-16px'}}
-          />
-          <Link
-            to="/report-management"
-            className="text-white text-sm pl-4 flex-1"
-          >
-            Report Management
-          </Link>
-        </div>
-
-        <div
-          className={` flex items-center px-4 py-3 rounded-md ${
-            activeMenu === "interbanktransfer" ? "bg-gray-700" : ""
-          }`}
+          className={` flex items-center px-4 py-3 rounded-md ${activeMenu === "interbanktransfer" ? "bg-gray-700" : ""
+            }`}
           onClick={() => handleMenuClick("interbanktransfer")}
         >
           <img
             src={banktransfer}
             className="w-[18px] h-[18px] text-white filter invert"
-            style={{marginLeft:'-16px'}}
+            style={{ marginLeft: '-16px' }}
           />
           <Link
             to="/inter-bank-transfer-management"
@@ -284,31 +267,29 @@ const Sidebar = () => {
         </div>
 
         <div
-          className={` flex items-center px-4 py-3 rounded-md ${
-            activeMenu === "userregistration" ? "bg-gray-700" : ""
-          }`}
+          className={` flex items-center px-4 py-3 rounded-md ${activeMenu === "userregistration" ? "bg-gray-700" : ""
+            }`}
           onClick={() => handleMenuClick("userregistration")}
         >
-          <AiOutlineUserAdd className="w-[18px] h-[18px] text-white"  style={{marginLeft:'-16px'}} />
+          <AiOutlineUserAdd className="w-[18px] h-[18px] text-white" style={{ marginLeft: '-16px' }} />
           <Link
             to="/user-registration"
             className="text-white text-sm pl-4 flex-1"
-            
+
           >
             User Profile
           </Link>
         </div>
 
         <div
-          className={` flex items-center px-4 py-3 rounded-md ${
-            activeMenu === "knowledgecenter" ? "bg-gray-700" : ""
-          }`}
+          className={` flex items-center px-4 py-3 rounded-md ${activeMenu === "knowledgecenter" ? "bg-gray-700" : ""
+            }`}
           onClick={() => handleMenuClick("knowledgecenter")}
         >
           <img
             src={knowledge}
             className="w-[18px] h-[18px] text-white filter invert"
-            style={{marginLeft:'-16px'}}
+            style={{ marginLeft: '-16px' }}
           />
           <Link
             to="/knowledge-center"

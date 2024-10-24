@@ -19,18 +19,17 @@ import ExcelUpload from './ExcelUpload';
 import  WithdrwalBankReport from './Transaction Data Entry/WithdrwalBankReport';
 import MergeReport from './Reconciliation Management/MergeReport';
 import WithdrawalReconcilitionReport from './Withdrawal reconcilition/WithdrawalReconcilitionReport';
+import Depositreconcilition from './Deposit reconcilition/Depositreconcilition';
 
 
 function App() {
   return (
     <Router>
       <div className="app-layout" style={{ display: 'flex', height: '100vh' }}>
-        {/* Sidebar */}
-        <Sidebar />
-        
-        {/* Content Area */}
+       
+        {/* <Sidebar /> */}
         <div className="content-area" style={{ flex: 1, padding: '20px', backgroundColor: 'white', overflowY: 'auto' }}>
-          {/* Routes for different components */}
+         
           <Routes>
             <Route path='/sign-in' element={<SignIn />} />
             <Route path='/sign-up' element={<SignUp />} />
@@ -49,6 +48,7 @@ function App() {
             <Route path='/withdrawal-bank-report' element={<WithdrwalBankReport/>} />
             <Route path='/MergeReport' element={<MergeReport/>} />
             <Route path='/WithdrawalReconcilitionReport' element={<WithdrawalReconcilitionReport/>} />
+            <Route path='/Depositreconcilition' element={<Depositreconcilition/>} />
           </Routes>
         </div>
       </div>

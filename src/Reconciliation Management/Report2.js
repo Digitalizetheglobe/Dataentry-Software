@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Sidebar from '../Sidebar/Sidebar';
 
 const Report2 = () => {
   const [data, setData] = useState([]);
@@ -67,6 +68,8 @@ const Report2 = () => {
   };
 
   return (
+    <>
+    <Sidebar/>
     <div className="mx-auto mt-10 p-4 bg-white rounded shadow-md">
       <h1 className="text-2xl font-bold mb-6 text-gray-800" style={{ marginLeft: '300px', marginTop: '10px' }}>Excel 2 Data Table</h1>
 
@@ -161,6 +164,7 @@ const Report2 = () => {
 
       <ToastContainer />
     </div>
+    </>
   );
 };
 

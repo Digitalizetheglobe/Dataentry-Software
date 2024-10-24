@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import Sidebar from '../Sidebar/Sidebar';
 const MergeReport = () => {
 
 
@@ -21,6 +22,8 @@ const MergeReport = () => {
     }, []);
   
     return (
+      <>
+      <Sidebar/>
         <div className="max-w-5xl mx-auto mt-10 p-4 bg-white rounded shadow-md">
           <h2 className="text-2xl font-bold mb-6 text-gray-800" style={{ marginLeft: '300px', marginTop: '10px' }}>Merged Data</h2>
           {error && <p className="text-red-500">{error}</p>}
@@ -78,6 +81,7 @@ const MergeReport = () => {
             </table>
           </div>
         </div>
+        </>
       );
 }
 

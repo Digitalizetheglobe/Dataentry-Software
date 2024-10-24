@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Sidebar from '../Sidebar/Sidebar';
 
 
 const Deposit = () => {
@@ -66,6 +67,8 @@ const Deposit = () => {
   }, []);
 
   return (
+    <>
+    <Sidebar/>
     <div className="max-w-5xl mr-1 mx-auto mt-10 p-4 bg-white rounded shadow-md">
       <h1 className="text-2xl font-bold mb-6 text-gray-800" style={{marginLeft:'20px'}}>Deposit Entries</h1>
 
@@ -180,6 +183,7 @@ const Deposit = () => {
       </div>
 
     </div>
+    </>
   );
 };
 

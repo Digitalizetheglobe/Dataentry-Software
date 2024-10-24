@@ -4,6 +4,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Sidebar from '../Sidebar/Sidebar';
 
 const DepositBankReport = () => {
   const [startDate, setStartDate] = useState(new Date());
@@ -49,6 +50,8 @@ const DepositBankReport = () => {
   }, [message]);
 
   return (
+    <>
+    <Sidebar/>
     <div className="max-w-5xl mr-1 mx-auto mt-10 p-4 bg-white rounded shadow-md">
       <h1 className="text-2xl font-bold mb-6 text-gray-800" style={{marginTop:'20px'}}>Bank-wise Deposit Report</h1>
 
@@ -125,6 +128,7 @@ const DepositBankReport = () => {
         </table>
       </div>
     </div>
+    </>
   );
 };
 

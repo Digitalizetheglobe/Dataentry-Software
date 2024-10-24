@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Sidebar from '../Sidebar/Sidebar';
 
 const Report1 = () => {
   const [data, setData] = useState([]);
@@ -30,8 +31,8 @@ const Report1 = () => {
     setSelectedFile(e.target.files[0]);
   };
 
-  // Handle file upload
-  const handleUpload = async () => {
+  // Handle file upload (POST request for adding data)
+  const handlePostUpload = async () => {
     if (!selectedFile) {
       toast.error('Please select a file to upload.');
       return;
@@ -41,17 +42,42 @@ const Report1 = () => {
     formData.append('file', selectedFile);
 
     try {
-      const response = await axios.post('http://localhost:8000/api/excel/excel/upload1', formData, {
+      const response = await axios.post('http://localhost:8000/api/excel/upload1', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
       toast.success(response.data.message);
       setSelectedFile(null);
-      fetchData(); // Refresh the data after successful upload
+      fetchData(); // Refresh the data after a successful upload
     } catch (error) {
       console.error('Error uploading file:', error);
       toast.error('Error uploading file. Please try again.');
+    }
+  };
+
+  // Handle file update (PUT request for updating data)
+  const handlePutUpload = async () => {
+    if (!selectedFile) {
+      toast.error('Please select a file to upload.');
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('file', selectedFile);
+
+    try {
+      const response = await axios.put('http://localhost:8000/api/excel/upload1', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      toast.success(response.data.message);
+      setSelectedFile(null);
+      fetchData(); // Refresh the data after a successful update
+    } catch (error) {
+      console.error('Error updating file:', error);
+      toast.error('Error updating file. Please try again.');
     }
   };
 
@@ -67,6 +93,7 @@ const Report1 = () => {
 
   return (
     <>
+    <Sidebar/>
       <div className="mx-auto mt-10 p-4 bg-white rounded shadow-md">
         <h1 className="text-2xl font-bold mb-6 text-gray-800" style={{ marginLeft: '300px', marginTop: '10px' }}>
           Excel 1 Data Table
@@ -76,10 +103,16 @@ const Report1 = () => {
         <div className="flex items-center mb-4" style={{ marginLeft: '300px' }}>
           <input type="file" onChange={handleFileChange} className="mr-2" />
           <button
-            onClick={handleUpload}
+            onClick={handlePostUpload}
             className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded"
           >
             Upload Excel 1
+          </button>
+          <button
+            onClick={handlePutUpload}
+            className="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded ml-2"
+          >
+            Update Excel 1
           </button>
         </div>
 
