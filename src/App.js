@@ -20,6 +20,7 @@ import  WithdrwalBankReport from './Transaction Data Entry/WithdrwalBankReport';
 import MergeReport from './Reconciliation Management/MergeReport';
 import WithdrawalReconcilitionReport from './Withdrawal reconcilition/WithdrawalReconcilitionReport';
 import Depositreconcilition from './Deposit reconcilition/Depositreconcilition';
+import Dashboard from './Dashboard/dashboard';
 
 
 function App() {
@@ -31,8 +32,10 @@ function App() {
         <div className="content-area" style={{ flex: 1, padding: '20px', backgroundColor: 'white', overflowY: 'auto' }}>
          
           <Routes>
+          <Route path='/' element={< Dashboard />} />
             <Route path='/sign-in' element={<SignIn />} />
             <Route path='/sign-up' element={<SignUp />} />
+            <Route path='/' element={< Dashboard />} />
             <Route path='/reconciliation-management' element={<Reconciliationmanagement />} />
             <Route path='/report-1' element={<Report1 />} />
             <Route path='/report-2' element={<Report2 />} />

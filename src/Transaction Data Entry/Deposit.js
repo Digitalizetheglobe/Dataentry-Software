@@ -3,10 +3,11 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Sidebar from '../Sidebar/Sidebar';
-
+import { jwtDecode } from 'jwt-decode'; 
 
 const Deposit = () => {
   const [entries, setEntries] = useState([]);
+  const [branchId, setBranchId] = useState('');
   const [formData, setFormData] = useState({
     player_id: '',
     branch_id: '',
@@ -25,6 +26,25 @@ const Deposit = () => {
     });
   };
 
+
+
+  useEffect(() => {
+    // Get the token from local storage
+    const token = localStorage.getItem('token');
+    if (token) {
+      // Decode the token to get the branch ID
+      const decoded = jwtDecode(token);
+      if (decoded.branch_id) {
+        setBranchId(decoded.branch_id);
+        // Set the branch ID in the form data automatically
+        setFormData((prevData) => ({
+          ...prevData,
+          branch_id: decoded.branch_id,
+        }));
+      }
+    }
+    fetchEntries();
+  }, []);
   // Function to submit the form and add a new entry
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -86,17 +106,7 @@ const Deposit = () => {
               required
             />
           </div>
-          <div>
-            <label className="block text-xs font-semibold text-gray-700">Branch ID</label>
-            <input
-              type="text"
-              name="branch_id"
-              value={formData.branch_id}
-              onChange={handleChange}
-              className="w-full border rounded px-2 py-1 text-sm"
-              required
-            />
-          </div>
+        
           <div>
             <label className="block text-xs font-semibold text-gray-700">UTR ID</label>
             <input
@@ -128,6 +138,17 @@ const Deposit = () => {
               onChange={handleChange}
               className="w-full border rounded px-2 py-1 text-sm"
               required
+            />
+          </div>
+          <div>
+            <label className="block text-xs font-semibold text-gray-700">Branch ID</label>
+            <input
+              type="text"
+              name="branch_id"
+              value={formData.branch_id}
+              onChange={handleChange}
+              className="w-full border rounded px-2 py-1 text-sm"
+              readOnly
             />
           </div>
           <div>
