@@ -75,7 +75,7 @@ const Sidebar = () => {
           />
           {!isCollapsed && (
             <Link
-              to="/reconciliation-management"
+              to=""
               className="text-white group-hover:text-white text-sm flex-1"
             >
               Reconciliation Management
@@ -179,7 +179,7 @@ const Sidebar = () => {
           />
           {!isCollapsed && (
             <Link
-              to="/transaction-data-entry"
+              to=""
               className="text-white group-hover:text-white text-sm  px-4 flex-1"
             >
               Transaction Data Entry

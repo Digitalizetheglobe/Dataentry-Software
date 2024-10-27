@@ -95,7 +95,7 @@ const Report1 = () => {
     <>
     <Sidebar/>
       <div className="mx-auto mt-10 p-4 bg-white rounded shadow-md">
-        <h1 className="text-2xl font-bold mb-6 text-gray-800" style={{ marginLeft: '300px', marginTop: '10px' }}>
+        <h1 className="text-4xl font-bold mb-6 text-gray-800" style={{ marginLeft: '300px', marginTop: '10px' }}>
           Excel 1 Data Table
         </h1>
 
@@ -104,13 +104,13 @@ const Report1 = () => {
           <input type="file" onChange={handleFileChange} className="mr-2" />
           <button
             onClick={handlePostUpload}
-            className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded"
+            className="bg-[#001A3B] hover:bg-[#fff] text-white hover:text-[#001A3B] border hover:border-[#001A3B] py-2 px-4 rounded-md"
           >
             Upload Excel 1
           </button>
           <button
             onClick={handlePutUpload}
-            className="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded ml-2"
+            className="bg-green-600 border border-green-700 hover:bg-white hover:text-green-700 text-white hover:border-green-700 text-white py-2 px-4 rounded ml-2"
           >
             Update Excel 1
           </button>

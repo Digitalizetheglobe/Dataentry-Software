@@ -89,8 +89,8 @@ const Deposit = () => {
   return (
     <>
     <Sidebar/>
-    <div className="max-w-5xl mr-1 mx-auto mt-10 p-4 bg-white rounded shadow-md">
-      <h1 className="text-2xl font-bold mb-6 text-gray-800" style={{marginLeft:'20px'}}>Deposit Entries</h1>
+    <div className="max-w-5xl mr-1 mx-auto mt-10 p-4 bg-white rounded ">
+      <h1 className="text-4xl font-bold mb-6 text-gray-800" style={{marginLeft:'20px'}}>Deposit Entries</h1>
 
       {/* Form to Add New Entry */}
       <form onSubmit={handleSubmit} className="mb-6">
@@ -164,7 +164,10 @@ const Deposit = () => {
         </div>
         <button
           type="submit"
-          className="mt-4 w-40 h-10 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded right-0" style={{marginLeft:'20px'}}
+          className="mt-4 w-40 h-10 bg-[#001A3B] hover:bg-[#fff] text-white hover:text-[#001A3B] border hover:border-[#001A3B] py-2 rounded right-0" 
+          // className=" py-2 px-4 rounded-md"
+
+          style={{marginLeft:'20px'}}
         >
           Add Entry
         </button>
@@ -176,7 +179,7 @@ const Deposit = () => {
       {/* Table to Display Entries */}
       <div className="overflow-x-auto">
         <table className="min-w-full border border-gray-300 rounded-lg shadow-lg">
-          <thead className="bg-blue-500 text-white">
+          <thead className="bg-[#001A3B] text-white">
             <tr>
               <th className="px-4 py-2 text-left border-b">Date</th>
               <th className="px-4 py-2 text-left border-b">Player ID</th>

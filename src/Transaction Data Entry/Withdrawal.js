@@ -77,7 +77,7 @@ const Withdrawal = () => {
     <>
       <Sidebar />
       <div className="max-w-5xl mr-1 mx-auto mt-10 p-4 bg-white rounded shadow-md">
-        <h1 className="text-2xl font-bold mb-6 text-gray-800" style={{ marginLeft: '20px' }}>Withdrawal Entry</h1>
+        <h1 className="text-4xl font-bold mb-6 text-gray-800" style={{ marginLeft: '20px' }}>Withdrawal Entry</h1>
 
         {/* Form to Add New Withdrawal Entry */}
         <form onSubmit={handleSubmit} className="mb-6">
@@ -138,7 +138,7 @@ const Withdrawal = () => {
           </div>
           <button
             type="submit"
-            className="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded"
+            className="mt-4 w-60 h-10 bg-[#001A3B] hover:bg-[#fff] text-white hover:text-[#001A3B] border hover:border-[#001A3B] py-2 rounded"
           >
             Add Withdrawal Entry
           </button>

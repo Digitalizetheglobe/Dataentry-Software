@@ -71,15 +71,15 @@ const Report2 = () => {
     <>
     <Sidebar/>
     <div className="mx-auto mt-10 p-4 bg-white rounded shadow-md">
-      <h1 className="text-2xl font-bold mb-6 text-gray-800" style={{ marginLeft: '300px', marginTop: '10px' }}>Excel 2 Data Table</h1>
+      <h1 className="text-4xl font-bold mb-6 text-gray-800" style={{ marginLeft: '300px', marginTop: '10px' }}>Excel 2 Data Table</h1>
 
       {/* File Upload Section */}
       <div className="flex items-center mb-4" style={{ marginLeft: '300px' }}>
         <input type="file" onChange={handleFileChange} className="mr-2" />
         <button
           onClick={handleUpload}
-          className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded"
-        >
+          className="bg-[#001A3B] hover:bg-[#fff] text-white hover:text-[#001A3B] border hover:border-[#001A3B] py-2 px-4 rounded-md"
+          >
           Upload Excel 2
         </button>
       </div>

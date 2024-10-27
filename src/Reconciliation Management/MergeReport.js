@@ -24,10 +24,10 @@ const MergeReport = () => {
     return (
       <>
       <Sidebar/>
-        <div className="max-w-5xl mx-auto mt-10 p-4 bg-white rounded shadow-md">
-          <h2 className="text-2xl font-bold mb-6 text-gray-800" style={{ marginLeft: '300px', marginTop: '10px' }}>Merged Data</h2>
+        <div className="max-w-5xl mx-auto mt-10 p-4 bg-white rounded">
+          <h2 className="text-4xl font-bold mb-6 text-gray-800" style={{ marginLeft: '170px', marginTop: '10px' }}>Merged Data</h2>
           {error && <p className="text-red-500">{error}</p>}
-          <div className="flex items-center mb-4" style={{ marginLeft: '300px' }}>
+          <div className="flex items-center mb-4" style={{ marginLeft: '170px' }}>
             <table className="min-w-full border-collapse border border-gray-200">
               <thead>
                 <tr className="bg-gray-100">

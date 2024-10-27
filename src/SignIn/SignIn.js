@@ -28,7 +28,7 @@ const SignIn = () => {
         setMessage("Login successful!");
 
         // Redirect to a protected route or dashboard
-        navigate("/dashboard"); // Replace with your desired route
+        navigate("/"); // Replace with your desired route
       } else {
         setMessage("Login failed. Please try again.");
       }

@@ -52,7 +52,7 @@ const DepositBankReport = () => {
   return (
     <>
     <Sidebar/>
-    <div className="max-w-5xl mr-1 mx-auto mt-10 p-4 bg-white rounded shadow-md">
+    <div className="max-w-5xl mr-1 mx-auto mt-10 p-4 bg-white rounded">
       <h1 className="text-2xl font-bold mb-6 text-gray-800" style={{marginTop:'20px'}}>Bank-wise Deposit Report</h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
@@ -89,7 +89,7 @@ const DepositBankReport = () => {
 
       <button
         onClick={fetchReport}
-        className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded mb-4"
+        className="w-full sm:w-auto bg-[#001A3B] hover:bg-[#fff] text-white hover:text-[#001A3B] border hover:border-[#001A3B] py-2 px-4 rounded mb-4"
       >
         Generate Report
       </button>
