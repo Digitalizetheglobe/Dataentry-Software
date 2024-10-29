@@ -3,6 +3,8 @@ import axios from 'axios';
 import { jwtDecode } from 'jwt-decode'; 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Sidebar from '../Sidebar/Sidebar';
+
 
 const Interbanktransfermanagement = () => {
   const [formData, setFormData] = useState({
@@ -16,7 +18,6 @@ const Interbanktransfermanagement = () => {
   const [transfers, setTransfers] = useState([]);
 
   useEffect(() => {
-    // Extract branch_id from token if available
     const token = localStorage.getItem('token');
     if (token) {
       try {
@@ -32,13 +33,12 @@ const Interbanktransfermanagement = () => {
     }
 
     // Automatically set today's date
-    const today = new Date().toISOString().split('T')[0]; // Format as YYYY-MM-DD
+    const today = new Date().toISOString().split('T')[0]; 
     setFormData((prevFormData) => ({
       ...prevFormData,
       date: today,
     }));
 
-    // Fetch existing transfers on component mount
     fetchTransfers();
   }, []);
 
@@ -59,10 +59,10 @@ const Interbanktransfermanagement = () => {
         amount: '',
         receiving_bank: '',
         utr_id: '',
-        branch_id: formData.branch_id, // Keep the branch_id from the token
-        date: formData.date, // Keep today's date
+        branch_id: formData.branch_id, 
+        date: formData.date, 
       });
-      fetchTransfers(); // Refresh the list after adding a new transfer
+      fetchTransfers(); 
     } catch (error) {
       const errorMessage = error.response?.data?.message || 'Error adding transfer. Please try again.';
       toast.error(errorMessage);
@@ -80,7 +80,9 @@ const Interbanktransfermanagement = () => {
   };
 
   return (
-    <div className="max-w-5xl mx-auto mt-10 p-4 bg-white rounded shadow-md">
+    <>
+    <Sidebar />
+    <div className="max-w-5xl mr-1 mx-auto mt-10 p-4 bg-white rounded">
       <h1 className="text-2xl font-bold mb-6 text-gray-800">Inter Bank Transfer Management</h1>
 
       <form onSubmit={handleSubmit} className="mb-6">
@@ -187,6 +189,7 @@ const Interbanktransfermanagement = () => {
         </table>
       </div>
     </div>
+    </>
   );
 };
 
