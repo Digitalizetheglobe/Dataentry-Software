@@ -81,12 +81,11 @@ const Report1 = () => {
     }
   };
 
-  // Get the current data to display on the page
+
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
 
-  // Function to change page
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -94,13 +93,13 @@ const Report1 = () => {
   return (
     <>
     <Sidebar/>
-      <div className="mx-auto mt-10 p-4 bg-white rounded shadow-md">
-        <h1 className="text-4xl font-bold mb-6 text-gray-800" style={{ marginLeft: '300px', marginTop: '10px' }}>
+      <div className="ml-60 p-6  min-h-screen">
+        <h1 className="text-4xl font-bold mb-6 text-gray-800 ml-12" style={{marginTop: '10px' }}>
           Excel 1 Data Table
         </h1>
 
         {/* File Upload Section */}
-        <div className="flex items-center mb-4" style={{ marginLeft: '300px' }}>
+        <div className="flex items-center mb-4 ml-12">
           <input type="file" onChange={handleFileChange} className="mr-2" />
           <button
             onClick={handlePostUpload}
@@ -117,8 +116,8 @@ const Report1 = () => {
         </div>
 
         {/* Table */}
-        <div className="overflow-x-auto">
-          <table className="border border-gray-200" style={{ marginLeft: '300px' }}>
+        <div className="overflow-x-auto ml-12">
+          <table className="border border-gray-200 ">
             <thead className="bg-gray-200">
               <tr>
                 <th className="px-4 py-2 text-left border">ID</th>

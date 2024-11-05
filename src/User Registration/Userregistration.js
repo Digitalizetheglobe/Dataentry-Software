@@ -1,8 +1,11 @@
 import React from "react";
+import Sidebar from "../Sidebar/Sidebar";
 
 const Userregistration = () => {
   return (
-    <div className="flex flex-col max-w-4xl mr-1 mx-auto sm:h-screen p-4">
+    <>
+    <Sidebar />
+    <div className="flex flex-col mr-1 mx-auto sm:h-screen p-4 align-item-center">
       <div className="max-w-md w-full mx-auto border border-gray-300 rounded-2xl p-8">
         <div className="text-center mb-6">
             <h1 className="text-[#001A3B] text-2xl font-bold"> User Profile</h1>
@@ -104,6 +107,7 @@ const Userregistration = () => {
         </form>
       </div>
     </div>
+    </>
   );
 };
 

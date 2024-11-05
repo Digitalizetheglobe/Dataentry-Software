@@ -17,12 +17,24 @@ import dataentry from "../assets/icons/bar-chart.png";
 import laptop from "../assets/icons/clipboard.png";
 import banktransfer from "../assets/icons/cash-flow.png";
 import knowledge from "../assets/icons/knowledge (1).png";
+import LogoutDialog from "../Dialogs/LogoutDialog";
 
 const Sidebar = () => {
   const [isOpenReconciliation, setIsOpenReconciliation] = useState(true);
   const [isOpenTransaction, setIsOpenTransaction] = useState(true);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [activeMenu, setActiveMenu] = useState("");
+  const [isLogoutDialogOpen, setIsLogoutDialogOpen] = useState(false);
+
+ 
+  const handleOpenLogoutDialog = () => {
+    setIsLogoutDialogOpen(true);
+  };
+
+  // Function to close the dialog
+  const handleCloseLogoutDialog = () => {
+    setIsLogoutDialogOpen(false);
+  };
 
   const toggleReconciliation = () => {
     setIsOpenReconciliation((prev) => !prev);
@@ -50,7 +62,9 @@ const Sidebar = () => {
       </button> */}
       <ul className="">
         <li>
-          <Link className="text-black hover:text-blue-600 text-sm flex items-center hover:bg-gray-700 rounded px-4 py-3">
+          <Link
+          to="/"
+          className="text-black hover:text-blue-600 text-sm flex items-center hover:bg-gray-700 rounded px-4 py-3">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="white"
@@ -249,7 +263,7 @@ const Sidebar = () => {
 
       <>
         <div
-          className={` flex items-center px-4 py-3 rounded-md ${activeMenu === "interbanktransfer" ? "bg-gray-700" : ""
+          className={` flex items-center px-4 py-3 mt-2 rounded-md ${activeMenu === "interbanktransfer" ? "bg-gray-700" : ""
             }`}
           onClick={() => handleMenuClick("interbanktransfer")}
         >
@@ -298,6 +312,15 @@ const Sidebar = () => {
             Knowledge Center
           </Link>
         </div>
+        <hr/>
+
+
+            <button onClick={handleOpenLogoutDialog}
+            className="bg-[#001A3B] w-full mt-10 hover:bg-[#fff] text-white hover:text-[#001A3B] border hover:border-[#001A3B] py-2 px-4 rounded-md"
+          >
+            Log Out
+          </button>
+          <LogoutDialog isOpen={isLogoutDialogOpen} onClose={handleCloseLogoutDialog} />
       </>
     </nav>
   );
