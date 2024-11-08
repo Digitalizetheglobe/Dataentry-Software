@@ -3,6 +3,8 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Sidebar from '../Sidebar/Sidebar';
+import Lottie from 'lottie-react';
+import loaderAnimation from '../assets/loder.json';
 
 const Report1 = () => {
   const [data, setData] = useState([]);
@@ -10,6 +12,7 @@ const Report1 = () => {
   const [itemsPerPage] = useState(100); 
   const [totalPages, setTotalPages] = useState(0);
   const [selectedFile, setSelectedFile] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   // Fetch data for Excel 1
   const fetchData = async () => {
@@ -49,7 +52,7 @@ const Report1 = () => {
       });
       toast.success(response.data.message);
       setSelectedFile(null);
-      fetchData(); // Refresh the data after a successful upload
+      fetchData(); 
     } catch (error) {
       console.error('Error uploading file:', error);
       toast.error('Error uploading file. Please try again.');
@@ -65,6 +68,7 @@ const Report1 = () => {
 
     const formData = new FormData();
     formData.append('file', selectedFile);
+    setIsLoading(true);
 
     try {
       const response = await axios.put('http://localhost:8000/api/excel/upload1', formData, {
@@ -74,10 +78,12 @@ const Report1 = () => {
       });
       toast.success(response.data.message);
       setSelectedFile(null);
-      fetchData(); // Refresh the data after a successful update
+      fetchData(); 
     } catch (error) {
       console.error('Error updating file:', error);
       toast.error('Error updating file. Please try again.');
+    }finally{
+      setIsLoading(false); 
     }
   };
 
@@ -115,6 +121,11 @@ const Report1 = () => {
           </button>
         </div>
 
+        {isLoading && (
+          <div className="flex justify-center items-center mt-4">
+            <Lottie animationData={loaderAnimation} loop={true} style={{ width: 150, height: 150 }} />
+          </div>
+        )}
         {/* Table */}
         <div className="overflow-x-auto ml-12">
           <table className="border border-gray-200 ">

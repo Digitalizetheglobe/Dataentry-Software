@@ -22,6 +22,9 @@ import WithdrawalReconcilitionReport from './Withdrawal reconcilition/Withdrawal
 import Depositreconcilition from './Deposit reconcilition/Depositreconcilition';
 import Dashboard from './Dashboard/dashboard';
 import PrivateRoute from './PrivateRoute';
+import YearlyFinancialActivity from './Dashboard/YearlyFinancialActivity.js';
+import BankWiseDeposit from './Dashboard/BankWiseDeposit.js';
+
 
 function App() {
   return (
@@ -170,7 +173,25 @@ function App() {
                 </PrivateRoute>
               }
             />
+             < Route 
+            path='/YearlyFinancialActivity'
+            element={
+              <PrivateRoute>
+                <YearlyFinancialActivity/>
+              </PrivateRoute>
+            }
+            />
+             < Route 
+            path='/BankWiseDeposit'
+            element={
+              <PrivateRoute>
+                <BankWiseDeposit/>
+              </PrivateRoute>
+            }
+            />
+            
           </Routes>
+          
         </div>
       </div>
     </Router>
