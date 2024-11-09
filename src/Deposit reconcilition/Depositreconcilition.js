@@ -46,10 +46,13 @@ const Depositreconcilition = () => {
     <>
     <Sidebar/>
     <div className="max-w-5xl mr-1 mx-auto mt-10 p-4 bg-white rounded">
-      <h1 className="text-4xl font-bold mb-6 text-gray-800" style={{ marginTop: '20px', marginLeft:'20px' }}>Deposit Reconciliation Report</h1>
-
-      {/* Form for Date Selection */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6" style={{ marginLeft:'20px'}}>
+    <div className="p-4 bg-gray-50 rounded-lg ml-10">
+    <div className="flex items-center justify-between mb-6">
+            <h2 className="text-lg font-semibold text-black-700">Deposit Reconciliation Report</h2>
+            <div className="flex items-center space-x-4">
+            </div>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
         <div>
           <label className="block text-sm font-semibold text-gray-700">Start Date</label>
           <DatePicker
@@ -67,30 +70,60 @@ const Depositreconcilition = () => {
           />
         </div>
       </div>
+         <button
+        onClick={fetchReconciliationReport}
+        className="bg-[#001A3B] hover:bg-[#fff] text-white hover:text-[#001A3B] border hover:border-[#001A3B] py-2 px-4 rounded-md"
+        disabled={loading}
+      >
+        {loading ? 'Generating Report...' : 'Generate Report'}
+      </button>
+    </div>
 
-      <button
+      {/* <h1 className="text-4xl font-bold mb-6 text-gray-800" style={{ marginTop: '20px', marginLeft:'20px' }}>Deposit Reconciliation Report</h1> */}
+
+      {/* Form for Date Selection */}
+      {/* <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6" style={{ marginLeft:'20px'}}>
+        <div>
+          <label className="block text-sm font-semibold text-gray-700">Start Date</label>
+          <DatePicker
+            selected={startDate}
+            onChange={(date) => setStartDate(date)}
+            className="w-full border rounded px-3 py-2 text-sm"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-semibold text-gray-700">End Date</label>
+          <DatePicker
+            selected={endDate}
+            onChange={(date) => setEndDate(date)}
+            className="w-full border rounded px-3 py-2 text-sm"
+          />
+        </div>
+      </div> */}
+
+      {/* <button
         onClick={fetchReconciliationReport}
         className="bg-[#001A3B] hover:bg-[#fff] text-white hover:text-[#001A3B] border hover:border-[#001A3B] py-2 px-4 rounded-md"
         disabled={loading}
         style={{ marginLeft:'20px'}}
       >
         {loading ? 'Generating Report...' : 'Generate Report'}
-      </button>
+      </button> */}
 
       {reportData && (
         <>
           {/* Total Amounts */}
-          <div className="bg-gray-100 p-4 rounded mb-4">
-            <h2 className="text-lg font-semibold text-gray-800">
-              Manual Data Total: ₹ {new Intl.NumberFormat('en-IN').format(reportData.totalManualAmount)}
+          <div className="p-4 bg-gray-50 rounded-lg ml-10 mt-5">
+            <h2 className="text-lg font-semibold text-black-700">
+              Manual Data Total : ₹ {new Intl.NumberFormat('en-IN').format(reportData.totalManualAmount)}
             </h2>
-            <h2 className="text-lg font-semibold text-gray-800">
-              Excel Data Total: ₹ {new Intl.NumberFormat('en-IN').format(reportData.totalExcelAmount)}
+            <h2 className="text-lg font-semibold text-black-700">
+              Excel Data Total : ₹ {new Intl.NumberFormat('en-IN').format(reportData.totalExcelAmount)}
             </h2>
           </div>
 
              {/* Matched Records Table */}
-             <div className="mb-6">
+             <div className="p-4 bg-gray-50 rounded-lg ml-10 mt-5">
             <h2 className="text-lg font-semibold text-gray-800 mb-2">Matched Records</h2>
             <div className="overflow-x-auto">
               <table className="min-w-full border border-gray-200">
@@ -122,7 +155,7 @@ const Depositreconcilition = () => {
 
           {/* Discrepancies Table */}
 
-          <div>
+          <div className= "p-4 bg-gray-50 rounded-lg ml-10 mt-5">
             <h2 className="text-lg font-semibold text-gray-800 mb-2">Discrepancies</h2>
             <div className="overflow-x-auto">
               <table className="min-w-full border border-gray-200">

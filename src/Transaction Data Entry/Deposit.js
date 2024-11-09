@@ -22,6 +22,7 @@ const Deposit = () => {
   });
   const [message, setMessage] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
+  const [searchQuery, setSearchQuery] = useState('');
   const entriesPerPage = 20;
   // Function to handle form field changes
   const handleChange = (e) => {
@@ -82,13 +83,23 @@ const Deposit = () => {
     }
   };
 
-
-  // Fetch entries when the component loads
   useEffect(() => {
     fetchEntries();
   }, []);
 
-  const currentEntries = entries.slice((currentPage - 1) * entriesPerPage, currentPage * entriesPerPage);
+
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+    setCurrentPage(1);
+  };
+
+  const filteredEntries = entries.filter((entry) =>
+    entry.player_id.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    entry.utr_id.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  // const currentEntries = entries.slice((currentPage - 1) * entriesPerPage, currentPage * entriesPerPage);
+  const currentEntries = filteredEntries.slice((currentPage - 1) * entriesPerPage, currentPage * entriesPerPage);
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -100,18 +111,18 @@ const Deposit = () => {
   return (
     <>
       <Sidebar />
-      <div className="max-w-5xl mr-1 mx-auto mt-10 p-4 bg-gray rounded ">
-        <div className="p-4 bg-gray-50 rounded-lg ml-10">
+      <div className="max-w-5xl mr-1 mx-auto mt-10 p-4  rounded ">
+        <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg ml-10">
           {/* Header */}
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-lg font-semibold text-gray-700">Overview</h2>
+            <h2 className="text-lg font-semibold text-gray-700 dark:text-gray-300">Overview</h2>
             <div className="flex items-center space-x-4">
-              <button className="px-4 py-2 bg-gray-200 text-gray-600 rounded-full">
+              <button className="px-4 py-2 bg-gray-200 dark:bg-gray-600 text-gray-600 rounded-full">
                 Today
               </button>
-              <button className="px-4 py-2 bg-gray-200 text-gray-600 rounded-full flex items-center">
+              <button className="px-4 py-2 bg-gray-200 dark:bg-gray-600 text-gray-600 rounded-full flex items-center">
                 Select dates
-                <svg className="w-5 h-5 ml-2 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="w-5 h-5 ml-2 text-gray-500 dark:text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
               </button>
@@ -121,14 +132,14 @@ const Deposit = () => {
           {/* Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             {/* Amount Deposited Card */}
-            <div className="flex items-center p-4 bg-white rounded-lg shadow">
+            <div className="flex items-center p-4 bg-white dark:bg-gray-700 rounded-lg shadow">
               <div className="p-4 bg-gray-200 rounded-full">
                 <svg className="w-8 h-8 text-gray-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 10l1.94 1.94L7 7h3.74l-1.62 6 4.38-4.4h3.75l-1.63 6H17l1.94 1.94M2 2l20 20" />
                 </svg>
               </div>
               <div className="ml-4 ">
-                <h3 className="text-lg  text-gray-800">Amount Deposited</h3>
+                <h3 className="text-lg  text-gray-800 dark:text-gray-200">Amount Deposited</h3>
                 <p className="text-2xl font-bold text-gray-900">5,423</p>
                 <p className="text-sm text-green-500">▲ 16% this month</p>
               </div>
@@ -149,7 +160,7 @@ const Deposit = () => {
             </div>
 
             {/* New User Added Card */}
-            <div className="flex items-center p-4 bg-white rounded-lg shadow">
+            <div className="flex items-center p-4 bg-white rounded-lg shadow ">
               <div className="p-4 bg-gray-200 rounded-full">
                 <svg className="w-8 h-8 text-gray-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0v8" />
@@ -162,7 +173,6 @@ const Deposit = () => {
             </div>
           </div>
         </div>
-
         {/* <h1 className="text-4xl font-bold mb-6 text-gray-800" style={{ marginLeft: '20px' }}>Deposit Entries</h1> */}
         <div className="flex items-center mb-6 ml-10 mt-10">
           <img src={deposite} alt="Deposit Icon" className="w-5 h-5 ml-2 text-gray-500" />
@@ -170,7 +180,6 @@ const Deposit = () => {
           <div className="flex items-center space-x-4">
           </div>
         </div>
-
         <div className="p-4 bg-gray-50 rounded-lg ml-10">
           {/* Form to Add New Entry */}
           <form onSubmit={handleSubmit} className="mb-6">
@@ -251,6 +260,15 @@ const Deposit = () => {
             >
               Add Entry
             </button>
+            <button
+              type="submit"
+              className="mt-4 w-40 h-10 bg-[#001A3B] hover:bg-[#fff] text-white hover:text-[#001A3B] border hover:border-[#001A3B] py-2 rounded right-0"
+              // className=" py-2 px-4 rounded-md"
+
+              style={{ marginLeft: '20px' }}
+            >
+              Reset Form
+            </button>
           </form>
         </div>
         <br />
@@ -272,7 +290,9 @@ const Deposit = () => {
               <div className="relative">
                 <input
                   type="text"
-                  placeholder="Search"
+                  placeholder="Search by Player ID or UTR ID"
+                  value={searchQuery}
+                  onChange={handleSearchChange}
                   className="pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
                 />
                 <svg

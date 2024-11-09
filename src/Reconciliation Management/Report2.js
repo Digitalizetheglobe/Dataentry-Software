@@ -70,11 +70,26 @@ const Report2 = () => {
   return (
     <>
     <Sidebar/>
-    <div className="mx-auto mt-10 p-4 bg-white rounded shadow-md">
-      <h1 className="text-4xl font-bold mb-6 text-gray-800" style={{ marginLeft: '300px', marginTop: '10px' }}>Excel 2 Data Table</h1>
-
+    <div className="max-w-5xl mr-1 mx-auto mt-10 p-4 bg-white rounded">
+      <div className="p-4 bg-gray-50 rounded-lg ml-10">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-lg font-semibold text-gray-700">Excel 2 Data Table</h2>
+            <div className="flex items-center space-x-4">
+            </div>
+          </div>
+          {/* File Upload Section */}
+          <div className="flex items-center mb-4">
+          <input type="file" onChange={handleFileChange} className="mr-2" />
+        <button
+          onClick={handleUpload}
+          className="bg-[#001A3B] hover:bg-[#fff] text-white hover:text-[#001A3B] border hover:border-[#001A3B] py-2 px-4 rounded-md"
+          >
+          Upload Excel 2
+        </button>
+          </div>
+        </div>
       {/* File Upload Section */}
-      <div className="flex items-center mb-4" style={{ marginLeft: '300px' }}>
+      {/* <div className="flex items-center mb-4" style={{ marginLeft: '300px' }}>
         <input type="file" onChange={handleFileChange} className="mr-2" />
         <button
           onClick={handleUpload}
@@ -82,19 +97,19 @@ const Report2 = () => {
           >
           Upload Excel 2
         </button>
-      </div>
+      </div> */}
 
-      <div className="overflow-x-auto">
-        <table className="border border-gray-200" style={{ marginLeft: '300px' }}>
-          <thead className="bg-gray-200">
+      <div className="overflow-x-auto ml-10 rounded-lg mt-5">
+        <table className="min-w-full border border-gray-300 rounded-lg">
+          <thead className="bg-gray-100 text-gray-600">
             <tr>
-              <th className="px-4 py-2 text-left border">ID</th>
-              <th className="px-4 py-2 text-left border">UID</th>
-              <th className="px-4 py-2 text-left border">Deposit</th>
-              <th className="px-4 py-2 text-left border">Withdraw</th>
-              <th className="px-4 py-2 text-left border">Balance</th>
-              <th className="px-4 py-2 text-left border">from - to</th>
-              <th className="px-4 py-2 text-left border">Updated At</th>
+              <th className="px-4 py-3 text-left text-sm font-semibold border">ID</th>
+              <th className="px-4 py-3 text-left text-sm font-semibold border">UID</th>
+              <th className="px-4 py-3 text-left text-sm font-semibold border">Deposit</th>
+              <th className="px-4 py-3 text-left text-sm font-semibold border">Withdraw</th>
+              <th className="px-4 py-3 text-left text-sm font-semibold border">Balance</th>
+              <th className="px-4 py-3 text-left text-sm font-semibold border">from - to</th>
+              <th className="px-4 py-3 text-left text-sm font-semibold border">Updated At</th>
             </tr>
           </thead>
           <tbody>
@@ -114,7 +129,7 @@ const Report2 = () => {
       </div>
 
       <nav aria-label="Page navigation example" className="mt-4">
-        <ul className="inline-flex -space-x-px text-sm" style={{ marginLeft: '500px' }}>
+        <ul className="inline-flex -space-x-px text-sm" style={{ marginLeft: '300px' }}>
           <li>
             <button
               onClick={() => paginate(currentPage - 1)}

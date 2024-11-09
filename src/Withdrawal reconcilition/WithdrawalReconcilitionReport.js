@@ -40,7 +40,7 @@ const WithdrawalReconciliationReport = () => {
 
   // const exportToCSV = () => {
   //   if (!reportData) return;
-  
+
   //   const headers = ["User ID", "Amount", "Branch ID", "Date", "Matched"];
   //   const csvRows = reportData.matchedRecords.map(record => [
   //     record.user_id,
@@ -49,12 +49,12 @@ const WithdrawalReconciliationReport = () => {
   //     new Date(record.date).toLocaleDateString(),
   //     "✔"
   //   ]);
-  
+
   //   const csvContent = [
   //     headers.join(","), 
   //     ...csvRows.map(row => row.join(",")) 
   //   ].join("\n");
-  
+
   //   const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
   //   const url = URL.createObjectURL(blob);
   //   const link = document.createElement('a');
@@ -63,7 +63,7 @@ const WithdrawalReconciliationReport = () => {
   //   document.body.appendChild(link);
   //   link.click();
   // };
-  
+
 
   // const exportToExcel = () => {
   //   if (!reportData) return;
@@ -78,11 +78,45 @@ const WithdrawalReconciliationReport = () => {
     <>
       <Sidebar />
       <div className="max-w-5xl mr-1 mx-auto mt-10 p-4 bg-white rounded">
-        <h1 className="text-4xl font-bold mb-6 text-gray-800" style={{ marginTop: '20px', marginLeft: '20px' }}>
-          Withdrawal Reconciliation Report
-        </h1>
+        <div className="p-4 bg-gray-50 rounded-lg ml-10">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-lg font-semibold text-black-700">Withdrawal Reconciliation Report</h2>
+            <div className="flex items-center space-x-4">
+            </div>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+            <div>
+              <label className="block text-sm font-semibold text-gray-700">Start Date</label>
+              <DatePicker
+                selected={startDate}
+                onChange={(date) => setStartDate(date)}
+                className="w-full border rounded px-3 py-2 text-sm"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-semibold text-gray-700">End Date</label>
+              <DatePicker
+                selected={endDate}
+                onChange={(date) => setEndDate(date)}
+                className="w-full border rounded px-3 py-2 text-sm"
+              />
+            </div>
+          </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6" style={{ marginLeft: '20px' }}>
+          <button
+            onClick={fetchReconciliationReport}
+            className="bg-[#001A3B] hover:bg-[#fff] text-white hover:text-[#001A3B] border hover:border-[#001A3B] py-2 px-4 rounded-md"
+            disabled={loading}
+          >
+            {loading ? 'Generating Report...' : 'Generate Report'}
+          </button>
+
+        </div>
+        {/* <h1 className="text-4xl font-bold mb-6 text-gray-800" style={{ marginTop: '20px', marginLeft: '20px' }}>
+          Withdrawal Reconciliation Report
+        </h1> */}
+
+        {/* <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6" style={{ marginLeft: '20px' }}>
           <div>
             <label className="block text-sm font-semibold text-gray-700">Start Date</label>
             <DatePicker
@@ -99,40 +133,49 @@ const WithdrawalReconciliationReport = () => {
               className="w-full border rounded px-3 py-2 text-sm"
             />
           </div>
-        </div>
+        </div> */}
 
-        <button
+        {/* <button
           onClick={fetchReconciliationReport}
           className="bg-[#001A3B] hover:bg-[#fff] text-white hover:text-[#001A3B] border hover:border-[#001A3B] py-2 px-4 rounded-md"
           disabled={loading}
           style={{ marginLeft: '20px' }}
         >
           {loading ? 'Generating Report...' : 'Generate Report'}
-        </button>
+        </button> */}
 
         {reportData && (
           <>
-            <div className="flex justify-end space-x-4 mt-4">
-              <button className="bg-blue-500 text-white px-4 py-2 rounded-md">Export CSV</button>
-              <button  className="bg-green-500 text-white px-4 py-2 rounded-md">Export Excel</button>
+            <div className="flex items-center justify-between mb-6 ml-10 mt-5">
+              <h2 className="text-lg font-semibold text-gray-700 dark:text-gray-300">Generated Result</h2>
+              <div className="flex items-center space-x-4">
+                <button className="bg-[#001A3B] hover:bg-[#fff] text-white hover:text-[#001A3B] border hover:border-[#001A3B] py-2 px-4 rounded-md"              >Export CSV</button>
+                <button className="bg-[#001A3B] hover:bg-[#fff] text-white hover:text-[#001A3B] border hover:border-[#001A3B] py-2 px-4 rounded-md"              >Export Excel</button>
+              </div>
             </div>
 
+
+            {/* <div className="flex justify-end space-x-4 mt-4">
+              <button className="bg-blue-500 text-white px-4 py-2 rounded-md">Export CSV</button>
+              <button className="bg-green-500 text-white px-4 py-2 rounded-md">Export Excel</button>
+            </div> */}
+
             {/* Total Amounts */}
-            <div className="bg-gray-100 p-4 rounded mb-4">
-              <h2 className="text-lg font-semibold text-gray-800">
-                Manual Data Total: ₹ {new Intl.NumberFormat('en-IN').format(reportData.totalManualAmount)}
+            <div className="p-4 bg-gray-50 rounded-lg ml-10">
+              <h2 className="text-lg font-semibold text-black-700">
+                Manual Data Total : ₹ {new Intl.NumberFormat('en-IN').format(reportData.totalManualAmount)}
               </h2>
-              <h2 className="text-lg font-semibold text-gray-800">
-                Excel Data Total: ₹ {new Intl.NumberFormat('en-IN').format(reportData.totalExcelAmount)}
+              <h2 className="text-lg font-semibold text-black-700">
+                Excel Data Total : ₹ {new Intl.NumberFormat('en-IN').format(reportData.totalExcelAmount)}
               </h2>
             </div>
 
             {/* Matched Records Table */}
-            <div className="mb-6">
+            <div className="p-4 bg-gray-50 rounded-lg ml-10 mt-5">
               <h2 className="text-lg font-semibold text-gray-800 mb-2">Matched Records</h2>
               <div className="overflow-x-auto">
-                <table className="min-w-full border border-gray-200">
-                  <thead className="bg-gray-200">
+                <table className="min-w-full border border-gray-300 rounded-lg">
+                  <thead className="bg-gray-100 text-gray-600">
                     <tr>
                       <th className="px-4 py-2 text-left border">User ID</th>
                       <th className="px-4 py-2 text-left border">Amount</th>
