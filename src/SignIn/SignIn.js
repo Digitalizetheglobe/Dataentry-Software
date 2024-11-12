@@ -16,8 +16,9 @@ const SignIn = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:8000/api/new-users/login", {
-        user_id: branchName,
+      // Adjust the API URL if needed
+      const response = await axios.post("http://localhost:8000/api/branch/login", {
+        branch_id: branchName, // Ensure it matches the backend field
         password,
       });
 
@@ -27,7 +28,7 @@ const SignIn = () => {
         setMessage("Login successful!");
 
         // Redirect to a protected route or dashboard
-        navigate("/dashboard"); // Replace with your desired route
+        navigate("/"); // Replace with your desired route
       } else {
         setMessage("Login failed. Please try again.");
       }
@@ -43,24 +44,14 @@ const SignIn = () => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center">
       <div className="grid md:grid-cols-2 items-center gap-4 max-md:gap-8 max-w-6xl max-md:max-w-lg w-full p-4 m-4">
-        {/* Image Section (Left side now) */}
-        <div
-          className="md:h-full relative rounded-xl lg:p-12 p-8 size"
-          style={{
-            background: "linear-gradient(359.37deg, #003170 -5.19%, #001A3B 90.77%)",
-          }}
-        >
+        {/* Image Section */}
+        <div className="md:h-full relative rounded-xl lg:p-12 p-8 size" style={{
+          background: "linear-gradient(359.37deg, #003170 -5.19%, #001A3B 90.77%)",
+        }}>
           <img src={topimg} alt="Top" className="absolute top-0 left-0 w-full h-auto" />
-          <img
-            src={centerimg}
-            alt="Center"
-            className="absolute bottom-12 left-0 w-auto h-auto z-10 max-w-[50%] imgleft"
-            style={{ transform: "translateX(-7%)", maxWidth: "75%" }}
-          />
+          <img src={centerimg} alt="Center" className="absolute bottom-12 left-0 w-auto h-auto z-10 max-w-[50%] imgleft" style={{ transform: "translateX(-7%)", maxWidth: "75%" }} />
           <img src={bottomimg} alt="Bottom" className="absolute bottom-0 left-0 w-full h-auto z-0" />
-          <h1 className="text-white text-md pt-6 relative ">
-            Simplest way to manage your workforce
-          </h1>
+          <h1 className="text-white text-md pt-6 relative ">Simplest way to manage your workforce</h1>
           <span className="text-white text-xs font-light text-[11px] leading-[21px] relative">
             Enter your credentials to access your account
           </span>
@@ -76,13 +67,13 @@ const SignIn = () => {
           </div>
         </div>
 
-        {/* Form Section (Right side now) */}
+        {/* Form Section */}
         <div className="md:max-w-md w-full px-4 py-4">
           <form onSubmit={handleLogin}>
             <div className="">
               <h3 className="text-gray-800 text-3xl font-extrabold">Welcome Back</h3>
               <p className="text-sm mt-2 text-gray-500 font-semibold">
-                Welcome Back ! Please Enter Your Details
+                Welcome Back! Please Enter Your Details
               </p>
             </div>
 
@@ -113,25 +104,6 @@ const SignIn = () => {
                   className="w-full text-gray-800 text-sm border border-gray-400 rounded-md focus:border-[#001A3B] px-2 py-3 outline-none"
                   placeholder="Enter password"
                 />
-              </div>
-            </div>
-
-            <div className="flex flex-wrap items-center justify-between gap-4 mt-6">
-              <div className="flex items-center">
-                <input
-                  id="remember-me"
-                  name="remember-me"
-                  type="checkbox"
-                  className="h-4 w-4 shrink-0 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-                />
-                <label htmlFor="remember-me" className="ml-3 block text-sm text-gray-800">
-                  Remember me
-                </label>
-              </div>
-              <div>
-                <a href="#" className="text-gray-500 font-semibold text-sm hover:underline">
-                  Forgot Password?
-                </a>
               </div>
             </div>
 
