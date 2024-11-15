@@ -10,7 +10,7 @@ const MergeReport = () => {
   useEffect(() => {
     const fetchMergedData = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/excel/merged-data');
+        const response = await axios.get('http://api.cptechsolutions.com/api/excel/merged-data');
         setMergedData(response.data.data);
       } catch (err) {
         console.error('Error fetching merged data:', err);

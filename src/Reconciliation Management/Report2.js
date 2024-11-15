@@ -14,7 +14,7 @@ const Report2 = () => {
   // Fetch data from API
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/api/excel/data2');
+      const response = await axios.get('http://api.cptechsolutions.com/api/excel/data2');
       setData(response.data.data);
       setTotalPages(Math.ceil(response.data.data.length / itemsPerPage));
       setCurrentPage(1);

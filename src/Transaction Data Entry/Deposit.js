@@ -52,7 +52,7 @@ const Deposit = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8000/api/deposit-withdraw/add-entry', formData);
+      const response = await axios.post('http://api.cptechsolutions.com/api/deposit-withdraw/add-entry', formData);
       toast.success("Entry added successfully.");
       setFormData({
         player_id: '',

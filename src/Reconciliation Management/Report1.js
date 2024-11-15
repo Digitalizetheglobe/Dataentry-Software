@@ -71,7 +71,7 @@ const Report1 = () => {
     setIsLoading(true);
 
     try {
-      const response = await axios.put('http://localhost:8000/api/excel/upload1', formData, {
+      const response = await axios.put('http://api.cptechsolutions.com/api/excel/upload1', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

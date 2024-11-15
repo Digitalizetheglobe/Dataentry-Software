@@ -48,7 +48,7 @@ const Withdrawal = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:8000/api/withdrawal-report/add-entry', formData);
+      await axios.post('http://api.cptechsolutions.com/api/withdrawal-report/add-entry', formData);
       toast.success('Withdrawal entry added successfully');
       setFormData({
         user_id: '',

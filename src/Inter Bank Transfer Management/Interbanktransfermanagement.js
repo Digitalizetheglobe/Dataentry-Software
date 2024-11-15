@@ -52,7 +52,7 @@ const Interbanktransfermanagement = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8000/api/interbank-transfer/add-transfer', formData);
+      const response = await axios.post('http://api.cptechsolutions.com/api/interbank-transfer/add-transfer', formData);
       toast.success(response.data.message);
       setFormData({
         sender_bank: '',
@@ -71,7 +71,7 @@ const Interbanktransfermanagement = () => {
 
   const fetchTransfers = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/api/interbank-transfer/transfers');
+      const response = await axios.get('http://api.cptechsolutions.com/api/interbank-transfer/transfers');
       setTransfers(response.data.data);
     } catch (error) {
       toast.error('Error fetching transfers.');
