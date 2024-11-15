@@ -72,7 +72,7 @@ const Deposit = () => {
 
   const fetchEntries = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/api/deposit-withdraw/entries');
+      const response = await axios.get('http://api.cptechsolutions.com/api/deposit-withdraw/entries');
 
       // Sort entries so that the most recent entries come first
       const sortedEntries = response.data.data.sort((a, b) => new Date(b.date) - new Date(a.date));
