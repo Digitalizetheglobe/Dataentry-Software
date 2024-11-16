@@ -126,7 +126,7 @@ const Deposit = () => {
   };
 
   const totalPages = Math.ceil(entries.length / entriesPerPage);
-
+// new changes
 
   return (
     <>
