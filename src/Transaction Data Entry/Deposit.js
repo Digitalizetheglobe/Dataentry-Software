@@ -12,6 +12,8 @@ import exportone from '../assets/download-cloud-02.png';
 const Deposit = () => {
   const [entries, setEntries] = useState([]);
   const [branchId, setBranchId] = useState('');
+  const [selectedEntries, setSelectedEntries] = useState([]);
+
   const [formData, setFormData] = useState({
     player_id: '',
     branch_id: '',
@@ -91,6 +93,24 @@ const Deposit = () => {
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
     setCurrentPage(1);
+  };
+  const handleCheckboxChange = (id) => {
+    setSelectedEntries((prevSelected) =>
+      prevSelected.includes(id) ? prevSelected.filter((entryId) => entryId !== id) : [...prevSelected, id]
+    );
+  };
+  const handleDelete = async () => {
+    try {
+      // Delete each selected entry
+      await Promise.all(
+        selectedEntries.map((id) => axios.delete(`http://api.cptechsolutions.com/api/deposit-withdraw/delete-entry/${id}`))
+      );
+      toast.success('Selected entries deleted successfully.');
+      setSelectedEntries([]);
+      fetchEntries();
+    } catch (error) {
+      toast.error('Error deleting entries. Please try again.');
+    }
   };
 
   const filteredEntries = entries.filter((entry) =>
@@ -322,45 +342,78 @@ const Deposit = () => {
 
           {/* Table */}
           <div className="ml-[-6px]">
-            <table className="min-w-full border border-gray-300 rounded-lg">
-              <thead className="bg-gray-100 text-gray-600">
-                <tr>
-                  <th className="px-4 py-3 text-left text-sm font-semibold border-b">
-                    <input type="checkbox" className="form-checkbox" />
-                  </th>
-                  <th className="px-4 py-3 text-left text-sm font-semibold border-b">Date</th>
-                  <th className="px-4 py-3 text-left text-sm font-semibold border-b">Player ID</th>
-                  <th className="px-4 py-3 text-left text-sm font-semibold border-b">UTR ID</th>
-                  <th className="px-6 py-3 text-left text-sm font-semibold border-b">Amount</th>
-                  <th className="px-6 py-3 text-left text-sm font-semibold border-b">Bank Name</th>
-                  <th className="px-10 py-3 text-left text-sm font-semibold border-b">Branch ID</th>
-                  <th className="px-4 py-3 text-left text-sm font-semibold border-b">Actions</th>
-                </tr>
-              </thead>
-              <tbody className="bg-white text-gray-800">
-                {currentEntries.map((entry, index) => (
-                  <tr key={index} className={`hover:bg-gray-50 transition-colors duration-150 ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
-                    <td className="px-4 py-4 border-b text-sm">
-                      <input type="checkbox" className="form-checkbox" />
-                    </td>
-                    <td className="px-4 py-4 border-b text-sm">{new Date(entry.created_at).toLocaleDateString()}</td>
-                    <td className="px-4 py-4 border-b text-sm">{entry.player_id}</td>
-                    <td className="px-4 py-4 border-b text-sm">{entry.utr_id}</td>
-                    <td className="px-6 py-4 border-b text-sm">{entry.amount}</td>
-                    <td className="px-6 py-4 border-b text-sm">{entry.bank_name}</td>
-                    <td className="px-10 py-4 border-b text-sm">{entry.branch_id}</td>
-                    <td className="px-4 py-4 border-b text-sm">
-                      <button className="text-blue-500 hover:text-blue-700">
-                        <img src={edit} alt="Edit" className="w-4 h-4 inline" />
-                      </button>
-                      <button className="text-red-500 hover:text-red-700 ml-2">
-                        <img src={trash} alt="Delete" className="w-4 h-4 inline" />
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <button
+          className={`bg-red-500 text-white px-4 py-2 rounded mb-4 ${
+            selectedEntries.length === 0 ? 'opacity-50 cursor-not-allowed' : ''
+          }`}
+          onClick={handleDelete}
+          disabled={selectedEntries.length === 0}
+        >
+          Delete Selected
+        </button>
+          <table className="min-w-full border border-gray-300 rounded-lg">
+          <thead className="bg-gray-100 text-gray-600">
+            <tr>
+              <th className="px-4 py-3 text-left text-sm font-semibold border-b">
+                <input
+                  type="checkbox"
+                  className="form-checkbox"
+                  onChange={(e) => {
+                    if (e.target.checked) {
+                      setSelectedEntries(entries.map((entry) => entry.id));
+                    } else {
+                      setSelectedEntries([]);
+                    }
+                  }}
+                  checked={selectedEntries.length === entries.length && entries.length > 0}
+                />
+              </th>
+              <th className="px-4 py-3 text-left text-sm font-semibold border-b">Date</th>
+              <th className="px-4 py-3 text-left text-sm font-semibold border-b">Player ID</th>
+              <th className="px-4 py-3 text-left text-sm font-semibold border-b">UTR ID</th>
+              <th className="px-6 py-3 text-left text-sm font-semibold border-b">Amount</th>
+              <th className="px-6 py-3 text-left text-sm font-semibold border-b">Bank Name</th>
+              <th className="px-10 py-3 text-left text-sm font-semibold border-b">Branch ID</th>
+              <th className="px-4 py-3 text-left text-sm font-semibold border-b">Actions</th>
+            </tr>
+          </thead>
+          <tbody className="bg-white text-gray-800">
+            {currentEntries.map((entry, index) => (
+              <tr
+                key={index}
+                className={`hover:bg-gray-50 transition-colors duration-150 ${
+                  index % 2 === 0 ? 'bg-white' : 'bg-gray-50'
+                }`}
+              >
+                <td className="px-4 py-4 border-b text-sm">
+                  <input
+                    type="checkbox"
+                    className="form-checkbox"
+                    onChange={() => handleCheckboxChange(entry.id)}
+                    checked={selectedEntries.includes(entry.id)}
+                  />
+                </td>
+                <td className="px-4 py-4 border-b text-sm">{new Date(entry.created_at).toLocaleDateString()}</td>
+                <td className="px-4 py-4 border-b text-sm">{entry.player_id}</td>
+                <td className="px-4 py-4 border-b text-sm">{entry.utr_id}</td>
+                <td className="px-6 py-4 border-b text-sm">{entry.amount}</td>
+                <td className="px-6 py-4 border-b text-sm">{entry.bank_name}</td>
+                <td className="px-10 py-4 border-b text-sm">{entry.branch_id}</td>
+                <td className="px-4 py-4 border-b text-sm">
+                  <button className="text-blue-500 hover:text-blue-700">
+                    <img src={edit} alt="Edit" className="w-4 h-4 inline" />
+                  </button>
+                  {/* <button
+                    className="text-red-500 hover:text-red-700 ml-2"
+                    onClick={() => handleCheckboxChange(entry.id)}
+                  >
+                    <img src={trash} alt="Delete" className="w-4 h-4 inline" />
+                  </button> */}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
           </div>
           {/* Pagination */}
           <div className="flex justify-center mt-4">

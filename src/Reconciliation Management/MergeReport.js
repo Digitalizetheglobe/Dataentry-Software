@@ -44,7 +44,7 @@ const MergeReport = () => {
       </div>
 
       {/* Main Content */}
-      <div className="w-4/5 bg-gray-50 overflow-hidden">
+      <div className="w-4/5 overflow-hidden">
         <div className="h-full flex flex-col max-h-screen">
           <div className="bg-white shadow-md rounded-lg p-6">
             <div className="flex items-center justify-between mb-6">
