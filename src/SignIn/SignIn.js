@@ -17,7 +17,7 @@ const SignIn = () => {
 
     try {
       // Adjust the API URL if needed
-      const response = await axios.post("http://api.cptechsolutions.com/api/branch/login", {
+      const response = await axios.post("http://localhost:8000/api/branch/login", {
         branch_id: branchName, // Ensure it matches the backend field
         password,
       });

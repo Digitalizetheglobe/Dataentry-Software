@@ -54,7 +54,7 @@ const Deposit = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://api.cptechsolutions.com/api/deposit-withdraw/add-entry', formData);
+      const response = await axios.post('http://localhost:8000/api/deposit-withdraw/add-entry', formData);
       toast.success("Entry added successfully.");
       setFormData({
         player_id: '',
@@ -74,7 +74,8 @@ const Deposit = () => {
 
   const fetchEntries = async () => {
     try {
-      const response = await axios.get('http://api.cptechsolutions.com/api/deposit-withdraw/entries');
+      // {api.cptechsolutions.com}
+      const response = await axios.get('http://localhost:8000/api/deposit-withdraw/entries');
 
       // Sort entries so that the most recent entries come first
       const sortedEntries = response.data.data.sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -101,9 +102,9 @@ const Deposit = () => {
   };
   const handleDelete = async () => {
     try {
-      // Delete each selected entry
+      // Delete each selected entry    {http://api.cptechsolutions.com }
       await Promise.all(
-        selectedEntries.map((id) => axios.delete(`http://api.cptechsolutions.com/api/deposit-withdraw/delete-entry/${id}`))
+        selectedEntries.map((id) => axios.delete(`http://localhost:8000/api/deposit-withdraw/delete-entry/${id}`))
       );
       toast.success('Selected entries deleted successfully.');
       setSelectedEntries([]);
