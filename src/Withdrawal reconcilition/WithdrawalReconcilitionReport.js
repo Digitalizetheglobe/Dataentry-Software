@@ -24,7 +24,7 @@ const WithdrawalReconciliationReport = () => {
     setLoading(true);
     try {
       // api.cptechsolutions.com
-      const response = await axios.get('http://localhost:8000/api/withdrawal/reconciliation-report', {
+      const response = await axios.get('http://api.cptechsolutions.com/api/withdrawal/reconciliation-report', {
         params: {
           startDate: startDate.toISOString().split('T')[0],
           endDate: endDate.toISOString().split('T')[0],

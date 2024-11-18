@@ -25,7 +25,7 @@ const Depositreconcilition = () => {
   const fetchReconciliationReport = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('http://localhost:8000/api/deposit/deposit-reconciliation-report', {
+      const response = await axios.get('http://api.cptechsolutions.com/api/deposit/deposit-reconciliation-report', {
         params: {
           startDate: startDate.toISOString().split('T')[0],
           endDate: endDate.toISOString().split('T')[0],
