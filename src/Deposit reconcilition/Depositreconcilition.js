@@ -51,7 +51,7 @@ const Depositreconcilition = () => {
       </div>
       
       {/* Main Content */}
-      <div className="w-4/5 overflow-hidden">
+      <div className="w-4/5 overflow-y-auto">
     <div className="max-w-5xl mr-1 mx-auto mt-10 p-4 bg-white rounded">
     <div className="p-4 bg-gray-50 rounded-lg ml-10">
     <div className="flex items-center justify-between mb-6">
@@ -190,7 +190,7 @@ const Depositreconcilition = () => {
                       <td className="px-4 py-2 border">
                         <button
                           onClick={() => toggleSkip(discrepancy.user_id)}
-                          className={`px-2 py-1 rounded ${skippedEntries.includes(discrepancy.user_id) ? 'bg-gray-500 text-white' : 'bg-blue-500 text-white'
+                          className={`bg-green-600 border border-green-700 hover:bg-white hover:text-green-700 text-white hover:border-green-700 text-white px-2 py-1 rounded ${skippedEntries.includes(discrepancy.user_id) ? 'bg-gray-500 text-white' : 'bg-blue-500 text-white'
                             }`}
                         >
                           {skippedEntries.includes(discrepancy.user_id) ? 'Unskip' : 'Skip'}

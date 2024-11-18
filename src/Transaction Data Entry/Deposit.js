@@ -344,20 +344,21 @@ const Deposit = () => {
               <button className="bg-transperent hover:bg-[#fff] text-[#001A3B] hover:text-[#001A3B] border hover:border-[#001A3B] py-2 rounded right-0" style={{ height: '40px', width: '100px' }}>
                 <img src={exportone} alt="export" className="w-5 h-5 inline" />  Export
               </button>
-            </div>
-          </div>
-
-          {/* Table */}
-          <div className="ml-[-6px]">
-          <button
-          className={`bg-red-500 text-white px-4 py-2 rounded mb-4 ${
+              <button
+          className={`bg-red-500 text-white px-4 py-2 rounded ${
             selectedEntries.length === 0 ? 'opacity-50 cursor-not-allowed' : ''
           }`}
           onClick={handleDelete}
           disabled={selectedEntries.length === 0}
         >
-          Delete Selected
+        Delete 
         </button>
+            </div>
+          </div>
+
+          {/* Table */}
+          <div className="ml-[-6px]">
+          
           <table className="min-w-full border border-gray-300 rounded-lg">
           <thead className="bg-gray-100 text-gray-600">
             <tr>
