@@ -110,23 +110,27 @@ const Sidebar = () => {
         {isOpenReconciliation && !isCollapsed && (
           <ul className="space-y-1 mt-2 pl-4">
             <li>
-              <Link
-                to="/report-1"
-                className={`text-white hover:text-white transition-all text-sm flex items-center rounded-md px-4 py-3 ${activeMenu === "report-1" ? "bg-gray-700" : ""
-                  }`}
-                onClick={() => handleMenuClick("report-1")}
-              >
-                <img
-                  src={report}
-                  className="w-[18px] h-[18px] mr-4 filter invert"
-                />
-                <span>Report-1</span>
-              </Link>
-            </li>
+  <Link
+    to="/report-1"
+    className={`transition-all text-sm flex items-center rounded-md px-4 py-3 ${
+      activeMenu === "report-1"
+        ? "bg-gray-700 text-white"
+        : "bg-transparent text-white hover:bg-gray-700"
+    }`}
+    onClick={() => handleMenuClick("report-1")}
+  >
+    <img src={report} className="w-[18px] h-[18px] mr-4 filter invert" />
+    <span>Report-1</span>
+  </Link>
+</li>
+
             <li>
               <Link
                 to="/report-2"
-                className={`text-white hover:text-white transition-all text-sm flex items-center rounded-md px-4 py-3 ${activeMenu === "report-2" ? "bg-gray-700" : ""
+                className={`transition-all text-sm flex items-center rounded-md px-4 py-3 ${
+                  activeMenu === "report-2"
+                   ? "bg-gray-700 text-white"
+                  :  "bg-transparent text-white hover:bg-gray-700"
                   }`}
                 onClick={() => handleMenuClick("report-2")}
               >
@@ -140,7 +144,10 @@ const Sidebar = () => {
             <li>
               <Link
                 to="/MergeReport"
-                className={`text-white hover:text-white transition-all text-sm flex items-center rounded-md px-4 py-3 ${activeMenu === "MergeReport" ? "bg-gray-700" : ""
+                className={` transition-all text-sm flex items-center rounded-md px-4 py-3 
+                  ${activeMenu === "MergeReport" 
+                    ? "bg-gray-700 text-white"
+                    : "bg-transparent text-white hover:bg-gray-700"
                   }`}
                 onClick={() => handleMenuClick("MergeReport")}
               >
@@ -155,7 +162,10 @@ const Sidebar = () => {
             <li>
               <Link
                 to="/WithdrawalReconcilitionReport"
-                className={`text-white hover:text-white transition-all text-sm flex items-center rounded-md px-4 py-3 ${activeMenu === "WithdrawalReconcilitionReport" ? "bg-gray-700" : ""
+                className={` transition-all text-sm flex items-center rounded-md px-4 py-3
+                   ${activeMenu === "WithdrawalReconcilitionReport"
+                     ? "bg-gray-700 text-white"
+                    : "bg-transparent text-white hover:bg-gray-700"
                   }`}
                 onClick={() => handleMenuClick("WithdrawalReconcilitionReport")}
               >
@@ -170,7 +180,10 @@ const Sidebar = () => {
             <li>
               <Link
                 to="/Depositreconcilition"
-                className={`text-white hover:text-white transition-all text-sm flex items-center rounded-md px-4 py-3 ${activeMenu === "Depositreconcilition" ? "bg-gray-700" : ""
+                className={`transition-all text-sm flex items-center rounded-md px-4 py-3 
+                  ${activeMenu === "Depositreconcilition"
+                     ? "bg-gray-700 text-white" 
+                     : "bg-transparent text-white hover:bg-gray-700"
                   }`}
                 onClick={() => handleMenuClick("Depositreconcilition")}
               >
@@ -216,7 +229,10 @@ const Sidebar = () => {
             <li>
               <Link
                 to="/deposit"
-                className={`text-white hover:text-white transition-all text-sm flex items-center rounded-md px-4 py-3 ${activeMenu === "deposit" ? "bg-gray-700" : ""
+                className={`transition-all text-sm flex items-center rounded-md px-4 py-3
+                   ${activeMenu === "deposit" 
+                    ? "bg-gray-700 text-white" 
+                    : "bg-transparent text-white hover:bg-gray-700"
                   }`}
                 onClick={() => handleMenuClick("deposit")}
               >
@@ -227,7 +243,10 @@ const Sidebar = () => {
             <li>
               <Link
                 to="/withdrawal"
-                className={`text-white hover:text-white transition-all text-sm flex items-center rounded-md px-4 py-3 ${activeMenu === "withdrawal" ? "bg-gray-700" : ""
+                className={`transition-all text-sm flex items-center rounded-md px-4 py-3 
+                  ${activeMenu === "withdrawal"
+                     ? "bg-gray-700 text-white" 
+                     : "bg-transparent text-white hover:bg-gray-700"
                   }`}
                 onClick={() => handleMenuClick("withdrawal")}
               >
@@ -238,7 +257,10 @@ const Sidebar = () => {
             <li>
               <Link
                 to="/withdrawal-bank-report"
-                className={`text-white hover:text-white transition-all text-sm flex items-center rounded-md px-4 py-3 ${activeMenu === "withdrawal-bank-report" ? "bg-gray-700" : ""
+                className={`transition-all text-sm flex items-center rounded-md px-4 py-3 
+                  ${activeMenu === "withdrawal-bank-report" 
+                    ? "bg-gray-700 text-white" 
+                    : "bg-transparent text-white hover:bg-gray-700"
                   }`}
                 onClick={() => handleMenuClick("withdrawal-bank-report")}
               >
@@ -249,7 +271,10 @@ const Sidebar = () => {
             <li>
               <Link
                 to='/deposit-bank-report'
-                className={`text-white hover:text-white transition-all text-sm flex items-center rounded-md px-4 py-3 ${activeMenu === "depositbankreport" ? "bg-gray-700" : ""
+                className={`transition-all text-sm flex items-center rounded-md px-4 py-3 
+                  ${activeMenu === "depositbankreport" 
+                    ? "bg-gray-700 text-white"
+                    : "bg-transparent text-white hover:bg-gray-700"
                   }`}
                 onClick={() => handleMenuClick("depositbankreport")}
               >
@@ -263,7 +288,9 @@ const Sidebar = () => {
 
       <>
         <div
-          className={` flex items-center px-4 py-3 mt-2 rounded-md ${activeMenu === "interbanktransfer" ? "bg-gray-700" : ""
+          className={`transition-all flex items-center px-4 py-3 mt-2 rounded-md 
+            ${activeMenu === "interbanktransfer" ? "bg-gray-700 text-white"
+              : "bg-transparent text-white hover:bg-gray-700"
             }`}
           onClick={() => handleMenuClick("interbanktransfer")}
         >
@@ -281,7 +308,9 @@ const Sidebar = () => {
         </div>
 
         <div
-          className={` flex items-center px-4 py-3 rounded-md ${activeMenu === "userregistration" ? "bg-gray-700" : ""
+          className={`transition-all flex items-center px-4 py-3 rounded-md 
+            ${activeMenu === "userregistration" ? "bg-gray-700 text-white"
+             : "bg-transparent text-white hover:bg-gray-700"
             }`}
           onClick={() => handleMenuClick("userregistration")}
         >
@@ -296,7 +325,9 @@ const Sidebar = () => {
         </div>
 
         <div
-          className={` flex items-center px-4 py-3 rounded-md ${activeMenu === "knowledgecenter" ? "bg-gray-700" : ""
+          className={`transition-all flex items-center px-4 py-3 rounded-md 
+            ${activeMenu === "knowledgecenter" ? "bg-gray-700 text-white" 
+              : "bg-transparent text-white hover:bg-gray-700"
             }`}
           onClick={() => handleMenuClick("knowledgecenter")}
         >
