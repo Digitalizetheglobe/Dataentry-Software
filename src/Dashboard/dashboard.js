@@ -77,8 +77,9 @@ const Dashboard = () => {
 
             {/* Cards Container */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4 ml-20 mt-10">
-              {/* Card 1: Deposit */}
-              <div className="bg-[#f4e3c1] dark:bg-gray-700 p-4 rounded-lg shadow-lg flex flex-col items-start">
+              {/* Card 1: Deposit */} 
+
+              <div className="bg-[#E0D7C8] dark:bg-gray-700 p-4 rounded-lg shadow-lg flex flex-col items-start">
                 <h2 className="text-sm font-semibold text-black-900 dark:text-gray-100 mb-2">Deposit</h2>
                 <p className="text-3xl font-bold text-[#001A3B] dark:text-gray-200 mb-1">$7,265</p>
                 <p className="text-xs text-green-600 flex items-center">
@@ -87,7 +88,8 @@ const Dashboard = () => {
               </div>
 
               {/* Card 2: Withdrawal */}
-              <div className="bg-[#e3f1ff] dark:bg-gray-700 p-4 rounded-lg shadow-lg flex flex-col items-start">
+
+              <div className="bg-[#E6F1FD] dark:bg-gray-700 p-4 rounded-lg shadow-lg flex flex-col items-start">
                 <h2 className="text-sm font-semibold text-black-900 dark:text-gray-100 mb-2">Withdrawal</h2>
                 <p className="text-3xl font-bold text-[#001A3B] dark:text-gray-200 mb-1">$3,671</p>
                 <p className="text-xs text-red-600 flex items-center">
@@ -96,7 +98,8 @@ const Dashboard = () => {
               </div>
 
               {/* Card 3: New Users Added */}
-              <div className="bg-[#fce3d4] dark:bg-gray-700 p-4 rounded-lg shadow-lg flex flex-col items-start">
+
+              <div className="bg-[#E0D7C866] dark:bg-gray-700 p-4 rounded-lg shadow-lg flex flex-col items-start">
                 <h2 className="text-sm font-semibold text-black-900 dark:text-gray-100 mb-2">New User Added</h2>
                 <p className="text-3xl font-bold text-[#001A3B] dark:text-gray-200 mb-1">156</p>
                 <p className="text-xs text-green-600 flex items-center">
@@ -105,7 +108,8 @@ const Dashboard = () => {
               </div>
 
               {/* Card 4: Total Entries */}
-              <div className="bg-[#d3dce4] dark:bg-gray-700 p-4 rounded-lg shadow-lg flex flex-col items-start">
+
+              <div className="bg-[#475A7233] dark:bg-gray-700 p-4 rounded-lg shadow-lg flex flex-col items-start">
                 <h2 className="text-sm font-semibold text-black-900 dark:text-gray-100 mb-2">Total Entries</h2>
                 <p className="text-3xl font-bold text-[#001A3B] dark:text-gray-200 mb-1">2,318</p>
                 <p className="text-xs text-green-600 flex items-center">

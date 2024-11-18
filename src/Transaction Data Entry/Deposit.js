@@ -110,8 +110,14 @@ const Deposit = () => {
 
   return (
     <>
-      <Sidebar />
-      <div className="max-w-5xl mr-1 mx-auto mt-10 p-4  rounded ">
+      <div >
+        <div className="flex ">
+          {/* Sidebar */}
+          <Sidebar className="fixed " />
+
+      {/* Main Content */}
+      <div className="ml-60 p-6 bg-gray-100 dark:bg-gray-800 min-h-screen w-full text-gray-900 dark:text-gray-200 overflow-hidden">
+      <div className="max-w-5xl mr-1 mx-auto justify-between items-center mb-8 ml-10 rounded ">
         <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg ml-10">
           {/* Header */}
           <div className="flex items-center justify-between mb-6">
@@ -133,13 +139,13 @@ const Deposit = () => {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             {/* Amount Deposited Card */}
             <div className="flex items-center p-4 bg-white dark:bg-gray-700 rounded-lg shadow">
-              <div className="p-4 bg-gray-200 rounded-full">
+              <div className="p-4 bg-[#E0D7C8] rounded-full">
                 <svg className="w-8 h-8 text-gray-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 10l1.94 1.94L7 7h3.74l-1.62 6 4.38-4.4h3.75l-1.63 6H17l1.94 1.94M2 2l20 20" />
                 </svg>
               </div>
               <div className="ml-4 ">
-                <h3 className="text-lg  text-gray-800 dark:text-gray-200">Amount Deposited</h3>
+                <h3 className="text-lg text-gray-800 dark:text-gray-200">Amount Deposited</h3>
                 <p className="text-2xl font-bold text-gray-900">5,423</p>
                 <p className="text-sm text-green-500">▲ 16% this month</p>
               </div>
@@ -147,7 +153,7 @@ const Deposit = () => {
 
             {/* Total Entries Card */}
             <div className="flex items-center p-4 bg-white rounded-lg shadow">
-              <div className="p-4 bg-gray-200 rounded-full">
+              <div className="p-4 bg-[#E0D7C8] rounded-full">
                 <svg className="w-8 h-8 text-gray-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6M5 7h14M7 3h10v18H7V3z" />
                 </svg>
@@ -161,7 +167,7 @@ const Deposit = () => {
 
             {/* New User Added Card */}
             <div className="flex items-center p-4 bg-white rounded-lg shadow ">
-              <div className="p-4 bg-gray-200 rounded-full">
+              <div className="p-4 bg-[#E0D7C8] rounded-full">
                 <svg className="w-8 h-8 text-gray-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0v8" />
                 </svg>
@@ -377,6 +383,9 @@ const Deposit = () => {
         </div>
 
 
+      </div>
+      </div>
+      </div>
       </div>
     </>
   );

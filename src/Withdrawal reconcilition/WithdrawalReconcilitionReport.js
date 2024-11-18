@@ -76,7 +76,14 @@ const WithdrawalReconciliationReport = () => {
 
   return (
     <>
-      <Sidebar />
+  <div className="flex h-screen">
+      {/* Sidebar */}
+      <div className="w-1/4">
+        <Sidebar />
+      </div>
+
+      {/* Main Content */}
+      <div className="w-4/5 overflow-hidden">
       <div className="max-w-5xl mr-1 mx-auto mt-10 p-4 bg-white rounded">
         <div className="p-4 bg-gray-50 rounded-lg ml-10">
           <div className="flex items-center justify-between mb-6">
@@ -198,9 +205,12 @@ const WithdrawalReconciliationReport = () => {
                 </table>
               </div>
             </div>
+            
           </>
         )}
         <ToastContainer />
+      </div>
+      </div>
       </div>
     </>
   );

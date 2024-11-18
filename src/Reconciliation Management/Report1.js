@@ -98,8 +98,14 @@ const Report1 = () => {
 
   return (
     <>
-      <Sidebar />
-      <div className="max-w-5xl mr-1 mx-auto mt-10 p-4 bg-white rounded">
+<div >
+        <div className="flex ">
+          {/* Sidebar */}
+          <Sidebar className="fixed" />
+     
+     {/* Main Content */}
+     <div className="ml-60 p-6 min-h-screen w-full overflow-hidden">
+      <div className="max-w-5xl mr-1 mx-auto p-4 bg-white rounded">
         <div className="p-4 bg-gray-50 rounded-lg ml-10">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-lg font-semibold text-gray-700">Excel 1 Data Table</h2>
@@ -219,6 +225,9 @@ const Report1 = () => {
 
           <ToastContainer />
         </div>
+      </div>
+      </div>
+      </div>
       </div>
     </>
   );

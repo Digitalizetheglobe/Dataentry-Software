@@ -4,7 +4,12 @@ import Sidebar from "../Sidebar/Sidebar";
 const Userregistration = () => {
   return (
     <>
-    <Sidebar />
+   <div >
+        <div className="ml-80">
+          {/* Sidebar */}
+          <Sidebar className="fixed" />
+   
+    {/* Main Content */}
     <div className="flex flex-col mr-1 mx-auto sm:h-screen p-4 align-item-center">
       <div className="max-w-md w-full mx-auto border border-gray-300 rounded-2xl p-8">
         <div className="text-center mb-6">
@@ -90,7 +95,7 @@ const Userregistration = () => {
           <div className="!mt-12">
             <button
               type="button"
-              className="w-full py-3 px-4 text-sm tracking-wider font-semibold rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none"
+              className="w-full py-3 px-4 text-sm rounded-md mt-4 bg-[#001A3B] hover:bg-[#fff] text-white hover:text-[#001A3B] border hover:border-[#001A3B]"
             >
              Update Profile
             </button>
@@ -106,6 +111,8 @@ const Userregistration = () => {
           </p>
         </form>
       </div>
+    </div>
+    </div>
     </div>
     </>
   );

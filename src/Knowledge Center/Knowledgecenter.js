@@ -10,9 +10,9 @@ const Knowledgecenter = () => {
   return (
     <>
      <div >
-        <div className="flex dark:bg-gray-900">
+        <div className="flex ">
           {/* Sidebar */}
-          <Sidebar className="fixed h-full w-60 text-white " />
+          <Sidebar className="fixed " />
 
           {/* Dashboard Content */}
           <div className="ml-80 p-6 min-h-screen w-full text-gray-900 dark:text-gray-200">

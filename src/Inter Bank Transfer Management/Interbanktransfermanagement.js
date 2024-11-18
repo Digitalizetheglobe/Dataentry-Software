@@ -81,9 +81,15 @@ const Interbanktransfermanagement = () => {
 
   return (
     <>
-      <Sidebar />
-      <div className="max-w-5xl mr-1 mx-auto mt-10 p-4 bg-white rounded">
-        <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg ml-10">
+      <div >
+        <div className="flex ">
+          {/* Sidebar */}
+          <Sidebar className="fixed " />
+  
+      {/* Main Content */}
+      <div className="ml-60 p-6 bg-gray-100 dark:bg-gray-800 min-h-screen w-full text-gray-900 dark:text-gray-200 overflow-hidden">
+      <div className="max-w-5xl mr-1 mx-auto justify-between items-center mb-8 ml-10 rounded">
+        <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg ml-8">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-lg font-semibold text-gray-700 dark:text-gray-300">Inter Bank Transfer Management</h2>
 
@@ -157,8 +163,8 @@ const Interbanktransfermanagement = () => {
           </div>
           <button
             type="submit"
-            className="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded"
-          >
+            className="mt-4 bg-[#001A3B] hover:bg-[#fff] text-white hover:text-[#001A3B] border hover:border-[#001A3B] py-2 px-4 rounded-md"
+            >
             Add Transfer
           </button>
         </form>
@@ -243,7 +249,7 @@ const Interbanktransfermanagement = () => {
 
         <ToastContainer />
 
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto ml-8">
           <table className="min-w-full border border-gray-200 mt-6">
             <thead className="bg-gray-200">
               <tr>
@@ -269,6 +275,9 @@ const Interbanktransfermanagement = () => {
             </tbody>
           </table>
         </div>
+      </div>
+      </div>
+      </div>
       </div>
     </>
   );

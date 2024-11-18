@@ -37,14 +37,15 @@ const MergeReport = () => {
   };
 
   return (
-    <div className="flex h-screen">
-      {/* Sidebar */}
-      <div className="w-1/4">
-        <Sidebar />
-      </div>
+<>
+   <div >
+        <div className="flex">
+          {/* Sidebar */}
+          <Sidebar className="fixed " />
 
       {/* Main Content */}
-      <div className="w-4/5 bg-gray-50 overflow-hidden">
+      <div className="ml-80 p-6 bg-gray-100 dark:bg-gray-800 min-h-screen w-full">
+      <div className=" bg-gray-50 ">
         <div className="h-full flex flex-col max-h-screen">
           <div className="bg-white shadow-md rounded-lg p-6">
             <div className="flex items-center justify-between mb-6">
@@ -61,7 +62,7 @@ const MergeReport = () => {
           </div>
 
           {/* Scrollable Table */}
-          <div className="flex-grow overflow-auto bg-white shadow-md rounded-lg mt-4 p-4">
+          <div className="flex-grow bg-white shadow-md rounded-lg mt-4 p-4">
             <table className="w-full border border-gray-300">
               <thead className="bg-gray-100 text-gray-600">
                 <tr>
@@ -99,7 +100,11 @@ const MergeReport = () => {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+      </div>
+      </div>
+    
+    </>
   );
 };
 

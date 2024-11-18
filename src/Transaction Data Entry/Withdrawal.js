@@ -89,10 +89,16 @@ const Withdrawal = () => {
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
+
   return (
     <>
-      <Sidebar />
-      <div className="max-w-5xl mr-1 mx-auto mt-10 p-4 bg-white rounded shadow-md">
+ <div >
+        <div className="flex ">
+          {/* Sidebar */}
+          <Sidebar className="fixed " />
+           {/* Main Content */}
+      <div className="ml-60 p-6 bg-gray-100 dark:bg-gray-800 min-h-screen w-full text-gray-900 dark:text-gray-200 overflow-hidden">
+      <div className="max-w-5xl mr-1 mx-auto justify-between items-center mb-8 ml-10 rounded ">
         <div className="p-4 bg-gray-50 rounded-lg ml-10">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-lg font-semibold text-gray-700">Overview</h2>
@@ -111,7 +117,7 @@ const Withdrawal = () => {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             {/* Amount Deposited Card */}
             <div className="flex items-center p-4 bg-white rounded-lg shadow">
-              <div className="p-2 bg-gray-200 rounded-full">
+              <div className="p-2 bg-[#E0D7C8] rounded-full">
                 <svg className="w-8 h-8 text-gray-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 10l1.94 1.94L7 7h3.74l-1.62 6 4.38-4.4h3.75l-1.63 6H17l1.94 1.94M2 2l20 20" />
                 </svg>
@@ -125,7 +131,7 @@ const Withdrawal = () => {
 
             {/* Total Entries Card */}
             <div className="flex items-center p-4 bg-white rounded-lg shadow">
-              <div className="p-4 bg-gray-200 rounded-full">
+              <div className="p-4 bg-[#E0D7C8] rounded-full">
                 <svg className="w-8 h-8 text-gray-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6M5 7h14M7 3h10v18H7V3z" />
                 </svg>
@@ -139,7 +145,7 @@ const Withdrawal = () => {
 
             {/* New User Added Card */}
             <div className="flex items-center p-4 bg-white rounded-lg shadow">
-              <div className="p-4 bg-gray-200 rounded-full">
+              <div className="p-4 bg-[#E0D7C8] rounded-full">
                 <svg className="w-8 h-8 text-gray-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0v8" />
                 </svg>
@@ -184,7 +190,7 @@ const Withdrawal = () => {
               </div>
             </div>
             <button type="submit" className="mt-4 w-60 h-10 bg-[#001A3B] hover:bg-[#fff] text-white hover:text-[#001A3B] border hover:border-[#001A3B] py-2 rounded">Add Withdrawal Entry</button>
-            <button type="submit" className="mt-4 w-40 h-10 bg-[#001A3B] hover:bg-[#fff] text-white hover:text-[#001A3B] border hover:border-[#001A3B] py-2 rounded ">Reset Form</button>
+            <button type="submit" className="mt-4 w-40 h-10 bg-[#001A3B] hover:bg-[#fff] text-white hover:text-[#001A3B] border hover:border-[#001A3B] py-2 rounded " style={{ marginLeft: '20px' }}>Reset Form</button>
 
           </form>
         </div>
@@ -279,6 +285,9 @@ const Withdrawal = () => {
             ))}
           </div>
         </div>
+      </div>
+      </div>
+      </div>
       </div>
     </>
   );
