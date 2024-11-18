@@ -12,6 +12,7 @@ const WithdrawalReconciliationReport = () => {
   const [reportData, setReportData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [skippedEntries, setSkippedEntries] = useState([]);
+  
 
   const toggleSkip = (user_id) => {
     setSkippedEntries((prev) =>
@@ -22,12 +23,14 @@ const WithdrawalReconciliationReport = () => {
   const fetchReconciliationReport = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('http://api.cptechsolutions.com/api/withdrawal/reconciliation-report', {
+      // api.cptechsolutions.com
+      const response = await axios.get('http://localhost:8000/api/withdrawal/reconciliation-report', {
         params: {
           startDate: startDate.toISOString().split('T')[0],
           endDate: endDate.toISOString().split('T')[0],
         },
       });
+      console.log('Report Data:', response.data);
       setReportData(response.data);
       toast.success('Report generated successfully!');
     } catch (error) {
@@ -201,11 +204,51 @@ const WithdrawalReconciliationReport = () => {
                         <td className="px-4 py-2 border text-green-600">✔</td>
                       </tr>
                     ))}
+
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div className="p-4 bg-gray-50 rounded-lg ml-10 mt-5">
+              <h2 className="text-lg font-semibold text-gray-800 mb-2">Discrepancies</h2>
+              <div className="overflow-x-auto">
+                <table className="min-w-full border border-gray-300 rounded-lg">
+                  <thead className="bg-gray-100 text-gray-600">
+                    <tr>
+                      <th className="px-4 py-2 text-left border">User ID</th>
+                      <th className="px-4 py-2 text-left border">Amount</th>
+                      {/* <th className="px-4 py-2 text-left border">Branch ID</th> */}
+                      <th className="px-4 py-2 text-left border">Date</th>
+                      <th className="px-4 py-2 text-left border">Reason</th>
+                      <th className="px-4 py-2 text-left border">Action</th>
+
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {reportData.discrepancies.map((record, index) => (
+                      <tr key={index}  className={`border-b ${skippedEntries.includes(record.user_id) ? 'bg-gray-200' : 'bg-white'}`}>
+                        <td className="px-4 py-2 border">{record.user_id}</td>
+                        <td className="px-4 py-2 border">₹{record.amount}</td>
+                        {/* <td className="px-4 py-2 border">{record.branch_id}</td> */}
+                        <td className="px-4 py-2 border">{new Date(record.date).toLocaleDateString()}</td>
+                        <td className="px-4 py-2 border text-red-600">{record.reason}</td>
+                         <td className="px-4 py-2 border">
+                        <button
+                          onClick={() => toggleSkip(record.user_id)}
+                          className={`px-2 py-1 rounded ${skippedEntries.includes(record.user_id) ? 'bg-gray-500 text-white' : 'bg-blue-500 text-white'
+                            }`}
+                        >
+                          {skippedEntries.includes(record.user_id) ? 'Unskip' : 'Skip'}
+                        </button>
+                      </td>
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
               </div>
             </div>
             
+
           </>
         )}
         <ToastContainer />

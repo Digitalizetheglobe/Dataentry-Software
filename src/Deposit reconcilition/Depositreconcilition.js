@@ -25,7 +25,7 @@ const Depositreconcilition = () => {
   const fetchReconciliationReport = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('http://api.cptechsolutions.com/api/deposit/deposit-reconciliation-report', {
+      const response = await axios.get('http://localhost:8000/api/deposit/deposit-reconciliation-report', {
         params: {
           startDate: startDate.toISOString().split('T')[0],
           endDate: endDate.toISOString().split('T')[0],
@@ -136,7 +136,7 @@ const Depositreconcilition = () => {
               <table className="min-w-full border border-gray-200">
                 <thead className="bg-gray-200">
                   <tr>
-                    <th className="px-4 py-2 text-left border">User ID</th>
+                    <th className="px-4 py-2 text-left border">Player ID</th>
                     <th className="px-4 py-2 text-left border">Amount</th>
                     <th className="px-4 py-2 text-left border">Branch ID</th>
                     <th className="px-4 py-2 text-left border">Date</th>
@@ -146,7 +146,7 @@ const Depositreconcilition = () => {
                 <tbody>
                   {reportData.matchedRecords.map((record, index) => (
                     <tr key={index} className="bg-white border-b">
-                      <td className="px-4 py-2 border">{record.user_id}</td>
+                      <td className="px-4 py-2 border">{record.player_id}</td>
                       <td className="px-4 py-2 border">₹{record.amount}</td>
                       <td className="px-4 py-2 border">{record.branch_id}</td>
                       <td className="px-4 py-2 border">{new Date(record.date).toLocaleDateString()}</td>
