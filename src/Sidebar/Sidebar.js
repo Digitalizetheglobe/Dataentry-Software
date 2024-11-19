@@ -319,7 +319,7 @@ const Sidebar = () => {
         >
           <AiOutlineUserAdd className="w-[18px] h-[18px] text-white" style={{ marginLeft: '-16px' }} />
           <Link
-            to="/user-registration"
+            to="/User-Profile"
             className="text-white text-sm pl-4 flex-1"
 
           >

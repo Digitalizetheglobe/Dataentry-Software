@@ -37,7 +37,7 @@ const UserProfile = () => {
 
       {/* Main Content */}
       <div className="flex-1 p-6">
-        <h1 className="text-2xl font-semibold mb-6">My Profile</h1>
+        <h1 className="text-2xl text-[#3A3F4B] font-semibold mb-6">My Profile</h1>
 
         {/* Profile Header */}
         <div className="bg-white shadow rounded-lg p-6 flex items-center justify-between mb-6">
@@ -48,8 +48,8 @@ const UserProfile = () => {
               alt="Profile"
             />
             <div>
-              <h2 className="text-xl font-semibold">John Smith</h2>
-              <p className="text-sm text-gray-600">Branch Manager</p>
+              <h2 className="text-lg text-[#001A3BCC] font-semibold">John Smith</h2>
+              <p className="text-sm text-[#001A3BCC]">Branch Manager</p>
               <p className="text-sm text-gray-600">johnsmith@gmail.com</p>
             </div>
           </div>
