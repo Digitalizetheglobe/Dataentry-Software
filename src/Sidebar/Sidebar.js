@@ -36,12 +36,14 @@ const Sidebar = () => {
     setIsLogoutDialogOpen(false);
   };
 
-  const toggleReconciliation = () => {
+  const toggleReconciliation = (menu) => {
     setIsOpenReconciliation((prev) => !prev);
+    setActiveMenu(menu);
   };
-
-  const toggleTransaction = () => {
+  
+  const toggleTransaction = (menu) => {
     setIsOpenTransaction((prev) => !prev);
+    setActiveMenu(menu);
   };
 
   const toggleSidebar = () => {
@@ -50,6 +52,7 @@ const Sidebar = () => {
 
   const handleMenuClick = (menu) => {
     setActiveMenu(menu);
+    
   };
 
   return (
@@ -109,20 +112,20 @@ const Sidebar = () => {
 
         {isOpenReconciliation && !isCollapsed && (
           <ul className="space-y-1 mt-2 pl-4">
-            <li>
-  <Link
-    to="/report-1"
-    className={`transition-all text-sm flex items-center rounded-md px-4 py-3 ${
-      activeMenu === "report-1"
-        ? "bg-gray-700 text-white"
-        : "bg-transparent text-white hover:bg-gray-700"
-    }`}
-    onClick={() => handleMenuClick("report-1")}
-  >
-    <img src={report} className="w-[18px] h-[18px] mr-4 filter invert" />
-    <span>Report-1</span>
-  </Link>
-</li>
+                  <li>
+        <Link
+          to="/report-1"
+          className={`transition-all text-sm flex items-center rounded-md px-4 py-3 ${
+            activeMenu === "report-1"
+              ? "bg-gray-700 text-white"
+              : "bg-transparent text-white hover:bg-gray-700"
+          }`}
+          onClick={() => handleMenuClick("report-1")}
+        >
+          <img src={report} className="w-[18px] h-[18px] mr-4 filter invert" />
+          <span>Report-1</span>
+        </Link>
+      </li>
 
             <li>
               <Link
