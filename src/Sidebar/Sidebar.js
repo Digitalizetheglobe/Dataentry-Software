@@ -36,12 +36,14 @@ const Sidebar = () => {
     setIsLogoutDialogOpen(false);
   };
 
-  const toggleReconciliation = () => {
+  const toggleReconciliation = (menu) => {
     setIsOpenReconciliation((prev) => !prev);
+    setActiveMenu(menu);
   };
-
-  const toggleTransaction = () => {
+  
+  const toggleTransaction = (menu) => {
     setIsOpenTransaction((prev) => !prev);
+    setActiveMenu(menu);
   };
 
   const toggleSidebar = () => {
@@ -50,6 +52,7 @@ const Sidebar = () => {
 
   const handleMenuClick = (menu) => {
     setActiveMenu(menu);
+    
   };
 
   return (
