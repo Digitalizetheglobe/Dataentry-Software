@@ -18,20 +18,32 @@ const UserProfile = () => {
           <div className="ml-80 p-6 min-h-screen w-full text-gray-900 dark:text-gray-200">
             <div className="bg-gray-100 rounded-lg flex max-w-5xl mr-1 mx-auto items-center p-2">
               <img src={button3} className="w-8 h-8" />
-              <h2 className="text-gray-500 mx-2">Knowledge Center</h2>
+              <h2 className="text-gray-500 mx-2">User Profile </h2>
+              <h2 className="text-gray-500 mx-2">/ Default </h2>
               <div className="flex ml-auto space-x-2"></div>
             </div>
 
             <div className="flex min-h-screen bg-gray-100 mt-4 rounded-md">
       {/* Sidebar */}
       <aside className="w-60 bg-white border-r">
-        <ul className="p-5 space-y-4">
-          <li className="text-red-500 font-semibold">My Profile</li>
-          <li className="text-gray-600">Access Control</li>
-          <li className="text-gray-600">Teams</li>
-          <li className="text-gray-600">Team Member</li>
-          <li className="text-gray-600">Notifications</li>
-          <li className="text-red-500">Delete Account</li>
+      <ul className="p-5 space-y-4">
+          {["My Profile", "Access Control", "Teams", "Team Member", "Notifications", "Delete Account"].map(
+            (tab) => (
+              <li
+                key={tab}
+                className={`cursor-pointer px-3 py-2 rounded-md ${
+                  activeTab === tab
+                    ? "bg-[#9D8D7266] text-[#001A3BCC] "
+                    : tab === "Delete Account"
+                    ? "text-[#FE1919]"
+                    : "text-[#3A3F4B] hover:bg-gray-200"
+                }`}
+                onClick={() => handleTabClick(tab)}
+              >
+                {tab}
+              </li>
+            )
+          )}
         </ul>
       </aside>
 
@@ -57,6 +69,7 @@ const UserProfile = () => {
         </div>
 
         {/* Profile Information */}
+        
         <div className="bg-white shadow rounded-lg p-6 mb-6">
           <div className="flex justify-between mb-4">
             <h2 className="font-semibold text-lg">Profile Information</h2>
