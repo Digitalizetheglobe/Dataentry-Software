@@ -1,23 +1,15 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  AiOutlineForm,
-  AiOutlineReconciliation,
-  AiOutlineTransaction,
-} from "react-icons/ai";
 import { FaFileAlt, FaExchangeAlt } from "react-icons/fa";
-import { AiFillFileText } from "react-icons/ai";
-import { AiOutlineArrowRight } from "react-icons/ai";
 import { AiOutlineUserAdd } from "react-icons/ai";
-import { AiOutlineBook } from "react-icons/ai";
 import "./Sidebar.css";
 import reconciliation from "../assets/icons/user-profile.png";
 import report from "../assets/icons/file.png";
 import dataentry from "../assets/icons/bar-chart.png";
-import laptop from "../assets/icons/clipboard.png";
 import banktransfer from "../assets/icons/cash-flow.png";
 import knowledge from "../assets/icons/knowledge (1).png";
 import LogoutDialog from "../Dialogs/LogoutDialog";
+import data from '../assets/icons/clipboard-attachment.png'
 
 const Sidebar = () => {
   const [isOpenReconciliation, setIsOpenReconciliation] = useState(true);
@@ -344,8 +336,28 @@ const Sidebar = () => {
             Knowledge Center
           </Link>
         </div>
-        <hr />
 
+        <div
+          className={`transition-all flex items-center px-4 py-3 rounded-md 
+            ${activeMenu === "knowledgecenter" ? "bg-gray-700 text-white"
+              : "bg-transparent text-white hover:bg-gray-700"
+            }`}
+          onClick={() => handleMenuClick("ExpenseData")}
+        >
+          <img
+            src={data}
+            className="w-[18px] h-[18px] text-white "
+            style={{ marginLeft: '-16px' }}
+          />
+          <Link
+            to="/Expense"
+            className="text-white text-sm pl-4 flex-1"
+          >
+            Expense Management
+          </Link>
+        </div>
+        <hr />
+        
 
         <button onClick={handleOpenLogoutDialog}
           className="bg-[#001A3B] w-full mt-10 hover:bg-[#fff] text-white hover:text-[#001A3B] border hover:border-[#001A3B] py-2 px-4 rounded-md"

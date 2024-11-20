@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Sidebar from "../Sidebar/Sidebar";
 import button3 from "../assets/icons/Button (3).png";
 import avatarimage from '../assets/Avatar Image.png'
+import edit from '../assets/icons/edit.png'
 
 const UserProfile = () => {
   const [activeTab, setActiveTab] = useState("setting");
@@ -65,7 +66,9 @@ const UserProfile = () => {
               <p className="text-sm text-gray-600">johnsmith@gmail.com</p>
             </div>
           </div>
-          <button className="text-blue-600 hover:underline text-sm">Edit</button>
+          <button className="flex gap-2 text-[#3A3F4B] hover:underline text-sm font-bold border border-gray-400 rounded-md p-1">
+          <img src={edit} className="w-4 h-4 mb-1"/>
+         Edit</button>
         </div>
 
         {/* Profile Information */}
@@ -73,7 +76,9 @@ const UserProfile = () => {
         <div className="bg-white shadow rounded-lg p-6 mb-6">
           <div className="flex justify-between mb-4">
             <h2 className="font-semibold text-lg">Profile Information</h2>
-            <button className="text-blue-600 hover:underline text-sm">Edit</button>
+            <button className="flex gap-2 text-[#3A3F4B] hover:underline text-sm font-bold border border-gray-400 rounded-md p-1">
+            <img src={edit} className="w-4 h-4 mb-1"/>
+              Edit</button>
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>

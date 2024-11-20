@@ -25,6 +25,7 @@ import PrivateRoute from './PrivateRoute';
 import YearlyFinancialActivity from './Dashboard/YearlyFinancialActivity.js';
 import BankWiseDeposit from './Dashboard/BankWiseDeposit.js';
 import UserProfile from './UserProfile/UserProfile.js';
+import ExpenseData from './ExpenseData/ExpenseData.js';
 
 // comment for testing purpose
 
@@ -198,7 +199,15 @@ function App() {
                 <UserProfile/>
               </PrivateRoute>
             }
-            />            
+            />   
+             < Route 
+            path='/Expense'
+            element={
+              <PrivateRoute>
+                <ExpenseData/>
+              </PrivateRoute>
+            }
+            />          
           </Routes>
           
         </div>
