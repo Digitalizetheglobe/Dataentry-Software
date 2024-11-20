@@ -48,7 +48,7 @@ const MergeReport = () => {
           <Sidebar className="fixed " />
 
           {/* Main Content */}
-          <div className="ml-80 p-6 min-h-screen w-full overflow-hidden">
+          <div className="ml-80 p-6 min-h-screen w-full overflow-y-auto">
             <div className="">
               <div className="h-full flex flex-col max-h-screen">
                 <div className="bg-gray-50 rounded-lg p-6">
