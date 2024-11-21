@@ -235,7 +235,7 @@ const WithdrawalReconciliationReport = () => {
                          <td className="px-4 py-2 border">
                         <button
                           onClick={() => toggleSkip(record.user_id)}
-                          className={`px-2 py-1 rounded ${skippedEntries.includes(record.user_id) ? 'bg-gray-500 text-white' : 'bg-blue-500 text-white'
+                          className={`bg-green-600 border border-green-700 hover:bg-white hover:text-green-700 text-white hover:border-green-700 text-white px-2 py-1 rounded ${skippedEntries.includes(record.user_id) ? 'bg-gray-500 text-white' : 'bg-blue-500 text-white'
                             }`}
                         >
                           {skippedEntries.includes(record.user_id) ? 'Unskip' : 'Skip'}
