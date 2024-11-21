@@ -14,7 +14,6 @@ const Deposit = () => {
   const [branchId, setBranchId] = useState("");
   const [selectedEntries, setSelectedEntries] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
-
   const [formData, setFormData] = useState({
     player_id: "",
     branch_id: "",
@@ -76,14 +75,12 @@ const Deposit = () => {
       toast.error(errorMessage);
     }
   };
-
   const fetchEntries = async () => {
     try {
       // {api.cptechsolutions.com}
       const response = await axios.get(
         "http://api.cptechsolutions.com/api/deposit-withdraw/entries"
       );
-
       // Sort entries so that the most recent entries come first
       const sortedEntries = response.data.data.sort(
         (a, b) => new Date(b.date) - new Date(a.date)
@@ -110,8 +107,6 @@ const Deposit = () => {
         : [...prevSelected, id]
     );
   };
-
-
   // ----------------------
 
   const handlePutUpload = async () => {
@@ -119,13 +114,12 @@ const Deposit = () => {
       toast.error("Please select a file to upload.");
       return;
     }
-
     const formData = new FormData();
     formData.append("file", selectedFile);
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/deposit-withdraw/bulk-upload",
+        "http://api.cptechsolutions.com/api/deposit-withdraw/upload-excel",
         formData,
         {
           headers: {
@@ -134,20 +128,17 @@ const Deposit = () => {
         }
       );
       toast.success(response.data.message);
-      setSelectedFile(null); // Clear the selected file after success
-      fetchEntries(); // Refresh the entries after bulk upload
+      setSelectedFile(null); 
+      fetchEntries(); 
     } catch (error) {
       const errorMessage =
         error.response?.data?.message || "Error during bulk upload. Please try again.";
       toast.error(errorMessage);
     }
   };
-
-
-
   const handleDelete = async () => {
     try {
-      // Delete each selected entry    {http://api.cptechsolutions.com }
+      // Delete each selected entry   {http://api.cptechsolutions.com }
       await Promise.all(
         selectedEntries.map((id) =>
           axios.delete(
@@ -192,7 +183,6 @@ const Deposit = () => {
         <div className="flex ">
           {/* Sidebar */}
           <Sidebar className="fixed " />
-
           {/* Main Content */}
           <div className="ml-60 p-6 bg-gray-100 dark:bg-gray-800 min-h-screen w-full text-gray-900 dark:text-gray-200 overflow-hidden">
             <div className="max-w-5xl mr-1 mx-auto justify-between items-center mb-8 ml-10 rounded ">

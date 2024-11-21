@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "../Sidebar/Sidebar";
 import button3 from "../assets/icons/Button (3).png";
-import axios from "axios"; // Import axios for API requests
+import axios from "axios"; 
 
 const ExpenseData = () => {
   const [activeTab, setActiveTab] = useState("addExpense");

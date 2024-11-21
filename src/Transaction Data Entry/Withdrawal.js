@@ -90,23 +90,18 @@ const Withdrawal = () => {
 
 
   // ----------------------
-
   const handlePutUpload = async () => {
     if (!selectedFile) {
-      console.log("No file selected.");
       toast.error("Please select a file to upload.");
       return;
     }
-  
-    console.log("Selected file:", selectedFile);
-  
+
     const formData = new FormData();
     formData.append("file", selectedFile);
-  
+
     try {
-      console.log("Uploading file...");
       const response = await axios.post(
-        "http://localhost:8000/api/withdrawal-report/bulk-upload",
+        "http://api.cptechsolutions.com/api/withdrawal-report/bulk-upload",
         formData,
         {
           headers: {
@@ -114,15 +109,11 @@ const Withdrawal = () => {
           },
         }
       );
-      console.log("Upload successful:", response.data);
       toast.success(response.data.message);
       setSelectedFile(null);
-      fetchWithdrawals();
+      fetchWithdrawals(); // Refresh table data
     } catch (error) {
-      console.error("Upload error:", error);
-      const errorMessage =
-        error.response?.data?.message || "Error during bulk upload. Please try again.";
-      console.error("Error message:", errorMessage);
+      const errorMessage = error.response?.data?.message || "Error during bulk upload.";
       toast.error(errorMessage);
     }
   };
