@@ -299,7 +299,26 @@ const Sidebar = () => {
             Inter Bank Transfer Management
           </Link>
         </div>
-
+        
+        <div
+          className={`transition-all flex items-center px-4 py-3 rounded-md 
+            ${activeMenu === "knowledgecenter" ? "bg-gray-700 text-white"
+              : "bg-transparent text-white hover:bg-gray-700"
+            }`}
+          onClick={() => handleMenuClick("ExpenseData")}
+        >
+          <img
+            src={data}
+            className="w-[18px] h-[18px] text-white "
+            style={{ marginLeft: '-16px' }}
+          />
+          <Link
+            to="/Expense"
+            className="text-white text-sm pl-4 flex-1"
+          >
+            Expense Management
+          </Link>
+        </div>
         <div
           className={`transition-all flex items-center px-4 py-3 rounded-md 
             ${activeMenu === "userregistration" ? "bg-gray-700 text-white"
@@ -337,25 +356,6 @@ const Sidebar = () => {
           </Link>
         </div>
 
-        <div
-          className={`transition-all flex items-center px-4 py-3 rounded-md 
-            ${activeMenu === "knowledgecenter" ? "bg-gray-700 text-white"
-              : "bg-transparent text-white hover:bg-gray-700"
-            }`}
-          onClick={() => handleMenuClick("ExpenseData")}
-        >
-          <img
-            src={data}
-            className="w-[18px] h-[18px] text-white "
-            style={{ marginLeft: '-16px' }}
-          />
-          <Link
-            to="/Expense"
-            className="text-white text-sm pl-4 flex-1"
-          >
-            Expense Management
-          </Link>
-        </div>
         <hr />
         
 

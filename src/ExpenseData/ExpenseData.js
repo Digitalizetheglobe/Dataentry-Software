@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "../Sidebar/Sidebar";
 import button3 from "../assets/icons/Button (3).png";
 import axios from "axios"; // Import axios for API requests
@@ -10,7 +10,7 @@ const ExpenseData = () => {
     type_of_expense: "",
     amount: "",
     date: "",
-    bankName: "",
+    bank_name: "",
     name: "",
     remark: "",
   });
@@ -50,7 +50,7 @@ const ExpenseData = () => {
           bank_name,
           date,
           name: name || "",
-          remark: remark || ""
+          remark: remark || "",
         }
       );
 
@@ -72,20 +72,30 @@ const ExpenseData = () => {
     }
   };
 
+  // Function to fetch expenses data
+  const fetchExpenses = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await axios.get(
+        "http://api.cptechsolutions.com/api/expenses/expenses"
+      );
+      setExpenses(response.data.data); // Set the fetched expenses to the state
+      console.log("Fetched Expenses:", response.data.data);
+    } catch (err) {
+      console.error("Error fetching expenses:", err);
+      setError("Failed to fetch expenses data. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    // Function to fetch expenses data
-    const fetchExpenses = async () => {
-      setLoading(true);
-      setError("");
-      try {
-        const response = await axios.get("http://api.cptechsolutions.com/api/expenses/expenses");
-        setExpenses(response.data.data); // Use the `data` field from the response
-      } catch (err) {
-        setError("Failed to fetch expenses data. Please try again.");
-      } finally {
-        setLoading(false);
-      }
-    };
+  // UseEffect to fetch expenses when switching to "All Expenses" tab
+  useEffect(() => {
+    if (activeTab === "allExpenses") {
+      fetchExpenses();
+    }
+  }, [activeTab]);
 
   return (
     <>
@@ -101,7 +111,7 @@ const ExpenseData = () => {
 
             <div className="min-h-screen bg-gray-100 flex flex-col items-center py-10 mt-6 rounded-md">
               <div className="bg-white w-11/12 max-w-4xl rounded-lg shadow-md p-6">
-                <h1 className="text-lg font-semibold mb-4">Expense Data</h1>
+                {/* <h1 className="text-lg font-semibold mb-4">Expense Management</h1> */}
                 <div className="flex space-x-6 border-b pb-2 mb-6 text-gray-500">
                   <button
                     onClick={() => setActiveTab("addExpense")}
@@ -186,7 +196,9 @@ const ExpenseData = () => {
                           onChange={handleInputChange}
                           required
                         >
-                          <option value="" disabled>Select bank account</option>
+                          <option value="" disabled>
+                            Select bank account
+                          </option>
                           <option value="HDFC Bank">HDFC Bank</option>
                           <option value="ICICI Bank">ICICI Bank</option>
                         </select>
@@ -225,7 +237,9 @@ const ExpenseData = () => {
                       {loading ? "Adding Expense..." : "+ Add New Expense"}
                     </button>
                     {error && (
-                      <p className="text-red-500 text-sm mt-2">Error: {error}</p>
+                      <p className="text-red-500 text-sm mt-2">
+                        Error: {error}
+                      </p>
                     )}
                     {success && (
                       <p className="text-green-500 text-sm mt-2">
@@ -235,50 +249,52 @@ const ExpenseData = () => {
                   </form>
                 )}
 
-                {/* All Expenses Cards */}
+                {/* All Expenses Section */}
                 {activeTab === "allExpenses" && (
-                <div className="space-y-4">
-                  <div className="bg-gray-100 rounded-lg flex max-w-5xl mx-auto items-center p-2">
-                    <input
-                      type="text"
-                      placeholder="Search date, type, amount"
-                      className="w-2/3 p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
-                    />
-                  </div>
-
-                  {/* Loading, Error, and Expenses List */}
-                  {loading && <p>Loading...</p>}
-                  {error && <p className="text-red-500">{error}</p>}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {expenses.map((expense) => (
-                      <div
-                        key={expense.id}
-                        className="bg-white border border-gray-200 rounded-lg shadow p-4"
-                      >
-                        <h2 className="text-lg font-semibold mb-4">
-                          {expense.type_of_expense || "Type of expense"}
-                        </h2>
-                        <hr />
-                        <div className="flex justify-between text-sm text-gray-600 mt-4 mb-4">
-                          <span>{new Date(expense.date).toLocaleDateString()}</span>
-                          <span>${expense.amount.toFixed(2)}</span>
+                  <div className="space-y-4">
+                    {loading && <p>Loading expenses...</p>}
+                    {error && <p className="text-red-500">{error}</p>}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {expenses.map((expense) => (
+                        <div
+                          key={expense.id}
+                          className="bg-white border border-gray-200 rounded-lg shadow p-4"
+                        >
+                          <h2 className="text-lg font-semibold">
+                            {expense.type_of_expense || "Type of expense"}
+                          </h2>
+                          <hr />
+                          <div className="flex justify-between text-sm mt-4">
+                            <span>
+                              {new Date(expense.date).toLocaleDateString()}
+                            </span>
+                            <span>
+                              ₹
+                              {new Intl.NumberFormat("en-IN", {
+                                style: "currency",
+                                currency: "INR",
+                              })
+                                .format(expense.amount)
+                                .replace("₹", "")
+                                .trim()}
+                            </span>
+                          </div>
+                          <p className="text-sm mt-4">
+                            <strong>Bank Name:</strong>{" "}
+                            {expense.bank_name || "N/A"}
+                          </p>
+                          <p className="text-sm mt-2">
+                            <strong>Name:</strong> {expense.name || "N/A"}
+                          </p>
+                          <p className="text-sm mt-4">
+                            <strong>Remark:</strong>{" "}
+                            {expense.remark || "No remarks"}
+                          </p>
                         </div>
-                        <hr />
-                        <p className="text-sm text-gray-600 mt-4">
-                          <strong>Bank Name:</strong> {expense.bank_name || "N/A"}
-                        </p>
-                        <p className="text-sm text-gray-600 mt-2">
-                          <strong>Name:</strong> {expense.name || "N/A"}
-                        </p>
-                        <hr />
-                        <p className="text-sm text-gray-600 mt-4">
-                          <strong>Remark:</strong> {expense.remark || "No remarks"}
-                        </p>
-                      </div>
-                    ))}
+                      ))}
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
               </div>
             </div>
           </div>
