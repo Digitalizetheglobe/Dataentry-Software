@@ -77,7 +77,7 @@ const Deposit = () => {
   };
   const fetchEntries = async () => {
     try {
-      // {api.cptechsolutions.com}
+      // {api.cptechsolutions.com}localhost:8000
       const response = await axios.get(
         "http://api.cptechsolutions.com/api/deposit-withdraw/entries"
       );
@@ -128,8 +128,8 @@ const Deposit = () => {
         }
       );
       toast.success(response.data.message);
-      setSelectedFile(null); 
-      fetchEntries(); 
+      setSelectedFile(null);
+      fetchEntries();
     } catch (error) {
       const errorMessage =
         error.response?.data?.message || "Error during bulk upload. Please try again.";
@@ -494,8 +494,8 @@ const Deposit = () => {
                     </button> */}
                     <button
                       className={`bg-red-500 text-white px-4 py-2 rounded ${selectedEntries.length === 0
-                          ? "opacity-50 cursor-not-allowed"
-                          : ""
+                        ? "opacity-50 cursor-not-allowed"
+                        : ""
                         }`}
                       onClick={handleDelete}
                       disabled={selectedEntries.length === 0}
@@ -568,7 +568,7 @@ const Deposit = () => {
                             />
                           </td>
                           <td className="px-4 py-4 border-b text-sm">
-                            {new Date(entry.created_at).toLocaleDateString()}
+                            {new Date(entry.date).toLocaleDateString()}
                           </td>
                           <td className="px-4 py-4 border-b text-sm">
                             {entry.player_id}
@@ -612,8 +612,8 @@ const Deposit = () => {
                       key={i}
                       onClick={() => handlePageChange(i + 1)}
                       className={`px-3 py-1 border rounded ${currentPage === i + 1
-                          ? "bg-blue-500 text-white"
-                          : "bg-white text-gray-700"
+                        ? "bg-blue-500 text-white"
+                        : "bg-white text-gray-700"
                         }`}
                     >
                       {i + 1}
