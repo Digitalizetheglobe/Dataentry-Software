@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "../Sidebar/Sidebar";
 import button3 from "../assets/icons/Button (3).png";
-import axios from "axios"; // Import axios for API requests
+import axios from "axios"; 
 
 const ExpenseData = () => {
   const [activeTab, setActiveTab] = useState("addExpense");
@@ -111,7 +111,7 @@ const ExpenseData = () => {
 
             <div className="min-h-screen bg-gray-100 flex flex-col items-center py-10 mt-6 rounded-md">
               <div className="bg-white w-11/12 max-w-4xl rounded-lg shadow-md p-6">
-                <h1 className="text-lg font-semibold mb-4">Expense Data</h1>
+                {/* <h1 className="text-lg font-semibold mb-4">Expense Management</h1> */}
                 <div className="flex space-x-6 border-b pb-2 mb-6 text-gray-500">
                   <button
                     onClick={() => setActiveTab("addExpense")}

@@ -235,14 +235,12 @@ const Deposit = () => {
       toast.error(errorMessage);
     }
   };
-
   const fetchEntries = async () => {
     try {
-      // {api.cptechsolutions.com}
+      // {api.cptechsolutions.com}localhost:8000
       const response = await axios.get(
         "http://api.cptechsolutions.com/api/deposit-withdraw/entries"
       );
-
       // Sort entries so that the most recent entries come first
       const sortedEntries = response.data.data.sort(
         (a, b) => new Date(b.date) - new Date(a.date)
@@ -266,8 +264,6 @@ const Deposit = () => {
         : [...prevSelected, id]
     );
   };
-
-
   // ----------------------
 
   const handlePutUpload = async () => {
@@ -275,13 +271,12 @@ const Deposit = () => {
       toast.error("Please select a file to upload.");
       return;
     }
-
     const formData = new FormData();
     formData.append("file", selectedFile);
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/deposit-withdraw/bulk-upload",
+        "http://api.cptechsolutions.com/api/deposit-withdraw/upload-excel",
         formData,
         {
           headers: {
@@ -290,20 +285,17 @@ const Deposit = () => {
         }
       );
       toast.success(response.data.message);
-      setSelectedFile(null); // Clear the selected file after success
-      fetchEntries(); // Refresh the entries after bulk upload
+      setSelectedFile(null);
+      fetchEntries();
     } catch (error) {
       const errorMessage =
         error.response?.data?.message || "Error during bulk upload. Please try again.";
       toast.error(errorMessage);
     }
   };
-
-
-
   const handleDelete = async () => {
     try {
-      // Delete each selected entry    {http://api.cptechsolutions.com }
+      // Delete each selected entry   {http://api.cptechsolutions.com }
       await Promise.all(
         selectedEntries.map((id) =>
           axios.delete(
@@ -362,7 +354,6 @@ const Deposit = () => {
         <div className="flex ">
           {/* Sidebar */}
           <Sidebar className="fixed " />
-
           {/* Main Content */}
           <div className="ml-60 p-6 bg-gray-100 dark:bg-gray-800 min-h-screen w-full text-gray-900 dark:text-gray-200 overflow-hidden">
             <div className="max-w-5xl mr-1 mx-auto justify-between items-center mb-8 ml-10 rounded ">
@@ -376,7 +367,7 @@ const Deposit = () => {
                     <button className="px-4 py-2 bg-gray-200 dark:bg-gray-600 text-gray-600 rounded-full">
                       Today
                     </button>
-                    <button className="px-4 py-2 bg-gray-200 dark:bg-gray-600 text-gray-600 rounded-full flex items-center">
+                    {/* <button className="px-4 py-2 bg-gray-200 dark:bg-gray-600 text-gray-600 rounded-full flex items-center">
                       Select dates
                       <svg
                         className="w-5 h-5 ml-2 text-gray-500 dark:text-gray-300"
@@ -392,7 +383,7 @@ const Deposit = () => {
                           d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
                         />
                       </svg>
-                    </button>
+                    </button> */}
                   </div>
                 </div>
 
@@ -685,7 +676,7 @@ const Deposit = () => {
               </button> */}
 
                     {/* Export Button */}
-                    <button
+                    {/* <button
                       className="bg-transperent hover:bg-[#fff] text-[#001A3B] hover:text-[#001A3B] border hover:border-[#001A3B] py-2 rounded right-0"
                       style={{ height: "40px", width: "100px" }}
                     >
@@ -695,11 +686,11 @@ const Deposit = () => {
                         className="w-5 h-5 inline"
                       />{" "}
                       Export
-                    </button>
+                    </button> */}
                     <button
                       className={`bg-red-500 text-white px-4 py-2 rounded ${selectedEntries.length === 0
-                          ? "opacity-50 cursor-not-allowed"
-                          : ""
+                        ? "opacity-50 cursor-not-allowed"
+                        : ""
                         }`}
                       onClick={handleDelete}
                       disabled={selectedEntries.length === 0}
@@ -772,7 +763,7 @@ const Deposit = () => {
                             />
                           </td>
                           <td className="px-4 py-4 border-b text-sm">
-                            {new Date(entry.created_at).toLocaleDateString()}
+                            {new Date(entry.date).toLocaleDateString()}
                           </td>
                           <td className="px-4 py-4 border-b text-sm">
                             {entry.player_id}
@@ -816,8 +807,8 @@ const Deposit = () => {
                       key={i}
                       onClick={() => handlePageChange(i + 1)}
                       className={`px-3 py-1 border rounded ${currentPage === i + 1
-                          ? "bg-blue-500 text-white"
-                          : "bg-white text-gray-700"
+                        ? "bg-blue-500 text-white"
+                        : "bg-white text-gray-700"
                         }`}
                     >
                       {i + 1}
