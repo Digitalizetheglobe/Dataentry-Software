@@ -68,7 +68,7 @@ const MergeReport = () => {
                 </div>
 
                 {/* Scrollable Table */}
-                <div className="flex-grow bg-white rounded-lg mt-4 p-4">
+                <div className="flex-grow bg-white rounded-lg mt-4 p-4 px-0">
                   <table className="w-full border border-gray-300">
                     <thead className="bg-gray-100 text-gray-600">
                       <tr>

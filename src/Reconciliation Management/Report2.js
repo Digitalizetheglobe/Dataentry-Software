@@ -107,13 +107,12 @@ const Report2 = () => {
           <Sidebar className="fixed" />
 
           {/* Main Content */}
-          <div className="ml-60 p-6 min-h-screen w-full overflow-hidden">
-            <div className="max-w-5xl mr-1 mx-auto p-4 bg-white rounded">
-              <div className="p-4 bg-gray-50 rounded-lg ml-10">
-                <div className="flex items-center justify-between mb-6">
+          <div className="ml-80 p-6 min-h-screen w-full overflow-y-auto">
+          <div className="">
+            <div className="h-full flex flex-col max-h-screen">
+              <div className="bg-gray-50 rounded-lg p-6">
+                <div className="flex items-center justify-between mt-4 mb-6">
                   <h2 className="text-lg font-semibold text-gray-700">Excel 2 Data Table</h2>
-                  <div className="flex items-center space-x-4">
-                  </div>
                 </div>
                 {/* File Upload Section */}
                 <div className="flex items-center mb-4">
@@ -148,30 +147,29 @@ const Report2 = () => {
           Upload Excel 2
         </button>
       </div> */}
-
-              <div className="overflow-x-auto ml-10 rounded-lg mt-5">
-                <table className="min-w-full border border-gray-300 rounded-lg">
+              <div className="flex-grow bg-white rounded-lg mt-4 p-4 px-0">
+                <table className="w-full border border-gray-300">
                   <thead className="bg-gray-100 text-gray-600">
                     <tr>
-                      <th className="px-4 py-3 text-left text-sm font-semibold border">ID</th>
-                      <th className="px-4 py-3 text-left text-sm font-semibold border">UID</th>
-                      <th className="px-4 py-3 text-left text-sm font-semibold border">Deposit</th>
-                      <th className="px-4 py-3 text-left text-sm font-semibold border">Withdraw</th>
-                      <th className="px-4 py-3 text-left text-sm font-semibold border">Balance</th>
-                      <th className="px-4 py-3 text-left text-sm font-semibold border">from - to</th>
-                      <th className="px-4 py-3 text-left text-sm font-semibold border">Updated At</th>
+                      <th className="border p-2 text-left">ID</th>
+                      <th className="border p-2 text-left">UID</th>
+                      <th className="border p-2 text-left">Deposit</th>
+                      <th className="border p-2 text-left">Withdraw</th>
+                      <th className="border p-2 text-left">Balance</th>
+                      <th className="border p-2 text-left">from - to</th>
+                      <th className="border p-2 text-left">Updated At</th>
                     </tr>
                   </thead>
                   <tbody>
                     {currentItems.map((item) => (
-                      <tr key={item.id} className="bg-white border-b">
-                        <td className="px-4 py-2 border">{item.id}</td>
-                        <td className="px-4 py-2 border">{item.uid}</td>
-                        <td className="px-4 py-2 border">{item.deposit}</td>
-                        <td className="px-4 py-2 border">{item.withdraw}</td>
-                        <td className="px-4 py-2 border">{item.balance}</td>
-                        <td className="px-4 py-2 border">{item.from_to}</td>
-                        <td className="px-4 py-2 border">{item.updatedAt}</td>
+                      <tr key={item.id} className="text-left">
+                        <td className="p-2 border">{item.id}</td>
+                        <td className="p-2 border">{item.uid}</td>
+                        <td className="p-2 border">{item.deposit}</td>
+                        <td className="p-2 border">{item.withdraw}</td>
+                        <td className="p-2 border">{item.balance}</td>
+                        <td className="p-2 border">{item.from_to}</td>
+                        <td className="p-2 border">{item.updatedAt}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -228,6 +226,7 @@ const Report2 = () => {
               </nav>
 
               <ToastContainer />
+            </div>
             </div>
           </div>
         </div>

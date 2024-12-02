@@ -1,4 +1,4 @@
-import React, { useState , useEffect} from 'react';
+import React, { useState , useEffect, useRef} from 'react';
 import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -13,6 +13,136 @@ const DepositBankReport = () => {
   const [report, setReport] = useState([]);
   const [totalAmount, setTotalAmount] = useState(0);
   const [message, setMessage] = useState('');
+
+  const banks = [
+    // Public Sector Banks2
+    "State Bank of India",
+    "Punjab National Bank",
+    "Bank of Baroda",
+    "Canara Bank",
+    "Union Bank of India",
+    "Bank of India",
+    "Indian Bank",
+    "Central Bank of India",
+    "Indian Overseas Bank",
+    "UCO Bank",
+    "Punjab & Sind Bank",
+    
+    // Private Sector Banks
+    "HDFC Bank",
+    "ICICI Bank",
+    "Axis Bank",
+    "Kotak Mahindra Bank",
+    "Yes Bank",
+    "IDBI Bank",
+    "Federal Bank",
+    "IndusInd Bank",
+    "South Indian Bank",
+    "RBL Bank",
+    "Bandhan Bank",
+    "Jammu & Kashmir Bank",
+    "City Union Bank",
+    "Karur Vysya Bank",
+    "Tamilnad Mercantile Bank",
+    "Dhanlaxmi Bank",
+    "Lakshmi Vilas Bank",
+  
+    // Small Finance Banks
+    "AU Small Finance Bank",
+    "Equitas Small Finance Bank",
+    "Ujjivan Small Finance Bank",
+    "Suryoday Small Finance Bank",
+    "Jana Small Finance Bank",
+    "Fincare Small Finance Bank",
+    "ESAF Small Finance Bank",
+    "North East Small Finance Bank",
+    "Capital Small Finance Bank",
+    
+    // Payments Banks
+    "Paytm Payments Bank",
+    "Airtel Payments Bank",
+    "India Post Payments Bank",
+    "Fino Payments Bank",
+    "Jio Payments Bank",
+    "NSDL Payments Bank",
+  
+    // Regional Rural Banks (RRBs)
+    "Aryavart Bank",
+    "Baroda UP Bank",
+    "Kerala Gramin Bank",
+    "Andhra Pradesh Grameena Vikas Bank",
+    "Prathama UP Gramin Bank",
+    "Madhya Pradesh Gramin Bank",
+    "Chhattisgarh Rajya Gramin Bank",
+    "Punjab Gramin Bank",
+    "Rajasthan Marudhara Gramin Bank",
+    "Sarva Haryana Gramin Bank",
+    // Add more RRBs as needed
+  
+    // Cooperative Banks
+    "Saraswat Cooperative Bank",
+    "Cosmos Cooperative Bank",
+    "Bassein Catholic Cooperative Bank",
+    "Abhyudaya Cooperative Bank",
+    "Shamrao Vithal Cooperative Bank",
+    "Bombay Mercantile Cooperative Bank",
+  
+    // Foreign Banks in India
+    "Citibank",
+    "Standard Chartered Bank",
+    "HSBC Bank",
+    "Deutsche Bank",
+    "Barclays Bank",
+    "DBS Bank",
+    "BNP Paribas",
+    "Bank of America",
+    "JP Morgan Chase",
+    "Mizuho Bank",
+    "MUFG Bank",
+    "Credit Suisse",
+    "UBS AG"
+  ];
+
+  const [bankSearch, setBankSearch] = useState('');
+  const [filteredBanks, setFilteredBanks] = useState([]);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowDropdown(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  const handleSearchChange = (e) => {
+    const query = e.target.value;
+    setBankSearch(query);
+
+    if (query.trim() === '') {
+      setFilteredBanks([]);
+      setShowDropdown(false);
+    } else {
+      const filtered = banks.filter((bank) =>
+        bank.toLowerCase().includes(query.toLowerCase())
+      );
+      setFilteredBanks(filtered);
+      setShowDropdown(true);
+    }
+  };
+
+  const handleBankSelect = (bank) => {
+    setBankSearch(bank);
+    setFilteredBanks([]);
+    setShowDropdown(false);
+    // onBankSelect(bank); 
+  };
 
   const fetchReport = async () => {
     try {
@@ -86,15 +216,39 @@ const DepositBankReport = () => {
 
         {/* Bank Name Input */}
         <div>
-          <label className="block text-sm font-semibold text-gray-700">Bank Name</label>
-          <input
-            type="text"
-            value={bankName}
-            onChange={(e) => setBankName(e.target.value)}
-            placeholder="Enter bank name"
-            className="w-full border rounded px-3 py-2 text-sm"
-          />
-        </div>
+  <label className="block text-sm font-semibold text-gray-700">Bank Name</label>
+  <div className="relative">
+    <input
+      type="text"
+      value={bankSearch}
+      onChange={handleSearchChange}
+      placeholder="Search bank name"
+      className="w-full border rounded px-3 py-2 text-sm"
+      onFocus={() => setShowDropdown(true)}
+    />
+    {showDropdown && filteredBanks.length > 0 && (
+      <ul
+        ref={dropdownRef}
+        className="absolute z-10 bg-white border border-gray-300 rounded shadow-lg w-full max-h-60 overflow-y-auto"
+      >
+        {filteredBanks.map((bank, index) => (
+          <li
+            key={index}
+            className="px-3 py-2 cursor-pointer hover:bg-gray-100"
+            onClick={() => {
+              handleBankSelect(bank);
+              setBankName(bank); // Update the bank name state
+            }}
+          >
+            {bank}
+          </li>
+        ))}
+      </ul>
+    )}
+  </div>
+</div>
+
+
       </div>
       <button
         onClick={fetchReport}

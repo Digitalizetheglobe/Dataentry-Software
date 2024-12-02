@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Sidebar from "../Sidebar/Sidebar";
 import button3 from "../assets/icons/Button (3).png";
 import axios from "axios"; // Import axios for API requests
-import axios from "axios"; // Import axios for API requests
 
 const ExpenseData = () => {
   const [activeTab, setActiveTab] = useState("addExpense");
@@ -11,7 +10,7 @@ const ExpenseData = () => {
     type_of_expense: "",
     amount: "",
     date: "",
-    bankName: "",
+    bank_name: "",
     name: "",
     remark: "",
   });
@@ -234,9 +233,7 @@ const ExpenseData = () => {
                       type="submit"
                       className="bg-[#001A3B] text-white py-2 px-4 rounded hover:bg-transparent border border-[#001A3B] hover:text-[#001A3B] focus:outline-none focus:ring-2 focus:ring-blue-300"
                       disabled={loading}
-                      disabled={loading}
                     >
-                      {loading ? "Adding Expense..." : "+ Add New Expense"}
                       {loading ? "Adding Expense..." : "+ Add New Expense"}
                     </button>
                     {error && (
