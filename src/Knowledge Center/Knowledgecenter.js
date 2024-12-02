@@ -5,7 +5,6 @@ import button2 from "../assets/icons/Button (2).png";
 import button3 from "../assets/icons/Button (3).png";
 import VideoSection from "./Videosection";
 import { useState } from "react";
-import { useState } from "react";
 
 const Knowledgecenter = () => {
   const [openSections, setOpenSections] = useState({
