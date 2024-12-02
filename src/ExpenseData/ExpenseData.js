@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Sidebar from "../Sidebar/Sidebar";
 import button3 from "../assets/icons/Button (3).png";
 import axios from "axios"; // Import axios for API requests
+import axios from "axios"; // Import axios for API requests
 
 const ExpenseData = () => {
   const [activeTab, setActiveTab] = useState("addExpense");
@@ -115,24 +116,23 @@ const ExpenseData = () => {
                 <div className="flex space-x-6 border-b pb-2 mb-6 text-gray-500">
                   <button
                     onClick={() => setActiveTab("addExpense")}
-                    className={`pb-2 ${
-                      activeTab === "addExpense"
-                        ? "text-[#001A3B] border-b-2 border-[#001A3B]"
-                        : "hover:text-[#001A3B]"
-                    }`}
+                    className={`pb-2 ${activeTab === "addExpense"
+                      ? "text-[#001A3B] border-b-2 border-[#001A3B]"
+                      : "hover:text-[#001A3B]"
+                      }`}
                   >
                     Add New Expense
                   </button>
                   <button
-                    onClick={() => setActiveTab("allExpenses")}
-                    className={`pb-2 ${
-                      activeTab === "allExpenses"
-                        ? "text-[#001A3B] border-b-2 border-[#001A3B]"
-                        : "hover:text-[#001A3B]"
-                    }`}
-                  >
-                    All Expenses
-                  </button>
+                  onClick={() => setActiveTab("allExpenses")}
+                  className={`pb-2 ${
+                    activeTab === "allExpenses"
+                      ? "text-[#001A3B] border-b-2 border-[#001A3B]"
+                      : "hover:text-[#001A3B]"
+                  }`}
+                >
+                  All Expenses
+                </button>
                 </div>
 
                 {/* Add New Expense Form */}
@@ -155,6 +155,7 @@ const ExpenseData = () => {
                           placeholder="e.g. New Office Supplies"
                           required
                         />
+
                       </div>
                       <div>
                         <label className="block text-sm font-bold text-[#001A3B]">
@@ -233,7 +234,9 @@ const ExpenseData = () => {
                       type="submit"
                       className="bg-[#001A3B] text-white py-2 px-4 rounded hover:bg-transparent border border-[#001A3B] hover:text-[#001A3B] focus:outline-none focus:ring-2 focus:ring-blue-300"
                       disabled={loading}
+                      disabled={loading}
                     >
+                      {loading ? "Adding Expense..." : "+ Add New Expense"}
                       {loading ? "Adding Expense..." : "+ Add New Expense"}
                     </button>
                     {error && (

@@ -110,6 +110,41 @@ const Deposit = () => {
         : [...prevSelected, id]
     );
   };
+
+
+  // ----------------------
+
+  const handlePutUpload = async () => {
+    if (!selectedFile) {
+      toast.error("Please select a file to upload.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("file", selectedFile);
+
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/api/deposit-withdraw/bulk-upload",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      toast.success(response.data.message);
+      setSelectedFile(null); // Clear the selected file after success
+      fetchEntries(); // Refresh the entries after bulk upload
+    } catch (error) {
+      const errorMessage =
+        error.response?.data?.message || "Error during bulk upload. Please try again.";
+      toast.error(errorMessage);
+    }
+  };
+
+
+
   const handleDelete = async () => {
     try {
       // Delete each selected entry    {http://api.cptechsolutions.com }
@@ -377,7 +412,7 @@ const Deposit = () => {
                   >
                     Add Entry
                   </button>
-                  
+
                   <button
                     type="submit"
                     className="mt-4 w-40 h-10 bg-[#001A3B] hover:bg-[#fff] text-white hover:text-[#001A3B] border hover:border-[#001A3B] py-2 rounded right-0"
@@ -395,19 +430,18 @@ const Deposit = () => {
                 <div className="flex items-center justify-between mb-6 mt-8">
                   <input
                     type="file"
-                    // onChange={handleFileChange}
+                    onChange={handleFileChange}
                     className="mr-2"
                     style={{ marginLeft: "23px" }}
                   />
-
                   <button
-                    // onClick={handlePutUpload}
-                    className=" text-green-600 hover:bg-green-600 border border-green-700 hover:text-white hover:border-green-700 py-2 px-4 rounded ml-2"
-                  
+                    onClick={handlePutUpload}
+                    className="text-green-600 hover:bg-green-600 border border-green-700 hover:text-white hover:border-green-700 py-2 px-4 rounded ml-2"
                   >
                     Bulk Upload
                   </button>
                 </div>
+
               </div>
               <br />
               <ToastContainer />
@@ -469,11 +503,10 @@ const Deposit = () => {
                       Export
                     </button>
                     <button
-                      className={`bg-red-500 text-white px-4 py-2 rounded ${
-                        selectedEntries.length === 0
+                      className={`bg-red-500 text-white px-4 py-2 rounded ${selectedEntries.length === 0
                           ? "opacity-50 cursor-not-allowed"
                           : ""
-                      }`}
+                        }`}
                       onClick={handleDelete}
                       disabled={selectedEntries.length === 0}
                     >
@@ -533,9 +566,8 @@ const Deposit = () => {
                       {currentEntries.map((entry, index) => (
                         <tr
                           key={index}
-                          className={`hover:bg-gray-50 transition-colors duration-150 ${
-                            index % 2 === 0 ? "bg-white" : "bg-gray-50"
-                          }`}
+                          className={`hover:bg-gray-50 transition-colors duration-150 ${index % 2 === 0 ? "bg-white" : "bg-gray-50"
+                            }`}
                         >
                           <td className="px-4 py-4 border-b text-sm">
                             <input
@@ -589,11 +621,10 @@ const Deposit = () => {
                     <button
                       key={i}
                       onClick={() => handlePageChange(i + 1)}
-                      className={`px-3 py-1 border rounded ${
-                        currentPage === i + 1
+                      className={`px-3 py-1 border rounded ${currentPage === i + 1
                           ? "bg-blue-500 text-white"
                           : "bg-white text-gray-700"
-                      }`}
+                        }`}
                     >
                       {i + 1}
                     </button>
