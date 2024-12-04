@@ -15,16 +15,44 @@ const WithdrwalBankReport = () => {
   const [message, setMessage] = useState('');
 
 
+  // const fetchReport = async () => {
+  //   try {
+  //     const response = await axios.get('http://api.cptechsolutions.com/api/withdrawal-report/entries/report', {
+  //       params: {
+  //         startDate: startDate.toISOString().split('T')[0],
+  //         endDate: endDate.toISOString().split('T')[0],
+  //         bank_name: bankName.trim(), 
+  //       },
+  //     });
+
+  //     setReport(response.data.data);
+  //     setTotalAmount(response.data.totalAmount);
+  //     setMessage(response.data.message);
+  //     toast.success('Report generated successfully!');
+  //   } catch (error) {
+  //     console.error('Error fetching report:', error);
+  //     setMessage('Error fetching report. Please try again.');
+  //     toast.error('Error fetching report. Please try again.');
+  //   }
+  // };
+
+  
+  
   const fetchReport = async () => {
+    if (!bankName.trim()) {
+      toast.error('Please enter a valid bank name.');
+      return;
+    }
+  
     try {
       const response = await axios.get('http://api.cptechsolutions.com/api/withdrawal-report/entries/report', {
         params: {
           startDate: startDate.toISOString().split('T')[0],
           endDate: endDate.toISOString().split('T')[0],
-          bank_name: bankName.trim(), // Ensure the bank name is trimmed
+          bank_name: bankName.trim(),
         },
       });
-
+  
       setReport(response.data.data);
       setTotalAmount(response.data.totalAmount);
       setMessage(response.data.message);
@@ -35,8 +63,7 @@ const WithdrwalBankReport = () => {
       toast.error('Error fetching report. Please try again.');
     }
   };
-
-
+  
   return (
     <>
  <div>
