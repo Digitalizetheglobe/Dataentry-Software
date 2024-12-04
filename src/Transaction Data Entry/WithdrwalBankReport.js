@@ -200,7 +200,7 @@ const WithdrwalBankReport = () => {
   
     try {
       const response = await axios.get(
-        "http://api.cptechsolutions.com/withdrawal-report/entries/report",
+        "http://api.cptechsolutions.com/api/withdrawal-report/entries/report",
         {
           params: {
             startDate: startDate.toISOString().split("T")[0],
