@@ -60,7 +60,7 @@ function App() {
               path="/report-1"
               element={
                 <PrivateRoute>
-                  <Report1 />
+                  <Report1/>
                 </PrivateRoute>
               }
             />

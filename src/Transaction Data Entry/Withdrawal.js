@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
 import { ToastContainer, toast } from 'react-toastify';
@@ -17,12 +17,109 @@ const Withdrawal = () => {
     branch_id: '',
     remark: '',
   });
+
+
   const [withdrawals, setWithdrawals] = useState([]);
   const [branchId, setBranchId] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedFile, setSelectedFile] = useState(null);
   const [entries, setEntries] = useState([]);
+
+  const banks = [
+    // Public Sector Banks
+    "State Bank of India",
+    "Punjab National Bank",
+    "Bank of Baroda",
+    "Canara Bank",
+    "Union Bank of India",
+    "Bank of India",
+    "Indian Bank",
+    "Central Bank of India",
+    "Indian Overseas Bank",
+    "UCO Bank",
+    "Punjab & Sind Bank",
+    
+    // Private Sector Banks
+    "HDFC Bank",
+    "ICICI Bank",
+    "Axis Bank",
+    "Kotak Mahindra Bank",
+    "Yes Bank",
+    "IDBI Bank",
+    "Federal Bank",
+    "IndusInd Bank",
+    "South Indian Bank",
+    "RBL Bank",
+    "Bandhan Bank",
+    "Jammu & Kashmir Bank",
+    "City Union Bank",
+    "Karur Vysya Bank",
+    "Tamilnad Mercantile Bank",
+    "Dhanlaxmi Bank",
+    "Lakshmi Vilas Bank",
+  
+    // Small Finance Banks
+    "AU Small Finance Bank",
+    "Equitas Small Finance Bank",
+    "Ujjivan Small Finance Bank",
+    "Suryoday Small Finance Bank",
+    "Jana Small Finance Bank",
+    "Fincare Small Finance Bank",
+    "ESAF Small Finance Bank",
+    "North East Small Finance Bank",
+    "Capital Small Finance Bank",
+    
+    // Payments Banks
+    "Paytm Payments Bank",
+    "Airtel Payments Bank",
+    "India Post Payments Bank",
+    "Fino Payments Bank",
+    "Jio Payments Bank",
+    "NSDL Payments Bank",
+  
+    // Regional Rural Banks (RRBs)
+    "Aryavart Bank",
+    "Baroda UP Bank",
+    "Kerala Gramin Bank",
+    "Andhra Pradesh Grameena Vikas Bank",
+    "Prathama UP Gramin Bank",
+    "Madhya Pradesh Gramin Bank",
+    "Chhattisgarh Rajya Gramin Bank",
+    "Punjab Gramin Bank",
+    "Rajasthan Marudhara Gramin Bank",
+    "Sarva Haryana Gramin Bank",
+    // Add more RRBs as needed
+  
+    // Cooperative Banks
+    "Saraswat Cooperative Bank",
+    "Cosmos Cooperative Bank",
+    "Bassein Catholic Cooperative Bank",
+    "Abhyudaya Cooperative Bank",
+    "Shamrao Vithal Cooperative Bank",
+    "Bombay Mercantile Cooperative Bank",
+  
+    // Foreign Banks in India
+    "Citibank",
+    "Standard Chartered Bank",
+    "HSBC Bank",
+    "Deutsche Bank",
+    "Barclays Bank",
+    "DBS Bank",
+    "BNP Paribas",
+    "Bank of America",
+    "JP Morgan Chase",
+    "Mizuho Bank",
+    "MUFG Bank",
+    "Credit Suisse",
+    "UBS AG"
+  ];
+  
+  const [bankSearch, setBankSearch] = useState("");
+  const [filteredBanks, setFilteredBanks] = useState([]);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const dropdownRef = useRef(null);
+
   const entriesPerPage = 20;
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -38,6 +135,41 @@ const Withdrawal = () => {
     }
     fetchWithdrawals();
   }, []);
+
+ // Close dropdown when clicking outside
+ useEffect(() => {
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setShowDropdown(false);
+    }
+  };
+  document.addEventListener("mousedown", handleClickOutside);
+  return () => {
+    document.removeEventListener("mousedown", handleClickOutside);
+  };
+}, []);
+
+  const handleSearchChange = (e) => {
+    const query = e.target.value;
+    setBankSearch(query);
+    if (query.trim() === "") {
+      setFilteredBanks([]);
+      setShowDropdown(false);
+    } else {
+      const filtered = banks.filter((bank) =>
+        bank.toLowerCase().includes(query.toLowerCase())
+      );
+      setFilteredBanks(filtered);
+      setShowDropdown(true);
+    }
+  };
+
+  const handleBankSelect = (bank) => {
+    setFormData({ ...formData, bank });
+    setBankSearch(bank);
+    setFilteredBanks([]);
+    setShowDropdown(false);
+  };
 
   const handleChange = (e) => {
     setFormData({
@@ -75,7 +207,7 @@ const Withdrawal = () => {
       console.error('Error fetching entries:', error);
     }
   };
-  const handleSearchChange = (e) => {
+  const handleSearch = (e) => {
     setSearchQuery(e.target.value);
     setCurrentPage(1);
   };
@@ -218,10 +350,46 @@ const Withdrawal = () => {
                       <label className="block text-sm font-semibold text-gray-700">Amount</label>
                       <input type="number" name="amount" value={formData.amount} onChange={handleChange} className="w-full border rounded px-3 py-2 text-sm" required />
                     </div>
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-700">Bank Name</label>
-                      <input type="text" name="bank" value={formData.bank} onChange={handleChange} className="w-full border rounded px-3 py-2 text-sm" required />
-                    </div>
+                    <div className="relative" ref={dropdownRef}>
+      {/* Input Field */}
+      <label htmlFor="bank_name" className="block text-sm font-semibold text-gray-700">
+        Bank Name
+      </label>
+      <input
+        type="text"
+        id="bankSearch"
+        name="bankSearch"
+        value={bankSearch}
+        onChange={handleSearchChange}
+        placeholder="Search bank"
+        className="w-full border rounded px-3 py-2 text-sm"
+      />
+
+      {/* Dropdown List */}
+      {showDropdown && filteredBanks.length > 0 && (
+        <ul
+          className="absolute border border-gray-300 bg-white overflow-y-auto text-sm rounded mt-1 w-full shadow-lg z-10"
+          style={{ maxHeight: "200px" }}
+        >
+          {filteredBanks.map((bank, index) => (
+            <li
+              key={index}
+              className="p-2 hover:bg-gray-100 cursor-pointer"
+              onClick={() => handleBankSelect(bank)}
+            >
+              {bank}
+            </li>
+          ))}
+        </ul>
+      )}
+
+      {/* Selected Bank Display */}
+      {formData.bank_name && (
+        <div className="mt-2 text-[12px] text-green-600">
+          Selected Bank: {formData.bank_name}
+        </div>
+      )}
+    </div>
                     <div>
                       <label className="block text-sm font-semibold text-gray-700">Branch ID</label>
                       <input type="text" name="branch_id" value={formData.branch_id} readOnly className="w-full border rounded px-3 py-2 text-sm bg-gray-100" />
@@ -303,10 +471,10 @@ const Withdrawal = () => {
                         <th className="px-4 py-3 text-left text-sm font-semibold border-b"><input type="checkbox" className="form-checkbox" /></th>
                         <th className="px-4 py-3 text-left text-sm font-semibold border-b">Date</th>
                         <th className="px-4 py-3 text-left text-sm font-semibold border-b">User ID</th>
-                        <th className="px-4 py-3 text-left text-sm font-semibold border-b">Amount</th>
+                        <th className="px-1 py-3 text-left text-sm font-semibold border-b">Amount</th>
                         <th className="px-10 py-3 text-left text-sm font-semibold border-b">Bank</th>
                         <th className="px-6 py-3 text-left text-sm font-semibold border-b">Branch ID</th>
-                        <th className="px-8 py-3 text-left text-sm font-semibold border-b">Remark</th>
+                        <th className="px-4 py-3 text-left text-sm font-semibold border-b">Remark</th>
                         <th className="px-4 py-3 text-left text-sm font-semibold border-b">Actions</th>
                       </tr>
                     </thead>
@@ -316,10 +484,10 @@ const Withdrawal = () => {
                           <td className="px-4 py-4 border-b text-sm"><input type="checkbox" className="form-checkbox" /></td>
                           <td className="px-4 py-2 border">{new Date(entry.date).toLocaleDateString()}</td>
                           <td className="px-4 py-4 border-b text-sm">{entry.user_id}</td>
-                          <td className="px-4 py-4 border-b text-sm">{entry.amount}</td>
+                          <td className="px-1 py-4 border-b text-sm">{entry.amount}</td>
                           <td className="px-8 py-4 border-b text-sm">{entry.bank}</td>
                           <td className="px-6 py-4 border-b text-sm">{entry.branch_id}</td>
-                          <td className="px-10 py-4 border-b text-sm">{entry.remark}</td>
+                          <td className="px-4 py-4 border-b text-sm">{entry.remark}</td>
                           <td className="px-4 py-4 border-b text-sm">
                             <button className="text-blue-500 hover:text-blue-700"><img src={edit} alt="Edit" className="w-4 h-4 inline" /></button>
                             <button className="text-red-500 hover:text-red-700 ml-2"><img src={trash} alt="Delete" className="w-4 h-4 inline" /></button>

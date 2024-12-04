@@ -10,8 +10,8 @@ const Knowledgecenter = () => {
   const [openSections, setOpenSections] = useState({
     reportsmanagement: true, // First section open by default
     reconciliationfeatures: false,
-    interbank: false,
-    dataentry: false,
+    interbank:false,
+    dataentry:false,
     expenses: false,
   });
 
@@ -60,19 +60,19 @@ const Knowledgecenter = () => {
                       </h3>
                       {/* Toggle Arrow */}
                       <button
-                        onClick={() => toggleSection("reportsmanagement")}
+                         onClick={() => toggleSection("reportsmanagement")}
                         className="focus:outline-none"
                       >
-                        {openSections.reportsmanagement ? (
-                          <span className="transform rotate-180">▼</span>
-                        ) : (
-                          <span>▼</span>
-                        )}
+                         {openSections.reportsmanagement ? (
+              <span className="transform rotate-180">▼</span>
+            ) : (
+              <span>▼</span>
+            )}
                       </button>
                     </div>
 
                     {/* Collapsible Content */}
-
+                    
                     {openSections.reportsmanagement && (
                       <div className="bg-white shadow-md p-4 rounded-lg mt-4">
                         <ul className="list-disc ml-6">
@@ -129,8 +129,8 @@ const Knowledgecenter = () => {
                           </li>
                           <p className="text-gray-500 mt-2">
                             1. Upload your Excel file via the
-                             <b>Upload Excel 2</b>
-                             button.
+                            <b>Upload Excel 2</b>
+                            button.
                           </p>
                           <p className="text-gray-500 mt-4">
                             2. Use the <b>Update Excel 2</b> for data
@@ -200,14 +200,14 @@ const Knowledgecenter = () => {
                       </h3>
                       {/* Toggle Arrow */}
                       <button
-                        onClick={() => toggleSection("reconciliationfeatures")}
+                         onClick={() => toggleSection("reconciliationfeatures")}
                         className="focus:outline-none"
                       >
                         {openSections.reconciliationfeatures ? (
-                          <span className="transform rotate-180">▼</span>
-                        ) : (
-                          <span>▼</span>
-                        )}
+              <span className="transform rotate-180">▼</span>
+            ) : (
+              <span>▼</span>
+            )}
                       </button>
                     </div>
 
@@ -307,11 +307,11 @@ const Knowledgecenter = () => {
                         onClick={() => toggleSection("dataentry")}
                         className="focus:outline-none"
                       >
-                        {openSections.dataentry ? (
-                          <span className="transform rotate-180">▼</span>
-                        ) : (
-                          <span>▼</span>
-                        )}
+                                   {openSections.dataentry ? (
+              <span className="transform rotate-180">▼</span>
+            ) : (
+              <span>▼</span>
+            )}
                       </button>
                     </div>
 
@@ -436,14 +436,14 @@ const Knowledgecenter = () => {
                       </h3>
                       {/* Toggle Arrow */}
                       <button
-                        onClick={() => toggleSection("interbank")}
+                         onClick={() => toggleSection("interbank")}
                         className="focus:outline-none"
                       >
-                        {openSections.interbank ? (
-                          <span className="transform rotate-180">▼</span>
-                        ) : (
-                          <span>▼</span>
-                        )}
+                           {openSections.interbank ? (
+              <span className="transform rotate-180">▼</span>
+            ) : (
+              <span>▼</span>
+            )}
                       </button>
                     </div>
 
@@ -482,9 +482,9 @@ const Knowledgecenter = () => {
                   </div>
                 </div>
 
-                {/* {module 05} */}
+{/* {module 05} */}
 
-                <div className="flex items-start relative mt-6">
+<div className="flex items-start relative mt-6">
                   <div className="flex items-center mr-4 relative">
                     {/* Module icon */}
                     <div className="w-10 h-10 bg-[#001A3B] border border-[#8C754F] rounded-md z-10"></div>
@@ -500,7 +500,7 @@ const Knowledgecenter = () => {
                     {/* Header Section */}
                     <div className="bg-[#001A3B] text-white p-4 rounded-lg flex justify-between items-center">
                       <h3 className="font-bold text-lg mb-2">
-                        Expense Management
+                      Expense Management
                       </h3>
                       {/* Toggle Arrow */}
                       <button
@@ -508,10 +508,10 @@ const Knowledgecenter = () => {
                         className="focus:outline-none"
                       >
                         {openSections.expenses ? (
-                          <span className="transform rotate-180">▼</span>
-                        ) : (
-                          <span>▼</span>
-                        )}
+              <span className="transform rotate-180">▼</span>
+            ) : (
+              <span>▼</span>
+            )}
                       </button>
                     </div>
 
@@ -542,12 +542,12 @@ const Knowledgecenter = () => {
                           <p className="text-gray-500 mt-4">
                             2. Enter details like:
                             <ul>
-                              <li>  Type of Expense </li>
-                              <li> Amount </li>
-                              <li> Bank Name </li>
-                              <li> Date </li>
-                              <li> Remarks (Optional) </li>
-                            </ul>
+<li>  Type of Expense </li>
+    <li> Amount </li>
+     <li> Bank Name </li>
+     <li> Date </li> 
+     <li> Remarks (Optional) </li>
+     </ul>
                           </p>
                         </ul>
                       </div>

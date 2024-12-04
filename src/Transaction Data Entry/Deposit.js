@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -8,20 +8,134 @@ import deposite from "../assets/deposit.png";
 import edit from "../assets/Shape.png";
 import trash from "../assets/trash-01.png";
 import exportone from "../assets/download-cloud-02.png";
+import '../SignIn/SignIn.css'
 
 const Deposit = () => {
   const [entries, setEntries] = useState([]);
   const [branchId, setBranchId] = useState("");
   const [selectedEntries, setSelectedEntries] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
-  const [formData, setFormData] = useState({
+  const [filteredBanks, setFilteredBanks] = useState([]);
+  const [bankSearch, setBankSearch] = useState("");
+  const [showFullList, setShowFullList] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const dropdownRef = useRef(null);
+
+  const banks = [
+    // Public Sector Banks
+    "State Bank of India",
+    "Punjab National Bank",
+    "Bank of Baroda",
+    "Canara Bank",
+    "Union Bank of India",
+    "Bank of India",
+    "Indian Bank",
+    "Central Bank of India",
+    "Indian Overseas Bank",
+    "UCO Bank",
+    "Punjab & Sind Bank",
+    
+    // Private Sector Banks
+    "HDFC Bank",
+    "ICICI Bank",
+    "Axis Bank",
+    "Kotak Mahindra Bank",
+    "Yes Bank",
+    "IDBI Bank",
+    "Federal Bank",
+    "IndusInd Bank",
+    "South Indian Bank",
+    "RBL Bank",
+    "Bandhan Bank",
+    "Jammu & Kashmir Bank",
+    "City Union Bank",
+    "Karur Vysya Bank",
+    "Tamilnad Mercantile Bank",
+    "Dhanlaxmi Bank",
+    "Lakshmi Vilas Bank",
+  
+    // Small Finance Banks
+    "AU Small Finance Bank",
+    "Equitas Small Finance Bank",
+    "Ujjivan Small Finance Bank",
+    "Suryoday Small Finance Bank",
+    "Jana Small Finance Bank",
+    "Fincare Small Finance Bank",
+    "ESAF Small Finance Bank",
+    "North East Small Finance Bank",
+    "Capital Small Finance Bank",
+    
+    // Payments Banks
+    "Paytm Payments Bank",
+    "Airtel Payments Bank",
+    "India Post Payments Bank",
+    "Fino Payments Bank",
+    "Jio Payments Bank",
+    "NSDL Payments Bank",
+  
+    // Regional Rural Banks (RRBs)
+    "Aryavart Bank",
+    "Baroda UP Bank",
+    "Kerala Gramin Bank",
+    "Andhra Pradesh Grameena Vikas Bank",
+    "Prathama UP Gramin Bank",
+    "Madhya Pradesh Gramin Bank",
+    "Chhattisgarh Rajya Gramin Bank",
+    "Punjab Gramin Bank",
+    "Rajasthan Marudhara Gramin Bank",
+    "Sarva Haryana Gramin Bank",
+    // Add more RRBs as needed
+  
+    // Cooperative Banks
+    "Saraswat Cooperative Bank",
+    "Cosmos Cooperative Bank",
+    "Bassein Catholic Cooperative Bank",
+    "Abhyudaya Cooperative Bank",
+    "Shamrao Vithal Cooperative Bank",
+    "Bombay Mercantile Cooperative Bank",
+  
+    // Foreign Banks in India
+    "Citibank",
+    "Standard Chartered Bank",
+    "HSBC Bank",
+    "Deutsche Bank",
+    "Barclays Bank",
+    "DBS Bank",
+    "BNP Paribas",
+    "Bank of America",
+    "JP Morgan Chase",
+    "Mizuho Bank",
+    "MUFG Bank",
+    "Credit Suisse",
+    "UBS AG"
+  ];
+  
+  useEffect(() => {
+    // Filter banks based on the search query
+    setFilteredBanks(
+      banks.filter((bank) =>
+        bank.toLowerCase().includes(bankSearch.toLowerCase())
+      )
+    );
+  }, [bankSearch]);
+  
+  const initialFormState = {
     player_id: "",
     branch_id: "",
     utr_id: "",
     amount: "",
     bank_name: "",
     remark: "",
-  });
+  };
+
+  const [formData, setFormData] = useState(initialFormState);
+
+  // Ensure state update is only triggered under specific conditions
+  const handleReset = () => {
+    setFormData(initialFormState);
+  };
+  
+  
   const [message, setMessage] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
@@ -33,6 +147,52 @@ const Deposit = () => {
       [e.target.name]: e.target.value,
     });
   };
+
+  // Close dropdown when clicking outside the component
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowDropdown(false); // Hide the dropdown
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const handleSearch = (e) => {
+    setSearchQuery(e.target.value);
+    setCurrentPage(1);
+  };
+
+  const handleSearchChange = (e) => {
+    const query = e.target.value;
+    setBankSearch(query);
+
+    if (query.trim() === '') {
+      setFilteredBanks([]);
+    } else {
+      const filtered = banks.filter((bank) =>
+        bank.toLowerCase().includes(query.toLowerCase())
+      );
+      setFilteredBanks(filtered);
+      setShowDropdown(true); // Show dropdown only when there are results
+    }
+  };
+
+  const handleBankSelect = (bank) => {
+    setFormData({ ...formData, bank_name: bank });
+    setBankSearch(bank); // Clear the search input after selection
+    setFilteredBanks([]); // Hide the list after selection
+    setShowFullList(false); // Reset the list state
+  };
+
+  const toggleShowFullList = () => {
+    setShowFullList((prev) => !prev);
+  };
+
   useEffect(() => {
     // Get the token from local storage
     const token = localStorage.getItem("token");
@@ -96,10 +256,7 @@ const Deposit = () => {
     fetchEntries();
   }, []);
 
-  const handleSearchChange = (e) => {
-    setSearchQuery(e.target.value);
-    setCurrentPage(1);
-  };
+
   const handleCheckboxChange = (id) => {
     setSelectedEntries((prevSelected) =>
       prevSelected.includes(id)
@@ -166,6 +323,14 @@ const Deposit = () => {
     currentPage * entriesPerPage
   );
 
+  // const handleBankNameChange = (id, newBankName) => {
+  //   const updatedEntries = entries.map((entry) =>
+  //     entry.id === id ? { ...entry, bank_name: newBankName } : entry
+  //   );
+  //   setEntries(updatedEntries);
+  // };
+  
+
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
@@ -176,7 +341,13 @@ const Deposit = () => {
 
   const totalPages = Math.ceil(entries.length / entriesPerPage);
   // new changes
-
+  const handleBankNameChange = (id, newBankName) => {
+    const updatedEntries = entries.map((entry) =>
+      entry.id === id ? { ...entry, bank_name: newBankName } : entry
+    );
+    setEntries(updatedEntries);
+  };
+  
   return (
     <>
       <div>
@@ -310,109 +481,133 @@ const Deposit = () => {
               <div className="p-4 bg-gray-50 rounded-lg ml-10">
                 {/* Form to Add New Entry */}
                 <form onSubmit={handleSubmit} className="mb-6">
-                  <div
-                    className="grid grid-cols-6 gap-4"
-                    style={{ marginLeft: "20px" }}
-                  >
-                    <div>
-                      <label className="block text-xs font-semibold text-gray-700">
-                        Player ID
-                      </label>
-                      <input
-                        type="text"
-                        name="player_id"
-                        value={formData.player_id}
-                        onChange={handleChange}
-                        className="w-full border rounded px-2 py-1 text-sm"
-                        required
-                      />
-                    </div>
+    <div
+      className="grid grid-cols-6 gap-4"
+      style={{ marginLeft: "20px" }}
+    >
+      <div>
+        <label className="block text-xs font-semibold text-gray-700">
+          Player ID
+        </label>
+        <input
+          type="text"
+          name="player_id"
+          value={formData.player_id}
+          onChange={handleChange}
+          className="w-full border rounded px-2 py-1 text-sm"
+          required
+        />
+      </div>
 
-                    <div>
-                      <label className="block text-xs font-semibold text-gray-700">
-                        UTR ID
-                      </label>
-                      <input
-                        type="text"
-                        name="utr_id"
-                        value={formData.utr_id}
-                        onChange={handleChange}
-                        className="w-full border rounded px-2 py-1 text-sm"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-semibold text-gray-700">
-                        Amount
-                      </label>
-                      <input
-                        type="number"
-                        name="amount"
-                        value={formData.amount}
-                        onChange={handleChange}
-                        className="w-full border rounded px-2 py-1 text-sm"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-semibold text-gray-700">
-                        Bank Name
-                      </label>
-                      <input
-                        type="text"
-                        name="bank_name"
-                        value={formData.bank_name}
-                        onChange={handleChange}
-                        className="w-full border rounded px-2 py-1 text-sm"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-semibold text-gray-700">
-                        Branch ID
-                      </label>
-                      <input
-                        type="text"
-                        name="branch_id"
-                        value={formData.branch_id}
-                        onChange={handleChange}
-                        className="w-full border rounded px-2 py-1 text-sm"
-                        readOnly
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-semibold text-gray-700">
-                        Remark
-                      </label>
-                      <input
-                        type="text"
-                        name="remark"
-                        value={formData.remark}
-                        onChange={handleChange}
-                        className="w-full border rounded px-2 py-1 text-sm"
-                      />
-                    </div>
-                  </div>
-                  <button
-                    type="submit"
-                    className="mt-4 w-40 h-10 bg-[#001A3B] hover:bg-[#fff] text-white hover:text-[#001A3B] border hover:border-[#001A3B] py-2 rounded right-0"
-                    // className=" py-2 px-4 rounded-md"
+      <div>
+        <label className="block text-xs font-semibold text-gray-700">
+          UTR ID
+        </label>
+        <input
+          type="text"
+          name="utr_id"
+          value={formData.utr_id}
+          onChange={handleChange}
+          className="w-full border rounded px-2 py-1 text-sm"
+          required
+        />
+      </div>
+      <div>
+        <label className="block text-xs font-semibold text-gray-700">
+          Amount
+        </label>
+        <input
+          type="number"
+          name="amount"
+          value={formData.amount}
+          onChange={handleChange}
+          className="w-full border rounded px-2 py-1 text-sm"
+          required
+        />
+      </div>
+      <div className="relative" ref={dropdownRef}>
+      {/* Input Field */}
+      <label htmlFor="bank_name" className="block text-xs font-semibold text-gray-700">
+        Bank Name
+      </label>
+      <input
+        type="text"
+        id="bankSearch"
+        name="bankSearch"
+        value={bankSearch}
+        onChange={handleSearchChange}
+        placeholder="Search bank"
+        className="w-full border rounded px-2 py-1 text-sm"
+      />
 
-                    style={{ marginLeft: "20px" }}
-                  >
-                    Add Entry
-                  </button>
+      {/* Dropdown List */}
+      {showDropdown && filteredBanks.length > 0 && (
+        <ul
+          className="absolute border border-gray-300 bg-white overflow-y-auto text-sm rounded mt-1 w-full shadow-lg z-10"
+          style={{ maxHeight: "200px" }}
+        >
+          {filteredBanks.map((bank, index) => (
+            <li
+              key={index}
+              className="p-2 hover:bg-gray-100 cursor-pointer"
+              onClick={() => handleBankSelect(bank)}
+            >
+              {bank}
+            </li>
+          ))}
+        </ul>
+      )}
 
-                  <button
-                    type="submit"
-                    className="mt-4 w-40 h-10 bg-[#001A3B] hover:bg-[#fff] text-white hover:text-[#001A3B] border hover:border-[#001A3B] py-2 rounded right-0"
-                    // className=" py-2 px-4 rounded-md"
+      {/* Selected Bank Display */}
+      {formData.bank_name && (
+        <div className="mt-2 text-[12px] text-green-600">
+          Selected Bank: {formData.bank_name}
+        </div>
+      )}
+    </div>
+      <div>
+        <label className="block text-xs font-semibold text-gray-700">
+          Branch ID
+        </label>
+        <input
+          type="text"
+          name="branch_id"
+          value={formData.branch_id}
+          onChange={handleChange}
+          className="w-full border rounded px-2 py-1 text-sm"
+          readOnly
+        />
+      </div>
+      <div>
+        <label className="block text-xs font-semibold text-gray-700">
+          Remark
+        </label>
+        <input
+          type="text"
+          name="remark"
+          value={formData.remark}
+          onChange={handleChange}
+          className="w-full border rounded px-2 py-1 text-sm"
+        />
+      </div>
+    </div>
+    <button
+      type="submit"
+      className="mt-4 w-40 h-10 bg-[#001A3B] hover:bg-[#fff] text-white hover:text-[#001A3B] border hover:border-[#001A3B] py-2 rounded right-0"
+      style={{ marginLeft: "20px" }}
+    >
+      Add Entry
+    </button>
 
-                    style={{ marginLeft: "20px" }}
-                  >
-                    Reset Form
-                  </button>
-                </form>
+    <button
+      type="button"
+      className="mt-4 w-40 h-10 bg-[#001A3B] hover:bg-[#fff] text-white hover:text-[#001A3B] border hover:border-[#001A3B] py-2 rounded right-0"
+      onClick={() => setFormData(initialFormState)} // Reset logic here
+      style={{ marginLeft: "20px" }}
+    >
+      Reset Form
+    </button>
+  </form>
 
                 <hr />
 
@@ -454,7 +649,7 @@ const Deposit = () => {
                         type="text"
                         placeholder="Search by Player ID or UTR ID"
                         value={searchQuery}
-                        onChange={handleSearchChange}
+                        onChange={handleSearch}
                         className="pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
                       />
                       <svg
