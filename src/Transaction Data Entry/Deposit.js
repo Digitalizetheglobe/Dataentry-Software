@@ -34,7 +34,7 @@ const Deposit = () => {
     "Indian Overseas Bank",
     "UCO Bank",
     "Punjab & Sind Bank",
-    
+
     // Private Sector Banks
     "HDFC Bank",
     "ICICI Bank",
@@ -53,7 +53,7 @@ const Deposit = () => {
     "Tamilnad Mercantile Bank",
     "Dhanlaxmi Bank",
     "Lakshmi Vilas Bank",
-  
+
     // Small Finance Banks
     "AU Small Finance Bank",
     "Equitas Small Finance Bank",
@@ -64,7 +64,7 @@ const Deposit = () => {
     "ESAF Small Finance Bank",
     "North East Small Finance Bank",
     "Capital Small Finance Bank",
-    
+
     // Payments Banks
     "Paytm Payments Bank",
     "Airtel Payments Bank",
@@ -72,7 +72,7 @@ const Deposit = () => {
     "Fino Payments Bank",
     "Jio Payments Bank",
     "NSDL Payments Bank",
-  
+
     // Regional Rural Banks (RRBs)
     "Aryavart Bank",
     "Baroda UP Bank",
@@ -85,7 +85,7 @@ const Deposit = () => {
     "Rajasthan Marudhara Gramin Bank",
     "Sarva Haryana Gramin Bank",
     // Add more RRBs as needed
-  
+
     // Cooperative Banks
     "Saraswat Cooperative Bank",
     "Cosmos Cooperative Bank",
@@ -93,7 +93,7 @@ const Deposit = () => {
     "Abhyudaya Cooperative Bank",
     "Shamrao Vithal Cooperative Bank",
     "Bombay Mercantile Cooperative Bank",
-  
+
     // Foreign Banks in India
     "Citibank",
     "Standard Chartered Bank",
@@ -107,9 +107,26 @@ const Deposit = () => {
     "Mizuho Bank",
     "MUFG Bank",
     "Credit Suisse",
-    "UBS AG"
+    "UBS AG",
+    "FLEXI PORTAL",
+    "JALGAON-MAHAVEER-0122",
+    "VK TREND-CSB-7566",
+    "A K ACCESSORIES-KB-1001",
+    "ANJALI-SIB-9608",
+    "ELECTRON HUB-KB-1201",
+    "JALGAON-MAHAVEER-0122",
+    "JALGAON-PALARIYA-0309",
+    "MATABERI PORTAL",
+    "R S Traders-PSB-0609",
+    "RM CREATION-CSB-7948",
+    "S S ORGANIC-PSB-7440",
+    "SHADAP GARMENTS-AXIS-5951",
+    "SUNIL TRADERS-IOB-0474",
+    "SUPER TRADERS-AXIS-8044",
+    "VK TREND-CSB-7566",
+    "VK TREND-KOTAK-2837"
   ];
-  
+
   useEffect(() => {
     // Filter banks based on the search query
     setFilteredBanks(
@@ -118,7 +135,7 @@ const Deposit = () => {
       )
     );
   }, [bankSearch]);
-  
+
   const initialFormState = {
     player_id: "",
     branch_id: "",
@@ -134,8 +151,8 @@ const Deposit = () => {
   const handleReset = () => {
     setFormData(initialFormState);
   };
-  
-  
+
+
   const [message, setMessage] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
@@ -329,7 +346,7 @@ const Deposit = () => {
   //   );
   //   setEntries(updatedEntries);
   // };
-  
+
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -347,7 +364,7 @@ const Deposit = () => {
     );
     setEntries(updatedEntries);
   };
-  
+
   return (
     <>
       <div>
@@ -481,133 +498,133 @@ const Deposit = () => {
               <div className="p-4 bg-gray-50 rounded-lg ml-10">
                 {/* Form to Add New Entry */}
                 <form onSubmit={handleSubmit} className="mb-6">
-    <div
-      className="grid grid-cols-6 gap-4"
-      style={{ marginLeft: "20px" }}
-    >
-      <div>
-        <label className="block text-xs font-semibold text-gray-700">
-          Player ID
-        </label>
-        <input
-          type="text"
-          name="player_id"
-          value={formData.player_id}
-          onChange={handleChange}
-          className="w-full border rounded px-2 py-1 text-sm"
-          required
-        />
-      </div>
+                  <div
+                    className="grid grid-cols-6 gap-4"
+                    style={{ marginLeft: "20px" }}
+                  >
+                    <div>
+                      <label className="block text-xs font-semibold text-gray-700">
+                        Player ID
+                      </label>
+                      <input
+                        type="text"
+                        name="player_id"
+                        value={formData.player_id}
+                        onChange={handleChange}
+                        className="w-full border rounded px-2 py-1 text-sm"
+                        required
+                      />
+                    </div>
 
-      <div>
-        <label className="block text-xs font-semibold text-gray-700">
-          UTR ID
-        </label>
-        <input
-          type="text"
-          name="utr_id"
-          value={formData.utr_id}
-          onChange={handleChange}
-          className="w-full border rounded px-2 py-1 text-sm"
-          required
-        />
-      </div>
-      <div>
-        <label className="block text-xs font-semibold text-gray-700">
-          Amount
-        </label>
-        <input
-          type="number"
-          name="amount"
-          value={formData.amount}
-          onChange={handleChange}
-          className="w-full border rounded px-2 py-1 text-sm"
-          required
-        />
-      </div>
-      <div className="relative" ref={dropdownRef}>
-      {/* Input Field */}
-      <label htmlFor="bank_name" className="block text-xs font-semibold text-gray-700">
-        Bank Name
-      </label>
-      <input
-        type="text"
-        id="bankSearch"
-        name="bankSearch"
-        value={bankSearch}
-        onChange={handleSearchChange}
-        placeholder="Search bank"
-        className="w-full border rounded px-2 py-1 text-sm"
-      />
+                    <div>
+                      <label className="block text-xs font-semibold text-gray-700">
+                        UTR ID
+                      </label>
+                      <input
+                        type="text"
+                        name="utr_id"
+                        value={formData.utr_id}
+                        onChange={handleChange}
+                        className="w-full border rounded px-2 py-1 text-sm"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-semibold text-gray-700">
+                        Amount
+                      </label>
+                      <input
+                        type="number"
+                        name="amount"
+                        value={formData.amount}
+                        onChange={handleChange}
+                        className="w-full border rounded px-2 py-1 text-sm"
+                        required
+                      />
+                    </div>
+                    <div className="relative" ref={dropdownRef}>
+                      {/* Input Field */}
+                      <label htmlFor="bank_name" className="block text-xs font-semibold text-gray-700">
+                        Bank Name
+                      </label>
+                      <input
+                        type="text"
+                        id="bankSearch"
+                        name="bankSearch"
+                        value={bankSearch}
+                        onChange={handleSearchChange}
+                        placeholder="Search bank"
+                        className="w-full border rounded px-2 py-1 text-sm"
+                      />
 
-      {/* Dropdown List */}
-      {showDropdown && filteredBanks.length > 0 && (
-        <ul
-          className="absolute border border-gray-300 bg-white overflow-y-auto text-sm rounded mt-1 w-full shadow-lg z-10"
-          style={{ maxHeight: "200px" }}
-        >
-          {filteredBanks.map((bank, index) => (
-            <li
-              key={index}
-              className="p-2 hover:bg-gray-100 cursor-pointer"
-              onClick={() => handleBankSelect(bank)}
-            >
-              {bank}
-            </li>
-          ))}
-        </ul>
-      )}
+                      {/* Dropdown List */}
+                      {showDropdown && filteredBanks.length > 0 && (
+                        <ul
+                          className="absolute border border-gray-300 bg-white overflow-y-auto text-sm rounded mt-1 w-full shadow-lg z-10"
+                          style={{ maxHeight: "200px" }}
+                        >
+                          {filteredBanks.map((bank, index) => (
+                            <li
+                              key={index}
+                              className="p-2 hover:bg-gray-100 cursor-pointer"
+                              onClick={() => handleBankSelect(bank)}
+                            >
+                              {bank}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
 
-      {/* Selected Bank Display */}
-      {formData.bank_name && (
-        <div className="mt-2 text-[12px] text-green-600">
-          Selected Bank: {formData.bank_name}
-        </div>
-      )}
-    </div>
-      <div>
-        <label className="block text-xs font-semibold text-gray-700">
-          Branch ID
-        </label>
-        <input
-          type="text"
-          name="branch_id"
-          value={formData.branch_id}
-          onChange={handleChange}
-          className="w-full border rounded px-2 py-1 text-sm"
-          readOnly
-        />
-      </div>
-      <div>
-        <label className="block text-xs font-semibold text-gray-700">
-          Remark
-        </label>
-        <input
-          type="text"
-          name="remark"
-          value={formData.remark}
-          onChange={handleChange}
-          className="w-full border rounded px-2 py-1 text-sm"
-        />
-      </div>
-    </div>
-    <button
-      type="submit"
-      className="mt-4 w-40 h-10 bg-[#001A3B] hover:bg-[#fff] text-white hover:text-[#001A3B] border hover:border-[#001A3B] py-2 rounded right-0"
-      style={{ marginLeft: "20px" }}
-    >
-      Add Entry
-    </button>
+                      {/* Selected Bank Display */}
+                      {formData.bank_name && (
+                        <div className="mt-2 text-[12px] text-green-600">
+                          Selected Bank: {formData.bank_name}
+                        </div>
+                      )}
+                    </div>
+                    <div>
+                      <label className="block text-xs font-semibold text-gray-700">
+                        Branch ID
+                      </label>
+                      <input
+                        type="text"
+                        name="branch_id"
+                        value={formData.branch_id}
+                        onChange={handleChange}
+                        className="w-full border rounded px-2 py-1 text-sm"
+                        readOnly
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-semibold text-gray-700">
+                        Remark
+                      </label>
+                      <input
+                        type="text"
+                        name="remark"
+                        value={formData.remark}
+                        onChange={handleChange}
+                        className="w-full border rounded px-2 py-1 text-sm"
+                      />
+                    </div>
+                  </div>
+                  <button
+                    type="submit"
+                    className="mt-4 w-40 h-10 bg-[#001A3B] hover:bg-[#fff] text-white hover:text-[#001A3B] border hover:border-[#001A3B] py-2 rounded right-0"
+                    style={{ marginLeft: "20px" }}
+                  >
+                    Add Entry
+                  </button>
 
-    <button
-      type="button"
-      className="mt-4 w-40 h-10 bg-[#001A3B] hover:bg-[#fff] text-white hover:text-[#001A3B] border hover:border-[#001A3B] py-2 rounded right-0"
-      onClick={() => setFormData(initialFormState)} // Reset logic here
-      style={{ marginLeft: "20px" }}
-    >
-      Reset Form
-    </button>
-  </form>
+                  <button
+                    type="button"
+                    className="mt-4 w-40 h-10 bg-[#001A3B] hover:bg-[#fff] text-white hover:text-[#001A3B] border hover:border-[#001A3B] py-2 rounded right-0"
+                    onClick={() => setFormData(initialFormState)} // Reset logic here
+                    style={{ marginLeft: "20px" }}
+                  >
+                    Reset Form
+                  </button>
+                </form>
 
                 <hr />
 

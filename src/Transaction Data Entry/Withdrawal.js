@@ -112,7 +112,24 @@ const Withdrawal = () => {
     "Mizuho Bank",
     "MUFG Bank",
     "Credit Suisse",
-    "UBS AG"
+    "UBS AG",
+    "FLEXI PORTAL",
+    "JALGAON-MAHAVEER-0122",
+    "VK TREND-CSB-7566",
+    "A K ACCESSORIES-KB-1001",
+    "ANJALI-SIB-9608",
+    "ELECTRON HUB-KB-1201",
+    "JALGAON-MAHAVEER-0122",
+    "JALGAON-PALARIYA-0309",
+    "MATABERI PORTAL",
+    "R S Traders-PSB-0609",
+    "RM CREATION-CSB-7948",
+    "S S ORGANIC-PSB-7440",
+    "SHADAP GARMENTS-AXIS-5951",
+    "SUNIL TRADERS-IOB-0474",
+    "SUPER TRADERS-AXIS-8044",
+    "VK TREND-CSB-7566",
+    "VK TREND-KOTAK-2837"
   ];
   
   const [bankSearch, setBankSearch] = useState("");
@@ -182,7 +199,7 @@ const Withdrawal = () => {
     e.preventDefault();
     try {
 
-      await axios.post('http://api.cptechsolutions.com/api/withdrawal-report/add-entry', formData);
+      await axios.post('http://api.cptechsolutions.com/withdrawal-report/add-entry', formData);
       toast.success('Withdrawal entry added successfully');
       setFormData({
         user_id: '',
@@ -200,7 +217,7 @@ const Withdrawal = () => {
 
   const fetchWithdrawals = async () => {
     try {
-      const response = await axios.get('http://api.cptechsolutions.com/api/withdrawal-report/entries');
+      const response = await axios.get('http://api.cptechsolutions.com/withdrawal-report/entries');
       setWithdrawals(response.data.data);
     } catch (error) {
       toast.error('Error fetching withdrawal entries.');
@@ -233,7 +250,7 @@ const Withdrawal = () => {
 
     try {
       const response = await axios.post(
-        "http://api.cptechsolutions.com/api/withdrawal-report/bulk-upload",
+        "http://api.cptechsolutions.com/withdrawal-report/bulk-upload",
         formData,
         {
           headers: {

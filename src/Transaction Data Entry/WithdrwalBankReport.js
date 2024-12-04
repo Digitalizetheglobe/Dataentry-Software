@@ -101,6 +101,23 @@ const WithdrwalBankReport = () => {
     "MUFG Bank",
     "Credit Suisse",
     "UBS AG",
+    "FLEXI PORTAL",
+    "JALGAON-MAHAVEER-0122",
+    "VK TREND-CSB-7566",
+    "A K ACCESSORIES-KB-1001",
+    "ANJALI-SIB-9608",
+    "ELECTRON HUB-KB-1201",
+    "JALGAON-MAHAVEER-0122",
+    "JALGAON-PALARIYA-0309",
+    "MATABERI PORTAL",
+    "R S Traders-PSB-0609",
+    "RM CREATION-CSB-7948",
+    "S S ORGANIC-PSB-7440",
+    "SHADAP GARMENTS-AXIS-5951",
+    "SUNIL TRADERS-IOB-0474",
+    "SUPER TRADERS-AXIS-8044",
+    "VK TREND-CSB-7566",
+    "VK TREND-KOTAK-2837"
   ];
 
   const [bankSearch, setBankSearch] = useState("");
@@ -137,12 +154,20 @@ const WithdrwalBankReport = () => {
     }
   };
 
+  // const handleBankSelect = (bank) => {
+   //   setBankSearch(bank);
+   //   setFilteredBanks([]);
+   //   setShowDropdown(false);
+    
+  // };
+
   const handleBankSelect = (bank) => {
-    setBankSearch(bank);
+    setBankSearch(bank); // For display
+    setBankName(bank);   // For API request
     setFilteredBanks([]);
     setShowDropdown(false);
-    // onBankSelect(bank);
   };
+  
 
   // const fetchReport = async () => {
   //   try {
@@ -175,16 +200,17 @@ const WithdrwalBankReport = () => {
   
     try {
       const response = await axios.get(
-        "http://api.cptechsolutions.com/api/withdrawal-report/entries/report",
+        "http://api.cptechsolutions.com/withdrawal-report/entries/report",
         {
           params: {
             startDate: startDate.toISOString().split("T")[0],
             endDate: endDate.toISOString().split("T")[0],
             bank_name: bankName.trim(),
+            
           },
         }
       );
-  
+      console.log('Selected Bank Name:', bankName);
       setReport(response.data.data);
       setTotalAmount(response.data.totalAmount);
       setMessage(response.data.message);
