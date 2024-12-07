@@ -780,8 +780,13 @@ const Deposit = () => {
                             />
                           </td>
                           <td className="px-4 py-4 border-b text-sm">
-                            {new Date(entry.date).toLocaleDateString()}
+                            {new Date(entry.created_at).toLocaleDateString("en-GB", {
+                              year: "numeric",
+                              month: "2-digit",
+                              day: "2-digit",
+                            })}
                           </td>
+
                           <td className="px-4 py-4 border-b text-sm">
                             {entry.player_id}
                           </td>
