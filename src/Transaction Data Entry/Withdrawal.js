@@ -39,7 +39,7 @@ const Withdrawal = () => {
     "Indian Overseas Bank",
     "UCO Bank",
     "Punjab & Sind Bank",
-    
+
     // Private Sector Banks
     "HDFC Bank",
     "ICICI Bank",
@@ -58,7 +58,7 @@ const Withdrawal = () => {
     "Tamilnad Mercantile Bank",
     "Dhanlaxmi Bank",
     "Lakshmi Vilas Bank",
-  
+
     // Small Finance Banks
     "AU Small Finance Bank",
     "Equitas Small Finance Bank",
@@ -69,7 +69,7 @@ const Withdrawal = () => {
     "ESAF Small Finance Bank",
     "North East Small Finance Bank",
     "Capital Small Finance Bank",
-    
+
     // Payments Banks
     "Paytm Payments Bank",
     "Airtel Payments Bank",
@@ -77,7 +77,7 @@ const Withdrawal = () => {
     "Fino Payments Bank",
     "Jio Payments Bank",
     "NSDL Payments Bank",
-  
+
     // Regional Rural Banks (RRBs)
     "Aryavart Bank",
     "Baroda UP Bank",
@@ -90,7 +90,7 @@ const Withdrawal = () => {
     "Rajasthan Marudhara Gramin Bank",
     "Sarva Haryana Gramin Bank",
     // Add more RRBs as needed
-  
+
     // Cooperative Banks
     "Saraswat Cooperative Bank",
     "Cosmos Cooperative Bank",
@@ -98,7 +98,7 @@ const Withdrawal = () => {
     "Abhyudaya Cooperative Bank",
     "Shamrao Vithal Cooperative Bank",
     "Bombay Mercantile Cooperative Bank",
-  
+
     // Foreign Banks in India
     "Citibank",
     "Standard Chartered Bank",
@@ -119,7 +119,6 @@ const Withdrawal = () => {
     "A K ACCESSORIES-KB-1001",
     "ANJALI-SIB-9608",
     "ELECTRON HUB-KB-1201",
-    "JALGAON-MAHAVEER-0122",
     "JALGAON-PALARIYA-0309",
     "MATABERI PORTAL",
     "R S Traders-PSB-0609",
@@ -129,7 +128,24 @@ const Withdrawal = () => {
     "SUNIL TRADERS-IOB-0474",
     "SUPER TRADERS-AXIS-8044",
     "VK TREND-CSB-7566",
-    "VK TREND-KOTAK-2837"
+    "VK TREND-KOTAK-2837",
+    "SWAG BAGS-KB-1501",
+    "ELECTRON HUB-IDBI-7204",
+    "R S TRADERS-IB-4515",
+    "DELUXE-IOB-0331",
+    "RS TRADERS-BOI-0765",
+    "RS TRADERS-BOM-9068",
+    "RS TRADERS-KOTAK-9921",
+    "MODERN-IOB-0348",
+    "SHANKAR-FDRL-3766",
+    "RM CREATION-TMB-5182",
+    "RC FRUITS VEG-KB-2801",
+    "RC FRUITS VEG-IDBI-5677",
+    "UDAY FRUIT-BOB-1749",
+    "RC FRUITS VEG-BOB-788",
+    "S S ORGANIC-IDBI-9119",
+    "SHADAP GARMENTS-BOB-742"
+
   ];
   
   const [bankSearch, setBankSearch] = useState("");
