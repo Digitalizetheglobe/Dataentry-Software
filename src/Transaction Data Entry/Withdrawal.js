@@ -144,7 +144,9 @@ const Withdrawal = () => {
     "UDAY FRUIT-BOB-1749",
     "RC FRUITS VEG-BOB-788",
     "S S ORGANIC-IDBI-9119",
-    "SHADAP GARMENTS-BOB-742"
+    "SHADAP GARMENTS-BOB-742",
+    "Flexi Payment",
+    "Other"
 
   ];
   
