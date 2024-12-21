@@ -32,7 +32,7 @@ import ExpenseData from './ExpenseData/ExpenseData.js';
 function App() {
   return (
     <Router>
-      <div className="app-layout" style={{ display: 'flex', height: '100vh' }}>
+       <div className="app-layout" style={{ display: 'flex', height: '100vh' }}>
         <div className="content-area" style={{ flex: 1, padding: '20px', backgroundColor: 'white', overflowY: 'auto' }}>
           <Routes>
             {/* Public Routes */}

@@ -18,6 +18,16 @@ const Withdrawal = () => {
     remark: '',
   });
 
+  const handleReset = () => {
+    setFormData({
+      user_id: '',
+      amount: '',
+      bank_name: '',
+      branch_id: '',
+      transaction_date: '',
+      remark: '',
+    });
+  };
 
   const [withdrawals, setWithdrawals] = useState([]);
   const [branchId, setBranchId] = useState('');
@@ -25,7 +35,7 @@ const Withdrawal = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedFile, setSelectedFile] = useState(null);
   const [entries, setEntries] = useState([]);
-
+  const recordsPerPage = 20;
   const banks = [
     // Public Sector Banks
     "State Bank of India",
@@ -149,7 +159,7 @@ const Withdrawal = () => {
     "Other"
 
   ];
-  
+
   const [bankSearch, setBankSearch] = useState("");
   const [filteredBanks, setFilteredBanks] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
@@ -171,18 +181,18 @@ const Withdrawal = () => {
     fetchWithdrawals();
   }, []);
 
- // Close dropdown when clicking outside
- useEffect(() => {
-  const handleClickOutside = (event) => {
-    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-      setShowDropdown(false);
-    }
-  };
-  document.addEventListener("mousedown", handleClickOutside);
-  return () => {
-    document.removeEventListener("mousedown", handleClickOutside);
-  };
-}, []);
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowDropdown(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const handleSearchChange = (e) => {
     const query = e.target.value;
@@ -216,7 +226,7 @@ const Withdrawal = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-
+      //http://api.cptechsolutions.com
       await axios.post('http://api.cptechsolutions.com/api/withdrawal-report/add-entry', formData);
       toast.success('Withdrawal entry added successfully');
       setFormData({
@@ -225,6 +235,7 @@ const Withdrawal = () => {
         bank: '',
         branch_id: branchId,
         remark: '',
+        date: '',
       });
       fetchWithdrawals();
     } catch (error) {
@@ -235,6 +246,7 @@ const Withdrawal = () => {
 
   const fetchWithdrawals = async () => {
     try {
+      // http://api.cptechsolutions.com
       const response = await axios.get('http://api.cptechsolutions.com/api/withdrawal-report/entries');
       setWithdrawals(response.data.data);
     } catch (error) {
@@ -242,6 +254,11 @@ const Withdrawal = () => {
       console.error('Error fetching entries:', error);
     }
   };
+
+  useEffect(() => {
+    fetchWithdrawals();
+  }, [currentPage]);
+
   const handleSearch = (e) => {
     setSearchQuery(e.target.value);
     setCurrentPage(1);
@@ -252,10 +269,14 @@ const Withdrawal = () => {
     entry.amount.toString().includes(searchQuery)
   );
 
-  const currentEntries = filteredEntries.slice((currentPage - 1) * entriesPerPage, currentPage * entriesPerPage);
-  const totalPages = Math.ceil(filteredEntries.length / entriesPerPage);
+  const currentEntries = filteredEntries.slice((currentPage - 1) * recordsPerPage, currentPage * recordsPerPage);
+  const totalPages = Math.ceil(withdrawals.total / recordsPerPage);
 
-
+  const handlePageChange = (page) => {
+    if (page > 0 && page <= totalPages) {
+      setCurrentPage(page);
+    }
+  };
   // ----------------------
   const handlePutUpload = async () => {
     if (!selectedFile) {
@@ -283,14 +304,6 @@ const Withdrawal = () => {
       const errorMessage = error.response?.data?.message || "Error during bulk upload.";
       toast.error(errorMessage);
     }
-  };
-  
-  
-
-
-
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
   };
 
   const handleFileChange = (e) => {
@@ -379,64 +392,107 @@ const Withdrawal = () => {
                   <div className="grid grid-cols-6 gap-4">
                     <div>
                       <label className="block text-sm font-semibold text-gray-700">User ID</label>
-                      <input type="text" name="user_id" value={formData.user_id} onChange={handleChange} className="w-full border rounded px-3 py-2 text-sm" required />
+                      <input
+                        type="text"
+                        name="user_id"
+                        value={formData.user_id}
+                        onChange={handleChange}
+                        className="w-full border rounded px-3 py-2 text-sm"
+                        required
+                      />
                     </div>
                     <div>
                       <label className="block text-sm font-semibold text-gray-700">Amount</label>
-                      <input type="number" name="amount" value={formData.amount} onChange={handleChange} className="w-full border rounded px-3 py-2 text-sm" required />
+                      <input
+                        type="number"
+                        name="amount"
+                        value={formData.amount}
+                        onChange={handleChange}
+                        className="w-full border rounded px-3 py-2 text-sm"
+                        required
+                      />
                     </div>
                     <div className="relative" ref={dropdownRef}>
-      {/* Input Field */}
-      <label htmlFor="bank_name" className="block text-sm font-semibold text-gray-700">
-        Bank Name
-      </label>
-      <input
-        type="text"
-        id="bankSearch"
-        name="bankSearch"
-        value={bankSearch}
-        onChange={handleSearchChange}
-        placeholder="Search bank"
-        className="w-full border rounded px-3 py-2 text-sm"
-      />
-
-      {/* Dropdown List */}
-      {showDropdown && filteredBanks.length > 0 && (
-        <ul
-          className="absolute border border-gray-300 bg-white overflow-y-auto text-sm rounded mt-1 w-full shadow-lg z-10"
-          style={{ maxHeight: "200px" }}
-        >
-          {filteredBanks.map((bank, index) => (
-            <li
-              key={index}
-              className="p-2 hover:bg-gray-100 cursor-pointer"
-              onClick={() => handleBankSelect(bank)}
-            >
-              {bank}
-            </li>
-          ))}
-        </ul>
-      )}
-
-      {/* Selected Bank Display */}
-      {formData.bank_name && (
-        <div className="mt-2 text-[12px] text-green-600">
-          Selected Bank: {formData.bank_name}
-        </div>
-      )}
-    </div>
+                      <label htmlFor="bank_name" className="block text-sm font-semibold text-gray-700">
+                        Bank Name
+                      </label>
+                      <input
+                        type="text"
+                        id="bankSearch"
+                        name="bankSearch"
+                        value={bankSearch}
+                        onChange={handleSearchChange}
+                        placeholder="Search bank"
+                        className="w-full border rounded px-3 py-2 text-sm"
+                      />
+                      {showDropdown && filteredBanks.length > 0 && (
+                        <ul
+                          className="absolute border border-gray-300 bg-white overflow-y-auto text-sm rounded mt-1 w-full shadow-lg z-10"
+                          style={{ maxHeight: "200px" }}
+                        >
+                          {filteredBanks.map((bank, index) => (
+                            <li
+                              key={index}
+                              className="p-2 hover:bg-gray-100 cursor-pointer"
+                              onClick={() => handleBankSelect(bank)}
+                            >
+                              {bank}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                      {formData.bank_name && (
+                        <div className="mt-2 text-[12px] text-green-600">
+                          Selected Bank: {formData.bank_name}
+                        </div>
+                      )}
+                    </div>
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700">Select Date</label>
+                      <input
+                        type="date"
+                        name="date"
+                        value={formData.date}
+                        onChange={handleChange}
+                        className="w-full border rounded px-3 py-2 text-sm"
+                        required
+                      />
+                    </div>
                     <div>
                       <label className="block text-sm font-semibold text-gray-700">Branch ID</label>
-                      <input type="text" name="branch_id" value={formData.branch_id} readOnly className="w-full border rounded px-3 py-2 text-sm bg-gray-100" />
+                      <input
+                        type="text"
+                        name="branch_id"
+                        value={formData.branch_id}
+                        readOnly
+                        className="w-full border rounded px-3 py-2 text-sm bg-gray-100"
+                      />
                     </div>
-                    <div className="col-span-2">
+                    <div className="relative">
                       <label className="block text-sm font-semibold text-gray-700">Remark</label>
-                      <input type="text" name="remark" value={formData.remark} onChange={handleChange} className="w-full border rounded px-3 py-2 text-sm" />
+                      <input
+                        type="text"
+                        name="remark"
+                        value={formData.remark}
+                        onChange={handleChange}
+                        className="w-full border rounded px-3 py-2 text-sm"
+                      />
                     </div>
                   </div>
-                  <button type="submit" className="mt-4 w-60 h-10 bg-[#001A3B] hover:bg-[#fff] text-white hover:text-[#001A3B] border hover:border-[#001A3B] py-2 rounded">Add Withdrawal Entry</button>
-                  <button type="submit" className="mt-4 w-40 h-10 bg-[#001A3B] hover:bg-[#fff] text-white hover:text-[#001A3B] border hover:border-[#001A3B] py-2 rounded " style={{ marginLeft: '20px' }}>Reset Form</button>
-
+                  <button
+                    type="submit"
+                    className="mt-4 w-60 h-10 bg-[#001A3B] hover:bg-[#fff] text-white hover:text-[#001A3B] border hover:border-[#001A3B] py-2 rounded"
+                  >
+                    Add Withdrawal Entry
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleReset}
+                    className="mt-4 w-40 h-10 bg-[#001A3B] hover:bg-[#fff] text-white hover:text-[#001A3B] border hover:border-[#001A3B] py-2 rounded"
+                    style={{ marginLeft: '20px' }}
+                  >
+                    Reset Form
+                  </button>
                 </form>
                 <hr />
                 <div className="flex items-center justify-between mb-6 mt-8">
@@ -514,7 +570,7 @@ const Withdrawal = () => {
                       </tr>
                     </thead>
                     <tbody className="bg-white text-gray-800">
-                      {withdrawals.map((entry, index) => (
+                      {currentEntries.map((entry, index) => (
                         <tr key={index} className={`hover:bg-gray-50 transition-colors duration-150 ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
                           <td className="px-4 py-4 border-b text-sm"><input type="checkbox" className="form-checkbox" /></td>
                           <td className="px-4 py-2 border">{new Date(entry.date).toLocaleDateString()}</td>
@@ -533,17 +589,26 @@ const Withdrawal = () => {
                   </table>
                 </div>
                 {/* Pagination */}
-                <div className="flex justify-center mt-4">
-                  {Array.from({ length: currentPage }, (_, i) => (
-                    <button
-                      key={i}
-                      onClick={() => handlePageChange(i + 1)}
-                      className={`px-3 py-1 border rounded ${currentPage === i + 1 ? 'bg-blue-500 text-white' : 'bg-white text-gray-700'}`}
-                    >
-                      {i + 1}
-                    </button>
-                  ))}
+                <div className="flex justify-between items-center mt-4">
+                  <button
+                    onClick={() => handlePageChange(currentPage - 1)}
+                    disabled={currentPage === 1}
+                    className="px-4 py-2 bg-gray-200 text-gray-600 rounded-md hover:bg-gray-300 disabled:opacity-50"
+                  >
+                    Previous
+                  </button>
+                  <span className="text-gray-700">
+                    Page {currentPage} of {totalPages}
+                  </span>
+                  <button
+                    onClick={() => handlePageChange(currentPage + 1)}
+                    disabled={currentPage === totalPages}
+                    className="px-4 py-2 bg-gray-200 text-gray-600 rounded-md hover:bg-gray-300 disabled:opacity-50"
+                  >
+                    Next
+                  </button>
                 </div>
+
               </div>
             </div>
           </div>

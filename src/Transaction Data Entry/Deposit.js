@@ -156,7 +156,6 @@ const Deposit = () => {
 
   const initialFormState = {
     player_id: "",
-    branch_id: "",
     utr_id: "",
     amount: "",
     bank_name: "",
@@ -261,6 +260,7 @@ const Deposit = () => {
         amount: "",
         bank_name: "",
         remark: "",
+        created_at:"",
       });
       fetchEntries();
     } catch (error) {
@@ -516,14 +516,9 @@ const Deposit = () => {
               <div className="p-4 bg-gray-50 rounded-lg ml-10">
                 {/* Form to Add New Entry */}
                 <form onSubmit={handleSubmit} className="mb-6">
-                  <div
-                    className="grid grid-cols-6 gap-4"
-                    style={{ marginLeft: "20px" }}
-                  >
+                  <div className="grid grid-cols-6 gap-4" style={{ marginLeft: "20px" }}>
                     <div>
-                      <label className="block text-xs font-semibold text-gray-700">
-                        Player ID
-                      </label>
+                      <label className="block text-xs font-semibold text-gray-700">Player ID</label>
                       <input
                         type="text"
                         name="player_id"
@@ -535,9 +530,7 @@ const Deposit = () => {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-semibold text-gray-700">
-                        UTR ID
-                      </label>
+                      <label className="block text-xs font-semibold text-gray-700">UTR ID</label>
                       <input
                         type="text"
                         name="utr_id"
@@ -547,10 +540,9 @@ const Deposit = () => {
                         required
                       />
                     </div>
+
                     <div>
-                      <label className="block text-xs font-semibold text-gray-700">
-                        Amount
-                      </label>
+                      <label className="block text-xs font-semibold text-gray-700">Amount</label>
                       <input
                         type="number"
                         name="amount"
@@ -560,8 +552,9 @@ const Deposit = () => {
                         required
                       />
                     </div>
+
                     <div className="relative" ref={dropdownRef}>
-                      {/* Input Field */}
+                      {/* Input Field for Bank Name */}
                       <label htmlFor="bank_name" className="block text-xs font-semibold text-gray-700">
                         Bank Name
                       </label>
@@ -575,7 +568,7 @@ const Deposit = () => {
                         className="w-full border rounded px-2 py-1 text-sm"
                       />
 
-                      {/* Dropdown List */}
+                      {/* Dropdown List for Bank Selection */}
                       {showDropdown && filteredBanks.length > 0 && (
                         <ul
                           className="absolute border border-gray-300 bg-white overflow-y-auto text-sm rounded mt-1 w-full shadow-lg z-10"
@@ -600,10 +593,22 @@ const Deposit = () => {
                         </div>
                       )}
                     </div>
+
+                    {/* Select Date Field */}
                     <div>
-                      <label className="block text-xs font-semibold text-gray-700">
-                        Branch ID
-                      </label>
+                      <label className="block text-xs font-semibold text-gray-700">Select Date</label>
+                      <input
+                        type="date"
+                        name="created_at"
+                        value={formData.created_at}
+                        onChange={handleChange}
+                        className="w-full border rounded px-2 py-1 text-sm"
+                        required
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-semibold text-gray-700">Branch ID</label>
                       <input
                         type="text"
                         name="branch_id"
@@ -613,10 +618,9 @@ const Deposit = () => {
                         readOnly
                       />
                     </div>
+
                     <div>
-                      <label className="block text-xs font-semibold text-gray-700">
-                        Remark
-                      </label>
+                      <label className="block text-xs font-semibold text-gray-700">Remark</label>
                       <input
                         type="text"
                         name="remark"
@@ -626,6 +630,8 @@ const Deposit = () => {
                       />
                     </div>
                   </div>
+
+                  {/* Submit Button */}
                   <button
                     type="submit"
                     className="mt-4 w-40 h-10 bg-[#001A3B] hover:bg-[#fff] text-white hover:text-[#001A3B] border hover:border-[#001A3B] py-2 rounded right-0"
@@ -634,6 +640,7 @@ const Deposit = () => {
                     Add Entry
                   </button>
 
+                  {/* Reset Button */}
                   <button
                     type="button"
                     className="mt-4 w-40 h-10 bg-[#001A3B] hover:bg-[#fff] text-white hover:text-[#001A3B] border hover:border-[#001A3B] py-2 rounded right-0"
@@ -646,7 +653,7 @@ const Deposit = () => {
 
                 <hr />
 
-
+                {/* Bulk Upload Section */}
                 <div className="flex items-center justify-between mb-6 mt-8">
                   <input
                     type="file"
@@ -661,8 +668,8 @@ const Deposit = () => {
                     Bulk Upload
                   </button>
                 </div>
-
               </div>
+
               <br />
               <ToastContainer />
 
@@ -783,7 +790,7 @@ const Deposit = () => {
                       </tr>
                     </thead>
                     <tbody className="bg-white text-gray-800">
-                      {currentEntries.map((entry, index) => (
+                      {filteredEntries.map((entry, index) => (
                         <tr
                           key={index}
                           className={`hover:bg-gray-50 transition-colors duration-150 ${index % 2 === 0 ? "bg-white" : "bg-gray-50"
@@ -804,22 +811,11 @@ const Deposit = () => {
                               day: "2-digit",
                             })}
                           </td>
-
-                          <td className="px-4 py-4 border-b text-sm">
-                            {entry.player_id}
-                          </td>
-                          <td className="px-4 py-4 border-b text-sm">
-                            {entry.utr_id}
-                          </td>
-                          <td className="px-6 py-4 border-b text-sm">
-                            {entry.amount}
-                          </td>
-                          <td className="px-6 py-4 border-b text-sm">
-                            {entry.bank_name}
-                          </td>
-                          <td className="px-10 py-4 border-b text-sm">
-                            {entry.branch_id}
-                          </td>
+                          <td className="px-4 py-4 border-b text-sm">{entry.player_id}</td>
+                          <td className="px-4 py-4 border-b text-sm">{entry.utr_id}</td>
+                          <td className="px-6 py-4 border-b text-sm">{entry.amount}</td>
+                          <td className="px-6 py-4 border-b text-sm">{entry.bank_name}</td>
+                          <td className="px-10 py-4 border-b text-sm">{entry.branch_id}</td>
                           <td className="px-4 py-4 border-b text-sm">
                             <button className="text-blue-500 hover:text-blue-700">
                               <img
@@ -828,12 +824,6 @@ const Deposit = () => {
                                 className="w-4 h-4 inline"
                               />
                             </button>
-                            {/* <button
-                    className="text-red-500 hover:text-red-700 ml-2"
-                    onClick={() => handleCheckboxChange(entry.id)}
-                  >
-                    <img src={trash} alt="Delete" className="w-4 h-4 inline" />
-                  </button> */}
                           </td>
                         </tr>
                       ))}
@@ -842,19 +832,42 @@ const Deposit = () => {
                 </div>
                 {/* Pagination */}
                 <div className="flex justify-center mt-4">
-                  {Array.from({ length: totalPages }, (_, i) => (
-                    <button
-                      key={i}
-                      onClick={() => handlePageChange(i + 1)}
-                      className={`px-3 py-1 border rounded ${currentPage === i + 1
-                        ? "bg-blue-500 text-white"
-                        : "bg-white text-gray-700"
-                        }`}
-                    >
-                      {i + 1}
-                    </button>
-                  ))}
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => {
+                    if (
+                      page <= 3 || // First three pages
+                      page > totalPages - 3 || // Last three pages
+                      (page >= currentPage - 1 && page <= currentPage + 1) // Pages around the current page
+                    ) {
+                      return (
+                        <button
+                          key={page}
+                          onClick={() => handlePageChange(page)}
+                          className={`px-3 py-1 border rounded ${currentPage === page
+                            ? 'bg-blue-500 text-white'
+                            : 'bg-white text-gray-700'
+                            }`}
+                        >
+                          {page}
+                        </button>
+                      );
+                    }
+
+                    // Add ellipsis for skipped pages
+                    if (
+                      (page === 4 && currentPage > 4) || // Ellipsis after first three pages
+                      (page === totalPages - 3 && currentPage < totalPages - 3) // Ellipsis before last three pages
+                    ) {
+                      return (
+                        <span key={page} className="px-3 py-1 text-gray-500">
+                          ...
+                        </span>
+                      );
+                    }
+
+                    return null; // Skip other pages
+                  })}
                 </div>
+
               </div>
             </div>
           </div>
