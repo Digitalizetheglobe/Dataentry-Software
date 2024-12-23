@@ -26,6 +26,8 @@ import YearlyFinancialActivity from './Dashboard/YearlyFinancialActivity.js';
 import BankWiseDeposit from './Dashboard/BankWiseDeposit.js';
 import UserProfile from './UserProfile/UserProfile.js';
 import ExpenseData from './ExpenseData/ExpenseData.js';
+import FetchData from './Transaction Data Entry/FetchData.js';
+
 
 // comment for testing purpose
 
@@ -103,6 +105,14 @@ function App() {
                   <Reportmanagement />
                 </PrivateRoute>
               }
+            />
+            <Route
+            path='/fetch-utr'
+            element={
+              <PrivateRoute>
+                <FetchData/>
+              </PrivateRoute>
+            }
             />
             <Route
               path="/inter-bank-transfer-management"

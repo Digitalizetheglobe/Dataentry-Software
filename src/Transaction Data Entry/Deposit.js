@@ -9,6 +9,7 @@ import edit from "../assets/Shape.png";
 import trash from "../assets/trash-01.png";
 import exportone from "../assets/download-cloud-02.png";
 import '../SignIn/SignIn.css'
+import * as XLSX from 'xlsx';
 
 const Deposit = () => {
   const [entries, setEntries] = useState([]);
@@ -260,7 +261,7 @@ const Deposit = () => {
         amount: "",
         bank_name: "",
         remark: "",
-        created_at:"",
+        created_at: "",
       });
       fetchEntries();
     } catch (error) {
@@ -382,6 +383,39 @@ const Deposit = () => {
     );
     setEntries(updatedEntries);
   };
+
+
+
+const exportToExcel = () => {
+  if (filteredEntries.length === 0) {
+    alert('No data to export');
+    return;
+  }
+
+  // Prepare the data for Excel
+  const dataToExport = filteredEntries.map((entry) => ({
+    Date: new Date(entry.created_at).toLocaleDateString('en-GB', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    }),
+    'Player ID': entry.player_id,
+    'UTR ID': entry.utr_id,
+    Amount: entry.amount,
+    'Bank Name': entry.bank_name,
+    'Branch ID': entry.branch_id,
+  }));
+
+  // Convert JSON data to a worksheet
+  const worksheet = XLSX.utils.json_to_sheet(dataToExport);
+
+  // Create a new workbook and append the worksheet
+  const workbook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workbook, worksheet, 'Report');
+
+  // Write the workbook and trigger the download
+  XLSX.writeFile(workbook, 'Report.xlsx');
+};
 
   return (
     <>
@@ -718,9 +752,10 @@ const Deposit = () => {
               </button> */}
 
                     {/* Export Button */}
-                    {/* <button
+                    <button
                       className="bg-transperent hover:bg-[#fff] text-[#001A3B] hover:text-[#001A3B] border hover:border-[#001A3B] py-2 rounded right-0"
                       style={{ height: "40px", width: "100px" }}
+                      onClick={exportToExcel}
                     >
                       <img
                         src={exportone}
@@ -728,7 +763,7 @@ const Deposit = () => {
                         className="w-5 h-5 inline"
                       />{" "}
                       Export
-                    </button> */}
+                    </button>
                     <button
                       className={`bg-red-500 text-white px-4 py-2 rounded ${selectedEntries.length === 0
                         ? "opacity-50 cursor-not-allowed"

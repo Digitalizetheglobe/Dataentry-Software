@@ -8,6 +8,7 @@ import deposite from '../assets/deposit.png';
 import edit from '../assets/Shape.png';
 import trash from '../assets/trash-01.png';
 import exportone from '../assets/download-cloud-02.png';
+import * as XLSX from 'xlsx';
 
 const Withdrawal = () => {
   const [formData, setFormData] = useState({
@@ -22,11 +23,13 @@ const Withdrawal = () => {
     setFormData({
       user_id: '',
       amount: '',
-      bank_name: '',
-      branch_id: '',
-      transaction_date: '',
+      bank: '',
+      date: '',
       remark: '',
     });
+    // setBankSearch(''); 
+    // setFilteredBanks([]); 
+    // setShowDropdown(false); 
   };
 
   const [withdrawals, setWithdrawals] = useState([]);
@@ -310,6 +313,37 @@ const Withdrawal = () => {
     setSelectedFile(e.target.files[0]);
   };
 
+  const exportToExcel = () => {
+    if (filteredEntries.length === 0) {
+      alert('No data to export');
+      return;
+    }
+
+    // Prepare the data for Excel
+    const dataToExport = filteredEntries.map((entry) => ({
+      Date: new Date(entry.date).toLocaleDateString('en-GB', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+      }),
+      'User ID': entry.user_id,
+      Amount: entry.amount,
+      'Bank Name': entry.bank,
+      'Branch ID': entry.branch_id,
+      'Remark': entry.remark,
+    }));
+
+    // Convert JSON data to a worksheet
+    const worksheet = XLSX.utils.json_to_sheet(dataToExport);
+
+    // Create a new workbook and append the worksheet
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'WidthdrawalReport');
+
+    // Write the workbook and trigger the download
+    XLSX.writeFile(workbook, 'WidthdrawalReport.xlsx');
+  };
+
 
 
   return (
@@ -544,6 +578,19 @@ const Withdrawal = () => {
                   </div>
 
                   <div className="flex items-center space-x-2">
+
+                    <button
+                      className="bg-transperent hover:bg-[#fff] text-[#001A3B] hover:text-[#001A3B] border hover:border-[#001A3B] py-2 rounded right-0"
+                      style={{ height: "40px", width: "100px" }}
+                      onClick={exportToExcel}
+                    >
+                      <img
+                        src={exportone}
+                        alt="export"
+                        className="w-5 h-5 inline"
+                      />{" "}
+                      Export
+                    </button>
                     {/* Filter Button */}
                     {/* <button  className="px-2 py-2 bg-[#001A3B] hover:bg-[#fff] text-white hover:text-[#001A3B] border hover:border-[#001A3B] py-2 rounded right-0">
                 Filters
@@ -581,7 +628,7 @@ const Withdrawal = () => {
                           <td className="px-4 py-4 border-b text-sm">{entry.remark}</td>
                           <td className="px-4 py-4 border-b text-sm">
                             <button className="text-blue-500 hover:text-blue-700"><img src={edit} alt="Edit" className="w-4 h-4 inline" /></button>
-                            <button className="text-red-500 hover:text-red-700 ml-2"><img src={trash} alt="Delete" className="w-4 h-4 inline" /></button>
+                            {/* <button className="text-red-500 hover:text-red-700 ml-2"><img src={trash} alt="Delete" className="w-4 h-4 inline" /></button> */}
                           </td>
                         </tr>
                       ))}

@@ -275,6 +275,20 @@ const Sidebar = () => {
                 <span>Deposit Bank Report</span>
               </Link>
             </li>
+            <li>
+              <Link
+                to='/fetch-utr'
+                className={`transition-all text-sm flex items-center rounded-md px-4 py-3 
+                  ${activeMenu === "fetchutr"
+                    ? "bg-gray-700 text-white"
+                    : "bg-transparent text-white hover:bg-gray-700"
+                  }`}
+                onClick={() => handleMenuClick("fetchutr")}
+              >
+                <FaExchangeAlt className="w-[18px] h-[18px] mr-4" />
+                <span>Fetch Data Using UTR</span>
+              </Link>
+            </li>
           </ul>
         )}
       </div>
