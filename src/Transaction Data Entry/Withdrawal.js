@@ -344,6 +344,31 @@ const Withdrawal = () => {
     XLSX.writeFile(workbook, 'WidthdrawalReport.xlsx');
   };
 
+  //---------------------------------
+
+  const handleDelete = async (id) => {
+    const confirmed = window.confirm("Are you sure you want to delete this entry?");
+    if (!confirmed) return;
+
+    try {
+      const response = await fetch(`http://api.cptechsolutions.com/api/withdrawal-report/delete-entry/${id}`, {
+        method: "DELETE",
+      });
+
+      if (response.ok) {
+        // Assuming `setEntries` is a state updater function for the table data
+        setEntries((prevEntries) => prevEntries.filter((entry) => entry.id !== id));
+        alert("Entry deleted successfully.");
+      } else {
+        const errorData = await response.json();
+        console.error("Error deleting entry:", errorData);
+        alert(errorData.message || "Failed to delete entry.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("An error occurred while deleting the entry.");
+    }
+  };
 
 
   return (
@@ -628,8 +653,12 @@ const Withdrawal = () => {
                           <td className="px-4 py-4 border-b text-sm">{entry.remark}</td>
                           <td className="px-4 py-4 border-b text-sm">
                             <button className="text-blue-500 hover:text-blue-700"><img src={edit} alt="Edit" className="w-4 h-4 inline" /></button>
-                            {/* <button className="text-red-500 hover:text-red-700 ml-2"><img src={trash} alt="Delete" className="w-4 h-4 inline" /></button> */}
-                          </td>
+                            <button
+                              className="text-red-500 hover:text-red-700 ml-2"
+                              onClick={() => handleDelete(entry.id)}
+                            >
+                              <img src={trash} alt="Delete" className="w-4 h-4 inline" />
+                            </button>                          </td>
                         </tr>
                       ))}
                     </tbody>

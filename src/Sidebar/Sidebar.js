@@ -149,6 +149,7 @@ const Sidebar = () => {
               </Link>
             </li>
             <hr />
+            {role !== "branch" && (
             <li>
               <Link
                 to="/WithdrawalReconcilitionReport"
@@ -166,7 +167,8 @@ const Sidebar = () => {
                 <span>Withdrawal Reconciliation <br /> Report</span>
               </Link>
             </li>
-
+            )}
+            {role !== "branch" && (
             <li>
               <Link
                 to="/Depositreconcilition"
@@ -184,6 +186,7 @@ const Sidebar = () => {
                 <span>Deposit Reconciliation <br /> Report</span>
               </Link>
             </li>
+            )}
           </ul>
         )}
       </div>
@@ -244,6 +247,7 @@ const Sidebar = () => {
                 <span>Withdrawal</span>
               </Link>
             </li>
+            {role !== "branch" && (
             <li>
               <Link
                 to="/withdrawal-bank-report"
@@ -258,6 +262,9 @@ const Sidebar = () => {
                 <span>Withdrawal Bank Report</span>
               </Link>
             </li>
+            )}
+
+            {role !== "branch" && (
             <li>
               <Link
                 to='/deposit-bank-report'
@@ -272,6 +279,8 @@ const Sidebar = () => {
                 <span>Deposit Bank Report</span>
               </Link>
             </li>
+            )}
+            {role !== "branch" && (
             <li>
               <Link
                 to='/fetch-utr'
@@ -286,6 +295,7 @@ const Sidebar = () => {
                 <span>Fetch Data Using UTR</span>
               </Link>
             </li>
+            )}
           </ul>
         )}
       </div>

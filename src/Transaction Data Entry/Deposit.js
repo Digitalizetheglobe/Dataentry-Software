@@ -232,11 +232,10 @@ const Deposit = () => {
     // Get the token from local storage
     const token = localStorage.getItem("token");
     if (token) {
-      // Decode the token to get the branch ID
+
       const decoded = jwtDecode(token);
       if (decoded.branch_id) {
         setBranchId(decoded.branch_id);
-        // Set the branch ID in the form data automatically
         setFormData((prevData) => ({
           ...prevData,
           branch_id: decoded.branch_id,
@@ -386,36 +385,36 @@ const Deposit = () => {
 
 
 
-const exportToExcel = () => {
-  if (filteredEntries.length === 0) {
-    alert('No data to export');
-    return;
-  }
+  const exportToExcel = () => {
+    if (filteredEntries.length === 0) {
+      alert('No data to export');
+      return;
+    }
 
-  // Prepare the data for Excel
-  const dataToExport = filteredEntries.map((entry) => ({
-    Date: new Date(entry.created_at).toLocaleDateString('en-GB', {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-    }),
-    'Player ID': entry.player_id,
-    'UTR ID': entry.utr_id,
-    Amount: entry.amount,
-    'Bank Name': entry.bank_name,
-    'Branch ID': entry.branch_id,
-  }));
+    // Prepare the data for Excel
+    const dataToExport = filteredEntries.map((entry) => ({
+      Date: new Date(entry.created_at).toLocaleDateString('en-GB', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+      }),
+      'Player ID': entry.player_id,
+      'UTR ID': entry.utr_id,
+      Amount: entry.amount,
+      'Bank Name': entry.bank_name,
+      'Branch ID': entry.branch_id,
+    }));
 
-  // Convert JSON data to a worksheet
-  const worksheet = XLSX.utils.json_to_sheet(dataToExport);
+    // Convert JSON data to a worksheet
+    const worksheet = XLSX.utils.json_to_sheet(dataToExport);
 
-  // Create a new workbook and append the worksheet
-  const workbook = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(workbook, worksheet, 'Report');
+    // Create a new workbook and append the worksheet
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Report');
 
-  // Write the workbook and trigger the download
-  XLSX.writeFile(workbook, 'Report.xlsx');
-};
+    // Write the workbook and trigger the download
+    XLSX.writeFile(workbook, 'Report.xlsx');
+  };
 
   return (
     <>
@@ -646,12 +645,14 @@ const exportToExcel = () => {
                       <input
                         type="text"
                         name="branch_id"
-                        value={formData.branch_id}
+                        value={formData.branch_id || "Admin"}
                         onChange={handleChange}
                         className="w-full border rounded px-2 py-1 text-sm"
-                        readOnly
+                        readOnly={!!formData.branch_id} 
+                        placeholder="Enter Branch ID"
                       />
                     </div>
+
 
                     <div>
                       <label className="block text-xs font-semibold text-gray-700">Remark</label>
@@ -776,7 +777,6 @@ const exportToExcel = () => {
                     </button>
                   </div>
                 </div>
-
                 {/* Table */}
                 <div className="ml-[-6px]">
                   <table className="min-w-full border border-gray-300 rounded-lg">
