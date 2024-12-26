@@ -47,14 +47,11 @@ const Sidebar = () => {
     
   };
 
+   // Get the role from localStorage
+   const role = localStorage.getItem("role");
+
   return (
     <nav className="bg-[#001A3B] shadow-lg h-screen fixed top-0 left-0 min-w-[250px] py-6 px-4 overflow-auto">
-      {/* <button
-        onClick={toggleSidebar}
-        className="text-white mb-6 focus:outline-none"
-      >
-        {isCollapsed ? '>' : '<'}
-      </button> */}
       <ul className="">
         <li>
           <Link
@@ -294,6 +291,7 @@ const Sidebar = () => {
       </div>
 
       <>
+      {role !== "branch" && (
         <div
           className={`transition-all flex items-center px-4 py-3 mt-2 rounded-md 
             ${activeMenu === "interbanktransfer" ? "bg-gray-700 text-white"
@@ -313,7 +311,8 @@ const Sidebar = () => {
             Inter Bank Transfer Management
           </Link>
         </div>
-        
+          )}
+        {role !== "branch" && (
         <div
           className={`transition-all flex items-center px-4 py-3 rounded-md 
             ${activeMenu === "knowledgecenter" ? "bg-gray-700 text-white"
@@ -333,6 +332,7 @@ const Sidebar = () => {
             Expense Management
           </Link>
         </div>
+          )}
         <div
           className={`transition-all flex items-center px-4 py-3 rounded-md 
             ${activeMenu === "userregistration" ? "bg-gray-700 text-white"

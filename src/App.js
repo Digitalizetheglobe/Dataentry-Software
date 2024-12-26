@@ -27,6 +27,9 @@ import BankWiseDeposit from './Dashboard/BankWiseDeposit.js';
 import UserProfile from './UserProfile/UserProfile.js';
 import ExpenseData from './ExpenseData/ExpenseData.js';
 import FetchData from './Transaction Data Entry/FetchData.js';
+import AdminLogin from './AdminLoginReg/AdminLogin.js';
+import AdminReg from './AdminLoginReg/AdminReg.js';
+import BranchDashobard from './Dashboard/BranchDashobard.js';
 
 
 // comment for testing purpose
@@ -40,6 +43,8 @@ function App() {
             {/* Public Routes */}
             <Route path="/sign-in" element={<SignIn />} />
             <Route path="/sign-up" element={<SignUp />} />
+            <Route path="/AdminLogin" element={<AdminLogin/>}/>
+            <Route path="/AdminReg" element={<AdminReg/>} />
 
             {/* Private Routes */}
             <Route
@@ -49,6 +54,14 @@ function App() {
                   <Dashboard />
                 </PrivateRoute>
               }
+            />
+            <Route 
+            path="/BranchDashobard"
+           element={
+            <PrivateRoute>
+              <BranchDashobard/>
+            </PrivateRoute>
+           }
             />
             <Route
               path="/reconciliation-management"

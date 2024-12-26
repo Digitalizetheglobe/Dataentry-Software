@@ -1,36 +1,3 @@
-// import React, { useEffect, useState } from 'react';
-// import { jwtDecode } from 'jwt-decode'; 
-// import Sidebar from '../Sidebar/Sidebar';
-
-
-// const Dashboard = () => {
-//   const [branchId, setBranchId] = useState('');
-
-//   useEffect(() => {
-//     const token = localStorage.getItem('token');
-
-//     if (token) {
-//       const decodedToken = jwtDecode(token);
-//       setBranchId(decodedToken.branch_id);
-//     }
-//   }, []);
-
-//   return (
-//     <>
-//     <Sidebar/>
-//     <div>
-//       {branchId ? (
-//         <h1>Welcome, {branchId}</h1>
-//       ) : (
-//         <h1>Welcome, Branch User</h1>
-//       )}
-//     </div>
-//     </>
-//   );
-// };
-
-// export default Dashboard;
-
 import React, { useEffect, useState } from 'react';
 import { jwtDecode } from 'jwt-decode';
 import Sidebar from '../Sidebar/Sidebar';
@@ -39,42 +6,37 @@ import amount from '../assets/profile-2user.png';
 import amountentry from '../assets/Icon.png';
 import YearlyFinancialActivity from './YearlyFinancialActivity.js';
 import BankWiseDeposit from './BankWiseDeposit.js';
+import BranchSidebar from '../Sidebar/BranchSidebar.js';
 
-const Dashboard = () => {
-  const [branchId, setBranchId] = useState('');
-  const [role, setRole] = useState('');
-  const [darkMode, setDarkMode] = useState(false);
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    const roleFromStorage = localStorage.getItem('role');
+const BranchDashobard =() => {
+     const [branchId, setBranchId] = useState('');
+      const [darkMode, setDarkMode] = useState(false);
     
-    if (token) {
-      const decodedToken = jwtDecode(token);
-      setBranchId(decodedToken.branch_id);
-    }
-
-    if (roleFromStorage) {
-      setRole(roleFromStorage);
-    }
-  }, []);
-
-  const toggleDarkMode = () => setDarkMode(!darkMode);
-
+      useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (token) {
+          const decodedToken = jwtDecode(token);
+          setBranchId(decodedToken.branch_id);
+        }
+      }, []);
+    
+      const toggleDarkMode = () => setDarkMode(!darkMode);
   return (
+    <>
     <div className={darkMode ? "dark" : ""}>
       <div className="flex bg-blue-900 dark:bg-gray-900">
         {/* Sidebar */}
-        <Sidebar className="fixed h-full w-60 bg-blue-900 text-white dark:bg-gray-800" />
+        <BranchSidebar className="fixed h-full w-60 bg-blue-900 text-white dark:bg-gray-800" />
 
         {/* Dashboard Content */}
         <div className="ml-60 p-6 bg-gray-100 dark:bg-gray-800 min-h-screen w-full text-gray-900 dark:text-gray-200">
           <div className="flex justify-between items-center mb-8 ml-20">
             <h1 className="text-2xl font-bold">
-              {role === 'admin' ? `Welcome, ${localStorage.getItem('adminName') || 'Admin'}` : `Welcome, Branch ${branchId}`}
+              {branchId ? `Welcome, ${branchId}` : 'Welcome, Branch User'}
             </h1>
-            <button
-              onClick={toggleDarkMode}
+            <button 
+              onClick={toggleDarkMode} 
               className="px-4 py-2 bg-[#001A3B] dark:bg-blue-300 text-white dark:text-black rounded-lg"
             >
               {darkMode ? 'Light' : 'Dark'} Mode
@@ -83,7 +45,8 @@ const Dashboard = () => {
 
           {/* Cards Container */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 ml-20 mt-10">
-            {/* Card 1: Deposit */}
+            {/* Card 1: Deposit */} 
+
             <div className="bg-[#E0D7C8] dark:bg-gray-700 p-4 rounded-lg shadow-lg flex flex-col items-start">
               <h2 className="text-sm font-semibold text-black-900 dark:text-gray-100 mb-2">Deposit</h2>
               <p className="text-3xl font-bold text-[#001A3B] dark:text-gray-200 mb-1">$7,265</p>
@@ -93,6 +56,7 @@ const Dashboard = () => {
             </div>
 
             {/* Card 2: Withdrawal */}
+
             <div className="bg-[#E6F1FD] dark:bg-gray-700 p-4 rounded-lg shadow-lg flex flex-col items-start">
               <h2 className="text-sm font-semibold text-black-900 dark:text-gray-100 mb-2">Withdrawal</h2>
               <p className="text-3xl font-bold text-[#001A3B] dark:text-gray-200 mb-1">$3,671</p>
@@ -102,6 +66,7 @@ const Dashboard = () => {
             </div>
 
             {/* Card 3: New Users Added */}
+
             <div className="bg-[#E0D7C866] dark:bg-gray-700 p-4 rounded-lg shadow-lg flex flex-col items-start">
               <h2 className="text-sm font-semibold text-black-900 dark:text-gray-100 mb-2">New User Added</h2>
               <p className="text-3xl font-bold text-[#001A3B] dark:text-gray-200 mb-1">156</p>
@@ -111,6 +76,7 @@ const Dashboard = () => {
             </div>
 
             {/* Card 4: Total Entries */}
+
             <div className="bg-[#475A7233] dark:bg-gray-700 p-4 rounded-lg shadow-lg flex flex-col items-start">
               <h2 className="text-sm font-semibold text-black-900 dark:text-gray-100 mb-2">Total Entries</h2>
               <p className="text-3xl font-bold text-[#001A3B] dark:text-gray-200 mb-1">2,318</p>
@@ -120,7 +86,6 @@ const Dashboard = () => {
             </div>
           </div>
 
-          {/* Graph and Top Contributors Section */}
           <div className="grid grid-cols-5 grid-rows-5 gap-4 ml-20 mt-10">
             {/* Main graph section */}
             <div className="col-span-4 row-start-2 bg-white dark:bg-gray-700 rounded-lg shadow-lg p-6" style={{ marginTop: '-178px' }}>
@@ -195,8 +160,8 @@ const Dashboard = () => {
         </div>
       </div>
     </div>
-  );
-};
+  </>
+  )
+}
 
-export default Dashboard;
-
+export default BranchDashobard

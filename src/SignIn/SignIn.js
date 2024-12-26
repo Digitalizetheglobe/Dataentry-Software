@@ -16,7 +16,7 @@ const SignIn = () => {
     e.preventDefault();
 
     try {
-      // Adjust the API URL if needed
+      // Adjust the API URL if needed    http://localhost:8000
       const response = await axios.post("http://api.cptechsolutions.com/api/branch/login", {
         branch_id: branchName, // Ensure it matches the backend field
         password,
@@ -25,6 +25,7 @@ const SignIn = () => {
       // Save the JWT token in localStorage (if provided in the response)
       if (response.data.token) {
         localStorage.setItem("token", response.data.token);
+        localStorage.setItem("role", response.data.role);
         setMessage("Login successful!");
 
         // Redirect to a protected route or dashboard
