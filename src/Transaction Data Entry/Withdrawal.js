@@ -38,6 +38,15 @@ const Withdrawal = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedFile, setSelectedFile] = useState(null);
   const [entries, setEntries] = useState([]);
+  const [selectedEntries, setSelectedEntries] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedEntry, setSelectedEntry] = useState(null);
+
+  const handleEdit = (entry) => {
+    setSelectedEntry(entry);
+    setIsModalOpen(true);
+  };
+
   const recordsPerPage = 20;
   const banks = [
     // Public Sector Banks
@@ -240,6 +249,7 @@ const Withdrawal = () => {
         remark: '',
         date: '',
       });
+      window.location.reload();
       fetchWithdrawals();
     } catch (error) {
       const errorMessage = error.response?.data?.message || 'Error adding withdrawal entry. Please try again.';
@@ -346,30 +356,78 @@ const Withdrawal = () => {
 
   //---------------------------------
 
-  const handleDelete = async (id) => {
-    const confirmed = window.confirm("Are you sure you want to delete this entry?");
-    if (!confirmed) return;
+  // const handleDelete = async (id) => {
+  //   const confirmed = window.confirm("Are you sure you want to delete this entry?");
+  //   if (!confirmed) return;
 
+  //   try {
+  //     const response = await fetch(`http://api.cptechsolutions.com/api/withdrawal-report/delete-entry/${id}`, {
+  //       method: "DELETE",
+  //     });
+
+  //     if (response.ok) {
+  //       // Assuming `setEntries` is a state updater function for the table data
+  //       setEntries((prevEntries) => prevEntries.filter((entry) => entry.id !== id));
+  //       alert("Entry deleted successfully.");
+  //     } else {
+  //       const errorData = await response.json();
+  //       console.error("Error deleting entry:", errorData);
+  //       alert(errorData.message || "Failed to delete entry.");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error:", error);
+  //     alert("An error occurred while deleting the entry.");
+  //   }
+  // };
+
+  const handleCheckboxChange = (id) => {
+    setSelectedEntries((prevSelected) =>
+      prevSelected.includes(id)
+        ? prevSelected.filter((entryId) => entryId !== id)
+        : [...prevSelected, id]
+    );
+  };
+
+  const handleDelete = async () => {
     try {
-      const response = await fetch(`http://api.cptechsolutions.com/api/withdrawal-report/delete-entry/${id}`, {
-        method: "DELETE",
-      });
-
-      if (response.ok) {
-        // Assuming `setEntries` is a state updater function for the table data
-        setEntries((prevEntries) => prevEntries.filter((entry) => entry.id !== id));
-        alert("Entry deleted successfully.");
-      } else {
-        const errorData = await response.json();
-        console.error("Error deleting entry:", errorData);
-        alert(errorData.message || "Failed to delete entry.");
-      }
+      await Promise.all(
+        selectedEntries.map((id) =>
+          axios.delete(
+            `http://api.cptechsolutions.com/api/withdrawal-report/delete-entry/${id}`
+          )
+        )
+      );
+      toast.success("Selected entries deleted successfully.");
+      setSelectedEntries([]);
+      fetchWithdrawals();
     } catch (error) {
-      console.error("Error:", error);
-      alert("An error occurred while deleting the entry.");
+      toast.error("Error Deleting entries. Please try again.");
     }
   };
 
+  //------------------------------------------------------------
+  const handleUpdate = async () => {
+    try {
+      const response = await axios.put(
+        `http://api.cptechsolutions.com/api/withdrawal-report/update-entry/${selectedEntry.id}`,
+        selectedEntry
+      );
+      console.log("Update successful:", response.data);
+      setIsModalOpen(false);
+      fetchWithdrawals(); // Refresh the entries list
+    } catch (error) {
+      console.error("Error updating entry:", error);
+    }
+  };
+  const handleChangeupdate = (e) => {
+    const { name, value } = e.target;
+    setSelectedEntry((prev) => ({ ...prev, [name]: value }));
+  };
+  useEffect(() => {
+    // Set today's date in YYYY-MM-DD format
+    const today = new Date().toISOString().split("T")[0];
+    setFormData((prevData) => ({ ...prevData, created_at: today }));
+  }, []);
 
   return (
     <>
@@ -510,10 +568,10 @@ const Withdrawal = () => {
                       <label className="block text-sm font-semibold text-gray-700">Select Date</label>
                       <input
                         type="date"
-                        name="date"
-                        value={formData.date}
+                        name="created_at"
+                        value={formData.created_at}
                         onChange={handleChange}
-                        className="w-full border rounded px-3 py-2 text-sm"
+                        className="w-full border rounded px-2 py-1 text-sm"
                         required
                       />
                     </div>
@@ -616,6 +674,16 @@ const Withdrawal = () => {
                       />{" "}
                       Export
                     </button>
+                    <button
+                      className={`bg-red-500 text-white px-4 py-2 rounded ${selectedEntries.length === 0
+                        ? "opacity-50 cursor-not-allowed"
+                        : ""
+                        }`}
+                      onClick={handleDelete}
+                      disabled={selectedEntries.length === 0}
+                    >
+                      Delete
+                    </button>
                     {/* Filter Button */}
                     {/* <button  className="px-2 py-2 bg-[#001A3B] hover:bg-[#fff] text-white hover:text-[#001A3B] border hover:border-[#001A3B] py-2 rounded right-0">
                 Filters
@@ -627,11 +695,26 @@ const Withdrawal = () => {
                     </button> */}
                   </div>
                 </div>
-                <div className="mt-5">
+                <div className="mt-5 ml-[-6px]">
                   <table className="min-w-full border border-gray-300 rounded-lg">
                     <thead className="bg-gray-100 text-gray-600">
                       <tr>
-                        <th className="px-4 py-3 text-left text-sm font-semibold border-b"><input type="checkbox" className="form-checkbox" /></th>
+                        <th className="px-4 py-3 text-left text-sm font-semibold border-b " >
+                          <input type="checkbox"
+                            className="form-checkbox"
+                            onChange={(e) => {
+                              if (e.target.checked) {
+                                setSelectedEntries(
+                                  entries.map((entry) => entry.id)
+                                );
+                              } else {
+                                setSelectedEntries([]);
+                              }
+                            }}
+                            checked={
+                              selectedEntries.length === entries.length &&
+                              entries.length > 0
+                            } /></th>
                         <th className="px-4 py-3 text-left text-sm font-semibold border-b">Date</th>
                         <th className="px-4 py-3 text-left text-sm font-semibold border-b">User ID</th>
                         <th className="px-1 py-3 text-left text-sm font-semibold border-b">Amount</th>
@@ -643,8 +726,13 @@ const Withdrawal = () => {
                     </thead>
                     <tbody className="bg-white text-gray-800">
                       {currentEntries.map((entry, index) => (
-                        <tr key={index} className={`hover:bg-gray-50 transition-colors duration-150 ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
-                          <td className="px-4 py-4 border-b text-sm"><input type="checkbox" className="form-checkbox" /></td>
+                        <tr key={index} className={` hover:bg-gray-50 transition-colors duration-150 ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
+                          <input
+                            type="checkbox"
+                            className="form-checkbox" style={{ marginLeft: '16px' }}
+                            onChange={() => handleCheckboxChange(entry.id)}
+                            checked={selectedEntries.includes(entry.id)}
+                          />
                           <td className="px-4 py-2 border">{new Date(entry.date).toLocaleDateString()}</td>
                           <td className="px-4 py-4 border-b text-sm">{entry.user_id}</td>
                           <td className="px-1 py-4 border-b text-sm">{entry.amount}</td>
@@ -652,12 +740,16 @@ const Withdrawal = () => {
                           <td className="px-6 py-4 border-b text-sm">{entry.branch_id}</td>
                           <td className="px-4 py-4 border-b text-sm">{entry.remark}</td>
                           <td className="px-4 py-4 border-b text-sm">
-                            <button className="text-blue-500 hover:text-blue-700"><img src={edit} alt="Edit" className="w-4 h-4 inline" /></button>
                             <button
+                              className="text-blue-500 hover:text-blue-700"
+                              onClick={() => handleEdit(entry)}
+                            >
+                              <img src={edit} alt="Edit" className="w-4 h-4 inline" />
+                            </button>                            <button
                               className="text-red-500 hover:text-red-700 ml-2"
                               onClick={() => handleDelete(entry.id)}
                             >
-                              <img src={trash} alt="Delete" className="w-4 h-4 inline" />
+                              {/* <img src={trash} alt="Delete" className="w-4 h-4 inline" /> */}
                             </button>                          </td>
                         </tr>
                       ))}
@@ -689,6 +781,89 @@ const Withdrawal = () => {
             </div>
           </div>
         </div>
+
+        {/* Modal */}
+        {isModalOpen && (
+          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+            <div className="bg-white rounded-lg p-6 w-1/3">
+              <h2 className="text-lg font-semibold mb-4">Edit Entry</h2>
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">Date</label>
+                  <input
+                    type="date"
+                    name="date"
+                    value={selectedEntry.date}
+                    onChange={handleChangeupdate}
+                    className="w-full border rounded px-2 py-1 text-sm"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">User ID</label>
+                  <input
+                    type="text"
+                    name="user_id"
+                    value={selectedEntry.user_id}
+                    onChange={handleChangeupdate}
+                    className="w-full border rounded px-2 py-1 text-sm"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">Amount</label>
+                  <input
+                    type="number"
+                    name="amount"
+                    value={selectedEntry.amount}
+                    onChange={handleChangeupdate}
+                    className="w-full border rounded px-2 py-1 text-sm"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">Bank</label>
+                  <input
+                    type="text"
+                    name="bank"
+                    value={selectedEntry.bank}
+                    onChange={handleChangeupdate}
+                    className="w-full border rounded px-2 py-1 text-sm"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">Branch ID</label>
+                  <input
+                    type="text"
+                    name="branch_id"
+                    value={selectedEntry.branch_id}
+                    onChange={handleChangeupdate}
+                    className="w-full border rounded px-2 py-1 text-sm"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">Remark</label>
+                  <textarea
+                    name="remark"
+                    value={selectedEntry.remark}
+                    onChange={handleChangeupdate}
+                    className="w-full border rounded px-2 py-1 text-sm"
+                  />
+                </div>
+              </div>
+              <div className="mt-4 flex justify-end space-x-2">
+                <button
+                  onClick={() => setIsModalOpen(false)}
+                  className="mt-4 w-40 h-10 bg-[#001A3B] hover:bg-[#fff] text-white hover:text-[#001A3B] border hover:border-[#001A3B] py-2 rounded right-0"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleUpdate}
+                  className="mt-4 w-40 h-10 bg-[#001A3B] hover:bg-[#fff] text-white hover:text-[#001A3B] border hover:border-[#001A3B] py-2 rounded right-0"              >
+                  Update
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </>
   );

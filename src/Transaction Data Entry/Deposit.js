@@ -20,6 +20,8 @@ const Deposit = () => {
   const [bankSearch, setBankSearch] = useState("");
   const [showFullList, setShowFullList] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedEntry, setSelectedEntry] = useState(null);
   const dropdownRef = useRef(null);
 
   const banks = [
@@ -219,9 +221,9 @@ const Deposit = () => {
 
   const handleBankSelect = (bank) => {
     setFormData({ ...formData, bank_name: bank });
-    setBankSearch(bank); // Clear the search input after selection
-    setFilteredBanks([]); // Hide the list after selection
-    setShowFullList(false); // Reset the list state
+    setBankSearch(bank);
+    setFilteredBanks([]);
+    setShowFullList(false);
   };
 
   const toggleShowFullList = () => {
@@ -262,6 +264,7 @@ const Deposit = () => {
         remark: "",
         created_at: "",
       });
+      window.location.reload();
       fetchEntries();
     } catch (error) {
       const errorMessage =
@@ -414,6 +417,35 @@ const Deposit = () => {
 
     // Write the workbook and trigger the download
     XLSX.writeFile(workbook, 'Report.xlsx');
+  };
+  // ------------------------------
+  const handleEdit = (entry) => {
+    setSelectedEntry(entry);
+    setIsModalOpen(true);
+  };
+  const handleUpdate = async () => {
+    try {
+      const response = await axios.put(
+        `http://api.cptechsolutions.com/api/deposit-withdraw/update-entry/${selectedEntry.id}`,
+        selectedEntry
+      );
+      console.log("Update successful:", response.data);
+      setIsModalOpen(false);
+      fetchEntries(); // Refresh the entries list
+    } catch (error) {
+      console.error("Error updating entry:", error);
+    }
+  };
+
+   useEffect(() => {
+    // Set today's date in YYYY-MM-DD format
+    const today = new Date().toISOString().split("T")[0];
+    setFormData((prevData) => ({ ...prevData, created_at: today }));
+  }, []);
+  
+  const handleChangeupdate = (e) => {
+    const { name, value } = e.target;
+    setSelectedEntry((prev) => ({ ...prev, [name]: value }));
   };
 
   return (
@@ -648,7 +680,7 @@ const Deposit = () => {
                         value={formData.branch_id || "Admin"}
                         onChange={handleChange}
                         className="w-full border rounded px-2 py-1 text-sm"
-                        readOnly={!!formData.branch_id} 
+                        readOnly={!!formData.branch_id}
                         placeholder="Enter Branch ID"
                       />
                     </div>
@@ -852,13 +884,17 @@ const Deposit = () => {
                           <td className="px-6 py-4 border-b text-sm">{entry.bank_name}</td>
                           <td className="px-10 py-4 border-b text-sm">{entry.branch_id}</td>
                           <td className="px-4 py-4 border-b text-sm">
-                            <button className="text-blue-500 hover:text-blue-700">
+                            <button
+                              className="text-blue-500 hover:text-blue-700"
+                              onClick={() => handleEdit(entry)}
+                            >
                               <img
                                 src={edit}
                                 alt="Edit"
                                 className="w-4 h-4 inline"
                               />
                             </button>
+
                           </td>
                         </tr>
                       ))}
@@ -907,6 +943,105 @@ const Deposit = () => {
             </div>
           </div>
         </div>
+        {/* Modal */}
+        {isModalOpen && (
+          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+            <div className="bg-white rounded-lg p-6 w-1/3">
+              <h2 className="text-lg font-semibold mb-4">Edit Entry</h2>
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    Date
+                  </label>
+                  <input
+                    type="date"
+                    name="created_at"
+                    value={
+                      selectedEntry.created_at
+                        ? new Date(selectedEntry.created_at).toISOString().slice(0, 10)
+                        : ""
+                    }
+                    onChange={handleChangeupdate}
+                    className="w-full border rounded px-2 py-1 text-sm"
+                  />
+
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    Player ID
+                  </label>
+                  <input
+                    type="text"
+                    name="player_id"
+                    value={selectedEntry.player_id}
+                    onChange={handleChangeupdate}
+                    className="w-full border rounded px-2 py-1 text-sm"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    UTR ID
+                  </label>
+                  <input
+                    type="text"
+                    name="utr_id"
+                    value={selectedEntry.utr_id}
+                    onChange={handleChangeupdate}
+                    className="w-full border rounded px-2 py-1 text-sm"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    Amount
+                  </label>
+                  <input
+                    type="number"
+                    name="amount"
+                    value={selectedEntry.amount}
+                    onChange={handleChangeupdate}
+                    className="w-full border rounded px-2 py-1 text-sm"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    Bank Name
+                  </label>
+                  <input
+                    type="text"
+                    name="bank_name"
+                    value={selectedEntry.bank_name}
+                    onChange={handleChangeupdate}
+                    className="w-full border rounded px-2 py-1 text-sm"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    Branch ID
+                  </label>
+                  <input
+                    type="text"
+                    name="branch_id"
+                    value={selectedEntry.branch_id}
+                    onChange={handleChangeupdate}
+                    className="w-full border rounded px-2 py-1 text-sm"
+                  />
+                </div>
+              </div>
+              <div className="mt-4 flex justify-end space-x-2">
+                <button
+                  onClick={() => setIsModalOpen(false)}
+                  className="mt-4 w-40 h-10 bg-[#001A3B] hover:bg-[#fff] text-white hover:text-[#001A3B] border hover:border-[#001A3B] py-2 rounded right-0"                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleUpdate}
+                  className="mt-4 w-40 h-10 bg-[#001A3B] hover:bg-[#fff] text-white hover:text-[#001A3B] border hover:border-[#001A3B] py-2 rounded right-0"                >
+                  Update
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </>
   );
