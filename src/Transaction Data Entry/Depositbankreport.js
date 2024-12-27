@@ -5,6 +5,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Sidebar from '../Sidebar/Sidebar';
+import * as XLSX from "xlsx";
 
 const DepositBankReport = () => {
   const [startDate, setStartDate] = useState(new Date());
@@ -214,6 +215,15 @@ const DepositBankReport = () => {
     }
   }, [message]);
 
+  const handleExportToExcel = () => {
+    const worksheet = XLSX.utils.json_to_sheet(report); // Convert data to worksheet
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Report");
+
+    // Trigger file download
+    XLSX.writeFile(workbook, "Report.xlsx");
+  };
+
   return (
     <>
       <div >
@@ -338,8 +348,14 @@ const DepositBankReport = () => {
               {/* Total Amount Card */}
               <div className="p-4 bg-gray-50 rounded-lg ml-10 mt-5">
                 <h2 className="text-lg font-semibold text-gray-800">Total Amount: ₹{totalAmount}</h2>
+                <button
+                  className="w-full mt-10 sm:w-auto bg-[#001A3B] hover:bg-[#fff] text-white hover:text-[#001A3B] border hover:border-[#001A3B] py-2 px-4 rounded mb-4"
+                  onClick={handleExportToExcel}
+              >
+                Export to Excel
+              </button>
               </div>
-
+              
               {/* Table to Display Report */}
               <div className="overflow-x-auto ml-10 mt-5 rounded">
                 <table className="min-w-full border border-gray-300 rounded-lg">
@@ -366,6 +382,8 @@ const DepositBankReport = () => {
                     ))}
                   </tbody>
                 </table>
+
+                
               </div>
             </div>
           </div>

@@ -5,6 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Sidebar from "../Sidebar/Sidebar";
+import * as XLSX from "xlsx";
 
 const WithdrwalBankReport = () => {
   const [startDate, setStartDate] = useState(new Date());
@@ -173,10 +174,10 @@ const WithdrwalBankReport = () => {
   };
 
   // const handleBankSelect = (bank) => {
-   //   setBankSearch(bank);
-   //   setFilteredBanks([]);
-   //   setShowDropdown(false);
-    
+  //   setBankSearch(bank);
+  //   setFilteredBanks([]);
+  //   setShowDropdown(false);
+
   // };
 
   const handleBankSelect = (bank) => {
@@ -185,7 +186,7 @@ const WithdrwalBankReport = () => {
     setFilteredBanks([]);
     setShowDropdown(false);
   };
-  
+
 
   // const fetchReport = async () => {
   //   try {
@@ -208,14 +209,14 @@ const WithdrwalBankReport = () => {
   //   }
   // };
 
-  
-  
+
+
   const fetchReport = async () => {
     if (!bankName.trim()) {
       toast.error('Please enter a valid bank name.');
       return;
     }
-  
+
     try {
       const response = await axios.get(
         "http://api.cptechsolutions.com/api/withdrawal-report/entries/report",
@@ -224,7 +225,7 @@ const WithdrwalBankReport = () => {
             startDate: startDate.toISOString().split("T")[0],
             endDate: endDate.toISOString().split("T")[0],
             bank_name: bankName.trim(),
-            
+
           },
         }
       );
@@ -240,6 +241,15 @@ const WithdrwalBankReport = () => {
     }
   };
 
+  const handleExportToExcel = () => {
+    const table = document.querySelector("table"); // Select the table element
+    const worksheet = XLSX.utils.table_to_sheet(table); // Convert the table to a worksheet
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Report");
+
+    // Trigger file download
+    XLSX.writeFile(workbook, "WithdrwalBankReport.xlsx");
+  };
 
   return (
     <>
@@ -333,6 +343,13 @@ const WithdrwalBankReport = () => {
                 <h2 className="text-lg font-semibold text-gray-800">
                   Total Amount: ₹{totalAmount}
                 </h2>
+
+                <button
+                  className="w-full  mt-10 sm:w-auto bg-[#001A3B] hover:bg-[#fff] text-white hover:text-[#001A3B] border hover:border-[#001A3B]  py-2 px-4 rounded mb-4"
+                  onClick={handleExportToExcel}
+                >
+                  Export to Excel
+                </button>
               </div>
 
               {/* Table to Display Report */}

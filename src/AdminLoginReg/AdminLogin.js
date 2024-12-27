@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../SignIn/SignIn.css";
 import topimg from "../assets/Images/top image.svg";
 import centerimg from "../assets/Images/Center.svg";
@@ -28,13 +28,13 @@ const AdminLogin = () => {
         username,
         password,
       });
-    
+
       // Log the full response to inspect the role
       console.log(response.data);
-    
+
       if (response.data.success) {
         toast.success("Login successful");
-    
+
         // Check if role exists in the response
         const role = response.data.role;
         if (role) {
@@ -42,7 +42,7 @@ const AdminLogin = () => {
         } else {
           console.error("Role is missing in the response");
         }
-    
+
         // Store token
         localStorage.setItem("token", response.data.token);
         navigate("/"); // Adjust the navigation
@@ -51,7 +51,7 @@ const AdminLogin = () => {
       console.error("Error logging in:", error);
       toast.error("Invalid credentials. Please try again.");
     }
-    
+
   };
 
   return (
@@ -142,7 +142,7 @@ const AdminLogin = () => {
               />
             </div>
 
-            <div className="mt-12">
+            <div className="mt-5">
               <button
                 type="submit"
                 className="w-full shadow-xl py-2.5 px-4 text-sm tracking-wide rounded-md text-white bg-[#001A3B] hover:bg-[#001A3B] focus:outline-none"
@@ -151,6 +151,9 @@ const AdminLogin = () => {
               </button>
             </div>
           </form>
+          <br/>
+          < Link to='/AdminReg'
+            className="text-sm mt-5 text-gray-500 font-semibold items-center">Admin Registration  </Link>
         </div>
       </div>
     </div>

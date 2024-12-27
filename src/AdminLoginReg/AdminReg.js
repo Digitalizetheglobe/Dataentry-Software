@@ -151,7 +151,7 @@ const AdminReg = () => {
               </label>
             </div>
 
-            <div className="mt-12">
+            <div className="mt-5">
               <button
                 type="submit"
                 className="w-full shadow-xl py-2.5 px-4 text-sm tracking-wide rounded-md text-white bg-[#001A3B] hover:bg-[#001A3B] focus:outline-none"
@@ -160,6 +160,9 @@ const AdminReg = () => {
               </button>
             </div>
           </form>
+<br/>
+          < Link to='/AdminLogin'
+                     className="text-sm mt-5 text-gray-500 font-semibold items-center">Login As Admin  </Link>
         </div>
       </div>
     </div>

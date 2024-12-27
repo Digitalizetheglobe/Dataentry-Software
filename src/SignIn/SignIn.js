@@ -72,7 +72,7 @@ const SignIn = () => {
         <div className="md:max-w-md w-full px-4 py-4">
           <form onSubmit={handleLogin}>
             <div className="">
-              <h3 className="text-gray-800 text-3xl font-extrabold">Welcome Back</h3>
+              <h3 className="text-gray-800 text-3xl font-extrabold">Welcome Back Branch</h3>
               <p className="text-sm mt-2 text-gray-500 font-semibold">
                 Welcome Back! Please Enter Your Details
               </p>
@@ -117,8 +117,13 @@ const SignIn = () => {
               </button>
             </div>
           </form>
+        
           {message && <p className="mt-4 text-center text-red-600">{message}</p>}
+          <br/>
+          < Link to='/AdminLogin'
+           className="text-sm mt-5 text-gray-500 font-semibold items-center">Login As Admin  </Link>
         </div>
+       
       </div>
     </div>
   );

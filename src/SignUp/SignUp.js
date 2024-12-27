@@ -4,11 +4,14 @@ import "../SignIn/SignIn.css";
 import topimg from "../assets/Images/top image.svg";
 import centerimg from "../assets/Images/Center.svg";
 import bottomimg from "../assets/Images/bottom image.svg";
+import { Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   const [branchId, setBranchId] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,6 +36,7 @@ const SignUp = () => {
       if (token) {
         localStorage.setItem("authToken", token);
         setMessage(message);
+        navigate('/sign-in');
       } else {
         setMessage("Registration successful, but no token received.");
       }
