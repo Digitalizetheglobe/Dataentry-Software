@@ -262,6 +262,7 @@ const Deposit = () => {
         amount: "",
         bank_name: "",
         remark: "",
+        bonus: "",
         created_at: "",
       });
       window.location.reload();
@@ -437,12 +438,12 @@ const Deposit = () => {
     }
   };
 
-   useEffect(() => {
+  useEffect(() => {
     // Set today's date in YYYY-MM-DD format
     const today = new Date().toISOString().split("T")[0];
     setFormData((prevData) => ({ ...prevData, created_at: today }));
   }, []);
-  
+
   const handleChangeupdate = (e) => {
     const { name, value } = e.target;
     setSelectedEntry((prev) => ({ ...prev, [name]: value }));
@@ -684,7 +685,16 @@ const Deposit = () => {
                         placeholder="Enter Branch ID"
                       />
                     </div>
-
+                    <div>
+                      <label className="block text-xs font-semibold text-gray-700">Bonus</label>
+                      <input
+                        type="text"
+                        name="bonus"
+                        value={formData.bonus}
+                        onChange={handleChange}
+                        className="w-full border rounded px-2 py-1 text-sm"
+                      />
+                    </div>
 
                     <div>
                       <label className="block text-xs font-semibold text-gray-700">Remark</label>
@@ -839,7 +849,7 @@ const Deposit = () => {
                         <th className="px-4 py-3 text-left text-sm font-semibold border-b">
                           Player ID
                         </th>
-                        <th className="px-4 py-3 text-left text-sm font-semibold border-b">
+                        <th className="px-1 py-1 text-left text-sm font-semibold border-b">
                           UTR ID
                         </th>
                         <th className="px-6 py-3 text-left text-sm font-semibold border-b">
@@ -848,8 +858,11 @@ const Deposit = () => {
                         <th className="px-6 py-3 text-left text-sm font-semibold border-b">
                           Bank Name
                         </th>
-                        <th className="px-10 py-3 text-left text-sm font-semibold border-b">
+                        <th className="px-4 py-2 text-left text-sm font-semibold border-b">
                           Branch ID
+                        </th>
+                        <th className="px-1 py-1 text-left text-sm font-semibold border-b">
+                          Bonus
                         </th>
                         <th className="px-4 py-3 text-left text-sm font-semibold border-b">
                           Actions
@@ -878,12 +891,13 @@ const Deposit = () => {
                               day: "2-digit",
                             })}
                           </td>
-                          <td className="px-4 py-4 border-b text-sm">{entry.player_id}</td>
-                          <td className="px-4 py-4 border-b text-sm">{entry.utr_id}</td>
-                          <td className="px-6 py-4 border-b text-sm">{entry.amount}</td>
-                          <td className="px-6 py-4 border-b text-sm">{entry.bank_name}</td>
-                          <td className="px-10 py-4 border-b text-sm">{entry.branch_id}</td>
-                          <td className="px-4 py-4 border-b text-sm">
+                          <td className="px-4 py-3 border-b text-sm">{entry.player_id}</td>
+                          <td className="px-1 py-1 border-b text-sm">{entry.utr_id}</td>
+                          <td className="px-4 py-2 border-b text-sm">{entry.amount}</td>
+                          <td className="px-4 py-2 border-b text-sm">{entry.bank_name}</td>
+                          <td className="px-4 py-2 border-b text-sm">{entry.branch_id}</td>
+                          <td className="px-1 py-1 border-b text-sm">{entry.bonus}</td>
+                          <td className="px-4 py-3 border-b text-sm">
                             <button
                               className="text-blue-500 hover:text-blue-700"
                               onClick={() => handleEdit(entry)}
