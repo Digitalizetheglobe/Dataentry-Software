@@ -42,7 +42,7 @@ const FetchData = () => {
 
   const fetchReport = async () => {
     try {
-      const response = await axios.get('http://api.cptechsolutions.com/api/deposit-withdraw/entries');
+      const response = await axios.get('https://api.cptechsolutions.com/api/deposit-withdraw/entries');
 
       // Filter data by UTR ID if provided
       const filteredData = response.data.data.filter(entry =>

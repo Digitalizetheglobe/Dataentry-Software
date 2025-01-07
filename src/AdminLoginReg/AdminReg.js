@@ -34,7 +34,7 @@ const AdminReg = () => {
     };
 
     try {
-      const response = await axios.post("http://api.cptechsolutions.com/admin/register", adminData);
+      const response = await axios.post("https://api.cptechsolutions.com/admin/register", adminData);
       
       if (response.data.success) {
         // toast.success("Admin registered successfully!");

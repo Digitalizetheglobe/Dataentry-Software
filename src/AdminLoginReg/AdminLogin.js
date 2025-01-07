@@ -24,7 +24,7 @@ const AdminLogin = () => {
 
     // Login API request
     try {
-      const response = await axios.post("http://api.cptechsolutions.com/admin/login", {
+      const response = await axios.post("https://api.cptechsolutions.com/admin/login", {
         username,
         password,
       });

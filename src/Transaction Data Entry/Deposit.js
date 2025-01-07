@@ -251,7 +251,7 @@ const Deposit = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://api.cptechsolutions.com/api/deposit-withdraw/add-entry",
+        "https://api.cptechsolutions.com/api/deposit-withdraw/add-entry",
         formData
       );
       toast.success("Entry added successfully.");
@@ -278,7 +278,7 @@ const Deposit = () => {
     try {
       // {api.cptechsolutions.com}localhost:8000
       const response = await axios.get(
-        "http://api.cptechsolutions.com/api/deposit-withdraw/entries"
+        "https://api.cptechsolutions.com/api/deposit-withdraw/entries"
       );
       // Sort entries so that the most recent entries come first
       const sortedEntries = response.data.data.sort(
@@ -315,7 +315,7 @@ const Deposit = () => {
 
     try {
       const response = await axios.post(
-        "http://api.cptechsolutions.com/api/deposit-withdraw/upload-excel",
+        "https://api.cptechsolutions.com/api/deposit-withdraw/upload-excel",
         formData,
         {
           headers: {
@@ -334,11 +334,11 @@ const Deposit = () => {
   };
   const handleDelete = async () => {
     try {
-      // Delete each selected entry   {http://api.cptechsolutions.com }
+      // Delete each selected entry   {https://api.cptechsolutions.com }
       await Promise.all(
         selectedEntries.map((id) =>
           axios.delete(
-            `http://api.cptechsolutions.com/api/deposit-withdraw/delete-entry/${id}`
+            `https://api.cptechsolutions.com/api/deposit-withdraw/delete-entry/${id}`
           )
         )
       );
@@ -425,7 +425,7 @@ const Deposit = () => {
   const handleUpdate = async () => {
     try {
       const response = await axios.put(
-        `http://api.cptechsolutions.com/api/deposit-withdraw/update-entry/${selectedEntry.id}`,
+        `https://api.cptechsolutions.com/api/deposit-withdraw/update-entry/${selectedEntry.id}`,
         selectedEntry
       );
       console.log("Update successful:", response.data);

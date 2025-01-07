@@ -238,8 +238,8 @@ const Withdrawal = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      //http://api.cptechsolutions.com
-      await axios.post('http://api.cptechsolutions.com/api/withdrawal-report/add-entry', formData);
+      //https://api.cptechsolutions.com
+      await axios.post('https://api.cptechsolutions.com/api/withdrawal-report/add-entry', formData);
       toast.success('Withdrawal entry added successfully');
       setFormData({
         user_id: '',
@@ -259,8 +259,8 @@ const Withdrawal = () => {
 
   const fetchWithdrawals = async () => {
     try {
-      // http://api.cptechsolutions.com
-      const response = await axios.get('http://api.cptechsolutions.com/api/withdrawal-report/entries');
+      // https://api.cptechsolutions.com
+      const response = await axios.get('https://api.cptechsolutions.com/api/withdrawal-report/entries');
       setWithdrawals(response.data.data);
     } catch (error) {
       toast.error('Error fetching withdrawal entries.');
@@ -302,7 +302,7 @@ const Withdrawal = () => {
 
     try {
       const response = await axios.post(
-        "http://api.cptechsolutions.com/api/withdrawal-report/bulk-upload",
+        "https://api.cptechsolutions.com/api/withdrawal-report/bulk-upload",
         formData,
         {
           headers: {
@@ -361,7 +361,7 @@ const Withdrawal = () => {
   //   if (!confirmed) return;
 
   //   try {
-  //     const response = await fetch(`http://api.cptechsolutions.com/api/withdrawal-report/delete-entry/${id}`, {
+  //     const response = await fetch(`https://api.cptechsolutions.com/api/withdrawal-report/delete-entry/${id}`, {
   //       method: "DELETE",
   //     });
 
@@ -393,7 +393,7 @@ const Withdrawal = () => {
       await Promise.all(
         selectedEntries.map((id) =>
           axios.delete(
-            `http://api.cptechsolutions.com/api/withdrawal-report/delete-entry/${id}`
+            `https://api.cptechsolutions.com/api/withdrawal-report/delete-entry/${id}`
           )
         )
       );
@@ -409,7 +409,7 @@ const Withdrawal = () => {
   const handleUpdate = async () => {
     try {
       const response = await axios.put(
-        `http://api.cptechsolutions.com/api/withdrawal-report/update-entry/${selectedEntry.id}`,
+        `https://api.cptechsolutions.com/api/withdrawal-report/update-entry/${selectedEntry.id}`,
         selectedEntry
       );
       console.log("Update successful:", response.data);

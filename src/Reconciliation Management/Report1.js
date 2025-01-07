@@ -20,7 +20,7 @@ const Report1 = () => {
   // Fetch data for Excel 1
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://api.cptechsolutions.com/api/excel/data1');
+      const response = await axios.get('https://api.cptechsolutions.com/api/excel/data1');
       setData(response.data.data);
       setFilteredData(response.data.data); // Initialize filtered data
       setTotalPages(Math.ceil(response.data.data.length / itemsPerPage));
@@ -48,7 +48,7 @@ const Report1 = () => {
     const formData = new FormData();
     formData.append('file', selectedFile);
     try {
-      const response = await axios.post('http://api.cptechsolutions.com/api/excel/upload1', formData, {
+      const response = await axios.post('https://api.cptechsolutions.com/api/excel/upload1', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -73,7 +73,7 @@ const Report1 = () => {
     formData.append('file', selectedFile);
     setIsLoading(true);
     try {
-      const response = await axios.put('http://api.cptechsolutions.com/api/excel/upload1', formData, {
+      const response = await axios.put('https://api.cptechsolutions.com/api/excel/upload1', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

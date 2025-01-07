@@ -152,7 +152,7 @@ const AllBankStatement = () => {
         setLoading(true);
         setError(null);
         try {
-            const response = await fetch('http://api.cptechsolutions.com/api/bank-statement/generate', {
+            const response = await fetch('https://api.cptechsolutions.com/api/bank-statement/generate', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -11,7 +11,7 @@ const MergeReport = () => {
     const fetchMergedData = async () => {
       try {
         const response = await axios.get(
-          "http://api.cptechsolutions.com/api/excel/merged-data"
+          "https://api.cptechsolutions.com/api/excel/merged-data"
         );
         setMergedData(response.data.data);
       } catch (err) {
@@ -27,9 +27,9 @@ const MergeReport = () => {
     setIsLoading(true);
     setError("");
     try {
-      await axios.post("http://api.cptechsolutions.com/api/excel/merge");
+      await axios.post("https://api.cptechsolutions.com/api/excel/merge");
       const response = await axios.get(
-        "http://api.cptechsolutions.com/api/excel/merged-data"
+        "https://api.cptechsolutions.com/api/excel/merged-data"
       );
       setMergedData(response.data.data);
     } catch (err) {

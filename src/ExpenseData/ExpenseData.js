@@ -43,7 +43,7 @@ const ExpenseData = () => {
 
     try {
       const response = await axios.post(
-        "http://api.cptechsolutions.com/api/expenses/add-expense",
+        "https://api.cptechsolutions.com/api/expenses/add-expense",
         {
           type_of_expense,
           amount,
@@ -78,7 +78,7 @@ const ExpenseData = () => {
     setError(null);
     try {
       const response = await axios.get(
-        "http://api.cptechsolutions.com/api/expenses/expenses"
+        "https://api.cptechsolutions.com/api/expenses/expenses"
       );
       setExpenses(response.data.data); // Set the fetched expenses to the state
       console.log("Fetched Expenses:", response.data.data);

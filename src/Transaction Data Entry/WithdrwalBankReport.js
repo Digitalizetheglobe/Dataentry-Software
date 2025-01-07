@@ -190,7 +190,7 @@ const WithdrwalBankReport = () => {
 
   // const fetchReport = async () => {
   //   try {
-  //     const response = await axios.get('http://api.cptechsolutions.com/api/withdrawal-report/entries/report', {
+  //     const response = await axios.get('https://api.cptechsolutions.com/api/withdrawal-report/entries/report', {
   //       params: {
   //         startDate: startDate.toISOString().split('T')[0],
   //         endDate: endDate.toISOString().split('T')[0],
@@ -219,7 +219,7 @@ const WithdrwalBankReport = () => {
 
     try {
       const response = await axios.get(
-        "http://api.cptechsolutions.com/api/withdrawal-report/entries/report",
+        "https://api.cptechsolutions.com/api/withdrawal-report/entries/report",
         {
           params: {
             startDate: startDate.toISOString().split("T")[0],

@@ -25,10 +25,10 @@ const SignUp = () => {
 
       // Send a POST request to the branch registration API
       const response = await axios.post(
-        "http://api.cptechsolutions.com/api/branch/register",
+        "https://api.cptechsolutions.com/api/branch/register",
         requestData
       );
-     // http://api.cptechsolutions.com/branch/register
+     // https://api.cptechsolutions.com/branch/register
       // Handle success response
       const { message, token } = response.data;
 

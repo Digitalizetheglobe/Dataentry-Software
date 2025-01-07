@@ -168,7 +168,7 @@ const BankStatement = () => {
                 return;
             }
 
-            const response = await axios.get('http://api.cptechsolutions.com/api/bank-statement', {
+            const response = await axios.get('https://api.cptechsolutions.com/api/bank-statement', {
                 params: { startDate, endDate, bank_name },
             });
 
