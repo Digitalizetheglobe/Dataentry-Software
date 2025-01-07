@@ -149,7 +149,7 @@ const Deposit = () => {
   ];
 
   useEffect(() => {
-    // Filter banks based on the search query
+   
     setFilteredBanks(
       banks.filter((bank) =>
         bank.toLowerCase().includes(bankSearch.toLowerCase())
@@ -395,7 +395,7 @@ const Deposit = () => {
       return;
     }
 
-    // Prepare the data for Excel
+   
     const dataToExport = filteredEntries.map((entry) => ({
       Date: new Date(entry.created_at).toLocaleDateString('en-GB', {
         year: 'numeric',
@@ -409,14 +409,12 @@ const Deposit = () => {
       'Branch ID': entry.branch_id,
     }));
 
-    // Convert JSON data to a worksheet
+
     const worksheet = XLSX.utils.json_to_sheet(dataToExport);
 
-    // Create a new workbook and append the worksheet
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, 'Report');
 
-    // Write the workbook and trigger the download
     XLSX.writeFile(workbook, 'Report.xlsx');
   };
   // ------------------------------
@@ -432,14 +430,14 @@ const Deposit = () => {
       );
       console.log("Update successful:", response.data);
       setIsModalOpen(false);
-      fetchEntries(); // Refresh the entries list
+      fetchEntries(); 
     } catch (error) {
       console.error("Error updating entry:", error);
     }
   };
 
   useEffect(() => {
-    // Set today's date in YYYY-MM-DD format
+   
     const today = new Date().toISOString().split("T")[0];
     setFormData((prevData) => ({ ...prevData, created_at: today }));
   }, []);

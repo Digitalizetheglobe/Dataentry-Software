@@ -9,7 +9,10 @@ import dataentry from "../assets/icons/bar-chart.png";
 import banktransfer from "../assets/icons/cash-flow.png";
 import knowledge from "../assets/icons/knowledge (1).png";
 import LogoutDialog from "../Dialogs/LogoutDialog";
-import data from '../assets/icons/clipboard-attachment.png'
+import data from '../assets/icons/clipboard-attachment.png';
+import bank from '../assets/bank.png';
+
+
 
 const Sidebar = () => {
   const [isOpenReconciliation, setIsOpenReconciliation] = useState(true);
@@ -32,7 +35,7 @@ const Sidebar = () => {
     setIsOpenReconciliation((prev) => !prev);
     setActiveMenu(menu);
   };
-  
+
   const toggleTransaction = (menu) => {
     setIsOpenTransaction((prev) => !prev);
     setActiveMenu(menu);
@@ -44,11 +47,11 @@ const Sidebar = () => {
 
   const handleMenuClick = (menu) => {
     setActiveMenu(menu);
-    
+
   };
 
-   // Get the role from localStorage
-   const role = localStorage.getItem("role");
+  // Get the role from localStorage
+  const role = localStorage.getItem("role");
 
   return (
     <nav className="bg-[#001A3B] shadow-lg h-screen fixed top-0 left-0 min-w-[250px] py-6 px-4 overflow-auto">
@@ -105,8 +108,8 @@ const Sidebar = () => {
               <Link
                 to="/report-1"
                 className={`transition-all text-sm flex items-center rounded-md px-4 py-3 ${activeMenu === "report-1"
-                    ? "bg-gray-700 text-white"
-                    : "bg-transparent text-white hover:bg-gray-700"
+                  ? "bg-gray-700 text-white"
+                  : "bg-transparent text-white hover:bg-gray-700"
                   }`}
                 onClick={() => handleMenuClick("report-1")}
               >
@@ -119,8 +122,8 @@ const Sidebar = () => {
               <Link
                 to="/report-2"
                 className={`transition-all text-sm flex items-center rounded-md px-4 py-3 ${activeMenu === "report-2"
-                    ? "bg-gray-700 text-white"
-                    : "bg-transparent text-white hover:bg-gray-700"
+                  ? "bg-gray-700 text-white"
+                  : "bg-transparent text-white hover:bg-gray-700"
                   }`}
                 onClick={() => handleMenuClick("report-2")}
               >
@@ -150,42 +153,42 @@ const Sidebar = () => {
             </li>
             <hr />
             {role !== "branch" && (
-            <li>
-              <Link
-                to="/WithdrawalReconcilitionReport"
-                className={` transition-all text-sm flex items-center rounded-md px-4 py-3
+              <li>
+                <Link
+                  to="/WithdrawalReconcilitionReport"
+                  className={` transition-all text-sm flex items-center rounded-md px-4 py-3
                    ${activeMenu === "WithdrawalReconcilitionReport"
-                    ? "bg-gray-700 text-white"
-                    : "bg-transparent text-white hover:bg-gray-700"
-                  }`}
-                onClick={() => handleMenuClick("WithdrawalReconcilitionReport")}
-              >
-                <img
-                  src={report}
-                  className="w-[18px] h-[18px] mr-4 filter invert"
-                />
-                <span>Withdrawal Reconciliation <br /> Report</span>
-              </Link>
-            </li>
+                      ? "bg-gray-700 text-white"
+                      : "bg-transparent text-white hover:bg-gray-700"
+                    }`}
+                  onClick={() => handleMenuClick("WithdrawalReconcilitionReport")}
+                >
+                  <img
+                    src={report}
+                    className="w-[18px] h-[18px] mr-4 filter invert"
+                  />
+                  <span>Withdrawal Reconciliation <br /> Report</span>
+                </Link>
+              </li>
             )}
             {role !== "branch" && (
-            <li>
-              <Link
-                to="/Depositreconcilition"
-                className={`transition-all text-sm flex items-center rounded-md px-4 py-3 
+              <li>
+                <Link
+                  to="/Depositreconcilition"
+                  className={`transition-all text-sm flex items-center rounded-md px-4 py-3 
                   ${activeMenu === "Depositreconcilition"
-                    ? "bg-gray-700 text-white"
-                    : "bg-transparent text-white hover:bg-gray-700"
-                  }`}
-                onClick={() => handleMenuClick("Depositreconcilition")}
-              >
-                <img
-                  src={report}
-                  className="w-[18px] h-[18px] mr-4 filter invert"
-                />
-                <span>Deposit Reconciliation <br /> Report</span>
-              </Link>
-            </li>
+                      ? "bg-gray-700 text-white"
+                      : "bg-transparent text-white hover:bg-gray-700"
+                    }`}
+                  onClick={() => handleMenuClick("Depositreconcilition")}
+                >
+                  <img
+                    src={report}
+                    className="w-[18px] h-[18px] mr-4 filter invert"
+                  />
+                  <span>Deposit Reconciliation <br /> Report</span>
+                </Link>
+              </li>
             )}
           </ul>
         )}
@@ -248,101 +251,144 @@ const Sidebar = () => {
               </Link>
             </li>
             {role !== "branch" && (
-            <li>
-              <Link
-                to="/withdrawal-bank-report"
-                className={`transition-all text-sm flex items-center rounded-md px-4 py-3 
+              <li>
+                <Link
+                  to="/withdrawal-bank-report"
+                  className={`transition-all text-sm flex items-center rounded-md px-4 py-3 
                   ${activeMenu === "withdrawal-bank-report"
-                    ? "bg-gray-700 text-white"
-                    : "bg-transparent text-white hover:bg-gray-700"
-                  }`}
-                onClick={() => handleMenuClick("withdrawal-bank-report")}
-              >
-                <FaExchangeAlt className="w-[18px] h-[18px] mr-4" />
-                <span>Withdrawal Bank Report</span>
-              </Link>
-            </li>
+                      ? "bg-gray-700 text-white"
+                      : "bg-transparent text-white hover:bg-gray-700"
+                    }`}
+                  onClick={() => handleMenuClick("withdrawal-bank-report")}
+                >
+                  <FaExchangeAlt className="w-[18px] h-[18px] mr-4" />
+                  <span>Withdrawal Bank Report</span>
+                </Link>
+              </li>
             )}
 
             {role !== "branch" && (
-            <li>
-              <Link
-                to='/deposit-bank-report'
-                className={`transition-all text-sm flex items-center rounded-md px-4 py-3 
+              <li>
+                <Link
+                  to='/deposit-bank-report'
+                  className={`transition-all text-sm flex items-center rounded-md px-4 py-3 
                   ${activeMenu === "depositbankreport"
-                    ? "bg-gray-700 text-white"
-                    : "bg-transparent text-white hover:bg-gray-700"
-                  }`}
-                onClick={() => handleMenuClick("depositbankreport")}
-              >
-                <FaExchangeAlt className="w-[18px] h-[18px] mr-4" />
-                <span>Deposit Bank Report</span>
-              </Link>
-            </li>
+                      ? "bg-gray-700 text-white"
+                      : "bg-transparent text-white hover:bg-gray-700"
+                    }`}
+                  onClick={() => handleMenuClick("depositbankreport")}
+                >
+                  <FaExchangeAlt className="w-[18px] h-[18px] mr-4" />
+                  <span>Deposit Bank Report</span>
+                </Link>
+              </li>
             )}
             {role !== "branch" && (
-            <li>
-              <Link
-                to='/fetch-utr'
-                className={`transition-all text-sm flex items-center rounded-md px-4 py-3 
+              <li>
+                <Link
+                  to='/fetch-utr'
+                  className={`transition-all text-sm flex items-center rounded-md px-4 py-3 
                   ${activeMenu === "fetchutr"
-                    ? "bg-gray-700 text-white"
-                    : "bg-transparent text-white hover:bg-gray-700"
-                  }`}
-                onClick={() => handleMenuClick("fetchutr")}
-              >
-                <FaExchangeAlt className="w-[18px] h-[18px] mr-4" />
-                <span>Fetch Data Using UTR</span>
-              </Link>
-            </li>
+                      ? "bg-gray-700 text-white"
+                      : "bg-transparent text-white hover:bg-gray-700"
+                    }`}
+                  onClick={() => handleMenuClick("fetchutr")}
+                >
+                  <FaExchangeAlt className="w-[18px] h-[18px] mr-4" />
+                  <span>Fetch Data Using UTR</span>
+                </Link>
+              </li>
             )}
           </ul>
         )}
       </div>
 
       <>
-      {role !== "branch" && (
+        {role !== "branch" && (
+          <div
+            className={`transition-all flex items-center px-4 py-3 mt-2 rounded-md 
+            ${activeMenu === "interbanktransfer" ? "bg-gray-700 text-white"
+                : "bg-transparent text-white hover:bg-gray-700"
+              }`}
+            onClick={() => handleMenuClick("interbanktransfer")}
+          >
+            <img
+              src={banktransfer}
+              className="w-[18px] h-[18px] text-white filter invert"
+              style={{ marginLeft: '-16px' }}
+            />
+            <Link
+              to="/inter-bank-transfer-management"
+              className="text-white text-sm pl-4 flex-1"
+            >
+              Inter Bank Transfer Management
+            </Link>
+          </div>
+
+
+        )}
+
         <div
           className={`transition-all flex items-center px-4 py-3 mt-2 rounded-md 
-            ${activeMenu === "interbanktransfer" ? "bg-gray-700 text-white"
+           ${activeMenu === "bankstatement" ? "bg-gray-700 text-white"
               : "bg-transparent text-white hover:bg-gray-700"
             }`}
-          onClick={() => handleMenuClick("interbanktransfer")}
-        >
+          onClick={() => handleMenuClick("bankstatement")}
+         >
           <img
-            src={banktransfer}
+            src={bank}
             className="w-[18px] h-[18px] text-white filter invert"
             style={{ marginLeft: '-16px' }}
           />
           <Link
-            to="/inter-bank-transfer-management"
+            to="/bankstatement"
             className="text-white text-sm pl-4 flex-1"
           >
-            Inter Bank Transfer Management
+            Bank Wise Statement
           </Link>
         </div>
-          )}
-        {role !== "branch" && (
+
         <div
-          className={`transition-all flex items-center px-4 py-3 rounded-md 
-            ${activeMenu === "knowledgecenter" ? "bg-gray-700 text-white"
+          className={`transition-all flex items-center px-4 py-3 mt-2 rounded-md 
+           ${activeMenu === "bankstatement" ? "bg-gray-700 text-white"
               : "bg-transparent text-white hover:bg-gray-700"
             }`}
-          onClick={() => handleMenuClick("ExpenseData")}
-        >
+          onClick={() => handleMenuClick("allbankstatement")}
+         >
           <img
-            src={data}
-            className="w-[18px] h-[18px] text-white "
+            src={bank}
+            className="w-[18px] h-[18px] text-white filter invert"
             style={{ marginLeft: '-16px' }}
           />
           <Link
-            to="/Expense"
+            to="/allbankstatement"
             className="text-white text-sm pl-4 flex-1"
           >
-            Expense Management
+           All Bank Wise Statement
           </Link>
         </div>
-          )}
+
+        {role !== "branch" && (
+          <div
+            className={`transition-all flex items-center px-4 py-3 rounded-md 
+            ${activeMenu === "knowledgecenter" ? "bg-gray-700 text-white"
+                : "bg-transparent text-white hover:bg-gray-700"
+              }`}
+            onClick={() => handleMenuClick("ExpenseData")}
+          >
+            <img
+              src={data}
+              className="w-[18px] h-[18px] text-white "
+              style={{ marginLeft: '-16px' }}
+            />
+            <Link
+              to="/Expense"
+              className="text-white text-sm pl-4 flex-1"
+            >
+              Expense Management
+            </Link>
+          </div>
+        )}
         <div
           className={`transition-all flex items-center px-4 py-3 rounded-md 
             ${activeMenu === "userregistration" ? "bg-gray-700 text-white"
@@ -381,7 +427,7 @@ const Sidebar = () => {
         </div>
 
         <hr />
-        
+
 
         <button onClick={handleOpenLogoutDialog}
           className="bg-[#001A3B] w-full mt-10 hover:bg-[#fff] text-white hover:text-[#001A3B] border hover:border-[#001A3B] py-2 px-4 rounded-md"

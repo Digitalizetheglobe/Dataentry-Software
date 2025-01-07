@@ -30,6 +30,8 @@ import FetchData from './Transaction Data Entry/FetchData.js';
 import AdminLogin from './AdminLoginReg/AdminLogin.js';
 import AdminReg from './AdminLoginReg/AdminReg.js';
 import BranchDashobard from './Dashboard/BranchDashobard.js';
+import BankStatement from './Inter Bank Transfer Management/BankStatement.js';
+import AllBankStatement from './Inter Bank Transfer Management/AllBankStatement.js';
 
 
 // comment for testing purpose
@@ -45,7 +47,8 @@ function App() {
             <Route path="/sign-up" element={<SignUp />} />
             <Route path="/AdminLogin" element={<AdminLogin/>}/>
             <Route path="/AdminReg" element={<AdminReg/>} />
-
+            <Route path="/bankstatement" element ={<BankStatement/>} />
+            <Route path="/allbankstatement" element ={<AllBankStatement/>} />
             {/* Private Routes */}
             <Route
               path="/"

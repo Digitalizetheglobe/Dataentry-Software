@@ -351,11 +351,11 @@ const DepositBankReport = () => {
                 <button
                   className="w-full mt-10 sm:w-auto bg-[#001A3B] hover:bg-[#fff] text-white hover:text-[#001A3B] border hover:border-[#001A3B] py-2 px-4 rounded mb-4"
                   onClick={handleExportToExcel}
-              >
-                Export to Excel
-              </button>
+                >
+                  Export to Excel
+                </button>
               </div>
-              
+
               {/* Table to Display Report */}
               <div className="overflow-x-auto ml-10 mt-5 rounded">
                 <table className="min-w-full border border-gray-300 rounded-lg">
@@ -383,7 +383,7 @@ const DepositBankReport = () => {
                   </tbody>
                 </table>
 
-                
+
               </div>
             </div>
           </div>
