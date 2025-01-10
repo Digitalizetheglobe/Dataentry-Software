@@ -90,7 +90,8 @@ const AdminLogin = () => {
             Enter your credentials to access your account
           </span>
           <div className="absolute top-1/2 right-0 transform -translate-y-1/2 space-y-4">
-            <button className="block w-28 py-3 text-[#001A3B] bg-white rounded-md text-sm font-semibold hover:bg-gray-100">
+            <button 
+            className="block w-28 py-3 text-[#001A3B] bg-white rounded-md text-sm font-semibold hover:bg-gray-100">
               Sign in
             </button>
             <button
