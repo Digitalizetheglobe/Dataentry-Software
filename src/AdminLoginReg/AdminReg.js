@@ -18,8 +18,8 @@ const AdminReg = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("admin"); // "admin" is set by default
+  
   const navigate = useNavigate();
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -35,7 +35,8 @@ const AdminReg = () => {
 
     try {
       const response = await axios.post("https://api.cptechsolutions.com/admin/register", adminData);
-      
+      //http://localhost:8000
+      //https://api.cptechsolutions.com
       if (response.data.success) {
         // toast.success("Admin registered successfully!");
         // Redirect to login page after success
