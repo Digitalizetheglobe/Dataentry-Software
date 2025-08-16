@@ -180,7 +180,7 @@ const WithdrawalReconciliationReport = () => {
               </h2>
             </div>
 
-            {/* Matched Records Table */}
+          
             <div className="p-4 bg-gray-50 rounded-lg ml-10 mt-5">
               <h2 className="text-lg font-semibold text-gray-800 mb-2">Matched Records</h2>
               <div className="overflow-x-auto">
