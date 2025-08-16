@@ -16,6 +16,39 @@ const WithdrwalBankReport = () => {
   const [message, setMessage] = useState("");
 
   const banks = [
+    // New bank names
+    "SHIV-JSB-304",
+    "RATHOD-CSB-7837",
+    "SHIV-SAHAYOG-9065",
+    "SHIV-BMC-8606",
+    "MERAGE-BMC-8607",
+    "SHIV-BHARAT-6788",
+    "SHIV-HDFC-4651",
+    "SHIV-KOKAN-1889",
+    "MARHABA-IOB-1841",
+    "YUSUF-IOB-4162",
+    "BLACKBAG-IOB-1847",
+    "MOMTAZ-IOB-4174",
+    "GARMENT-IOB-1865",
+    "MD-IOB-4318",
+    "SMART-IOB-1848",
+    "MD-IOB-4179",
+    "SWAG-BOI-0940",
+    "MARHABA--COSMOS-2066",
+    "TOFIK-BOI-7800",
+    "BHARGAV-BOI-6774",
+    "SAHIL-BOI-6770",
+    "KUKAVA-BOI-4669",
+    "SUMRA-BOI-4679",
+    "GANESH-IOB-1413",
+    "GANESHH--JALGAON-0380",
+    "BALAJI-JALGAON-0403",
+    "RADHIKA-J&K-0375",
+    "RADHIKA-PSB-0629",
+    "A2ZIOB-0358",
+    "MAHIRA-PSB-6800",
+    "BALWINDER-SURYODAY-8807",
+
     // Public Sector Banks
     "State Bank of India",
     "Punjab National Bank",
@@ -135,8 +168,7 @@ const WithdrwalBankReport = () => {
     "S S ORGANIC-IDBI-9119",
     "SHADAP GARMENTS-BOB-742",
     "Flexi Payment",
-    "Other"
-
+    "Other",
   ];
 
   const [bankSearch, setBankSearch] = useState("");
@@ -182,11 +214,10 @@ const WithdrwalBankReport = () => {
 
   const handleBankSelect = (bank) => {
     setBankSearch(bank); // For display
-    setBankName(bank);   // For API request
+    setBankName(bank); // For API request
     setFilteredBanks([]);
     setShowDropdown(false);
   };
-
 
   // const fetchReport = async () => {
   //   try {
@@ -194,7 +225,7 @@ const WithdrwalBankReport = () => {
   //       params: {
   //         startDate: startDate.toISOString().split('T')[0],
   //         endDate: endDate.toISOString().split('T')[0],
-  //         bank_name: bankName.trim(), 
+  //         bank_name: bankName.trim(),
   //       },
   //     });
 
@@ -209,11 +240,9 @@ const WithdrwalBankReport = () => {
   //   }
   // };
 
-
-
   const fetchReport = async () => {
     if (!bankName.trim()) {
-      toast.error('Please enter a valid bank name.');
+      toast.error("Please enter a valid bank name.");
       return;
     }
 
@@ -225,11 +254,10 @@ const WithdrwalBankReport = () => {
             startDate: startDate.toISOString().split("T")[0],
             endDate: endDate.toISOString().split("T")[0],
             bank_name: bankName.trim(),
-
           },
         }
       );
-      console.log('Selected Bank Name:', bankName);
+      console.log("Selected Bank Name:", bankName);
       setReport(response.data.data);
       setTotalAmount(response.data.totalAmount);
       setMessage(response.data.message);

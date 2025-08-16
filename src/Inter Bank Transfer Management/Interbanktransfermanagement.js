@@ -22,6 +22,40 @@ const InterbankTransferManagement = () => {
   const [filteredBanksReceiver, setFilteredBanksReceiver] = useState([]);
 
   const banks = [
+
+    // New bank names
+    "SHIV-JSB-304",
+    "RATHOD-CSB-7837",
+    "SHIV-SAHAYOG-9065",
+    "SHIV-BMC-8606",
+    "MERAGE-BMC-8607",
+    "SHIV-BHARAT-6788",
+    "SHIV-HDFC-4651",
+    "SHIV-KOKAN-1889",
+    "MARHABA-IOB-1841",
+    "YUSUF-IOB-4162",
+    "BLACKBAG-IOB-1847",
+    "MOMTAZ-IOB-4174",
+    "GARMENT-IOB-1865",
+    "MD-IOB-4318",
+    "SMART-IOB-1848",
+    "MD-IOB-4179",
+    "SWAG-BOI-0940",
+    "MARHABA--COSMOS-2066",
+    "TOFIK-BOI-7800",
+    "BHARGAV-BOI-6774",
+    "SAHIL-BOI-6770",
+    "KUKAVA-BOI-4669",
+    "SUMRA-BOI-4679",
+    "GANESH-IOB-1413",
+    "GANESHH--JALGAON-0380",
+    "BALAJI-JALGAON-0403",
+    "RADHIKA-J&K-0375",
+    "RADHIKA-PSB-0629",
+    "A2ZIOB-0358",
+    "MAHIRA-PSB-6800",
+    "BALWINDER-SURYODAY-8807",
+   
     // Public Sector Banks
     "State Bank of India",
     "Punjab National Bank",
